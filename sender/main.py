@@ -1,4 +1,5 @@
 import os
+
 #import exis
 from multiprocessing import Process
 
@@ -29,13 +30,13 @@ def _case_2(data_array):
  def _case_4(data_array):
 	print('Case 4 for message type: ...')
 	#Convert data for module (TBD)
-	vcm_accel_data = data_array[2].extend(data_array[3]).extend(data_array[4])
+	vcm_accel_data = float(data_array[2]).extend(float(data_array[3])).extend(float(data_array[4]))
 	send(data_array,vcm_accel_data)
 
 def _case_5(data_array):
 	print('Case 5 for message type: ...')
 	#Convert data for module (TBD)
-	vcm_gyro_data = data_array[2].extend(data_array[3]).extend(data_array[4])
+	vcm_gyro_data = float(data_array[2]).extend(float(data_array[3])).extend(float(data_array[4]))
 	send(data_array,vcm_gyro_data)
 
  def _case_6(data_array):
