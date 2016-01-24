@@ -74,7 +74,7 @@ def main():
 
 # Define switch statement
     switch = { 'optEn':_case_1(data_array),
-               'therm1':_case_2(data_array),
+               'therm':_case_2(data_array),
                'therm2':_case_3(data_array),
                'accel':_case_4(data_array),
                'gyro':_case_5(data_array),
