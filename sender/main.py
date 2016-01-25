@@ -1,12 +1,11 @@
 import os
 
-#import exis
+import riffle
+
 from multiprocessing import Process
 
 
 #Set up global config variables here
-
-
 
 
 def _case_1(data_array):
@@ -68,26 +67,32 @@ def send(data_array,formatted_data):
 
 def main():
 
-# Read can message input from source (TBD)
-    data_array = subprocess.check_output("./can_parse_single", shell=True).decode('utf-8').rstrip('\n').split('_')
-    key = data_array[1]
+    
+    class Backend(riffle.Domain):
 
-# Define switch statement
-    switch = { 'optEn':_case_1(data_array),
-               'therm':_case_2(data_array),
-               'therm2':_case_3(data_array),
-               'accel':_case_4(data_array),
-               'gyro':_case_5(data_array),
-               'prox':_case_6(data_array),
-               'latency':_case_7(data_array),
-               'battVolt':_case_8(data_array)
-    }
+        def onJoin(self):
+        	print("Successfully joined")
 
-#Run message decoding and sending in separate processes to improve throughput
-    p = Process(target=switch[key], args=(data,))
-    p.start()
-    p.join()
+    
+    app = riffle.Domain("xs.demo.badgerloop.bldashboard")
+    backend = riffle.Domain("backend", superdomain=app)
+    datasource = riffle.Domain("datasource", superdomain=app)
 
+    # Define switch statement
+    while 1:
+        data = subprocess.check_output("./can_parse_single", shell=True).decode('utf-8').rstrip('\n').split('_')
+        switch = { 'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
+                   'ecm':_ecm,
+                   'vcm':_vcm,
+                   'mcm':_mcm,
+                   'wcm':_wcm,
+                   'bpm2':_bpm2
+                 }
+
+        # Run message decoding and sending in separate processes to improve throughput 
+        p = Process(target=switch[data[0]], args=(data,backend))
+        p.start()
+        p.join()
 
 if __name__ == "__main__":
 	main()
