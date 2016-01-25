@@ -1,96 +1,82 @@
 import os
-
 import riffle
-
+import subprocess
+import yaml
 from multiprocessing import Process
 
+# Read config variables from config yaml file
+with open('config.yml') as config_data:
+     config = yaml.safe_load(config_data)
 
-#Set up global config variables here
+# Set up exis backend
+class Backend(riffle.Domain):
+    def onJoin(self):
+        print("Successfully joined")
+app = riffle.Domain(config['exis']['domain'])
+backend = riffle.Domain("backend", superdomain=app)
+DataProvider("datasource", superdomain=app).join()
+"""
+Should add logic to re-establish exis backend connection if it fails...
+However this may be built into the exis riffle api idk.
+"""
 
-
-def _case_1(data_array):
-	print('Case 1 for message type: ...')
-	#Convert data for module (TBD)
+def _bpm(data_array):
+	print('Parcing bpm data')
 	rpm_data = (float(data_array[2]))
 	send(data_array,rpm_data)
 
-def _case_2(data_array):
-	print('Case 2 for message type: ...')
-	#Convert data for module (TBD)
-	deg_C_data = (float(data_array[2]))
-	send(data_array,deg_C_data)
-
- def _case_3(data_array):
-	print('Case 3 for message type: ...')
-	#Convert data for module (TBD)
-	deg_C_data = (float(data_array[2]))
-	send(data_array,deg_C_data)
-
- def _case_4(data_array):
-	print('Case 4 for message type: ...')
-	#Convert data for module (TBD)
-	vcm_accel_data = float(data_array[2]).extend(float(data_array[3])).extend(float(data_array[4]))
-	send(data_array,vcm_accel_data)
-
-def _case_5(data_array):
-	print('Case 5 for message type: ...')
-	#Convert data for module (TBD)
-	vcm_gyro_data = float(data_array[2]).extend(float(data_array[3])).extend(float(data_array[4]))
-	send(data_array,vcm_gyro_data)
-
- def _case_6(data_array):
-	print('Case 6 for message type: ...')
-	#Convert data for module (TBD)
-	millimeters_data = (float(data_array[2]))
-	send(data_array,millimeters_data)
-
- def _case_7(data_array):
-	print('Case 7 for message type: ...')
-	#Convert data for module (TBD)
-	milliseconds_data = (float(data_array[2]))
-	send(data_array,milliseconds_data)
-
- def _case_8(data_array):
-	print('Case 8 for message type: ...')
-	#Convert data for module (TBD)
+def _bpm2(data_array):
+	print('Parsing bpm2 data')
 	volts_data = (float(data_array[2]))
 	send(data_array,volts_data)
 
+def _ecm(data_array):
+	print('Parcing ecm data')
+	deg_C_data = (float(data_array[2]))
+	send(data_array,deg_C_data)
 
-# Send formatted data to Exis endpoints
+def _vcm(data_array):
+	print('Parcing vcm data')
+	if data_array[1] is 'gyro':
+		vcm_gyro_data = float(data_array[2]).extend(float(data_array[3])).extend(float(data_array[4]))
+		send(data_array,vcm_gyro_data)
+	elif data_array[1] is 'accel':
+		vcm_accel_data = float(data_array[2]).extend(float(data_array[3])).extend(float(data_array[4]))
+		send(data_array,vcm_accel_data)
+
+def _mcm(data_array):
+	print('Parcing mcm data')
+	millimeters_data = (float(data_array[2]))
+	send(data_array,millimeters_data)
+	
+def _wcm(data_array):
+	print('Parcing wcm data')
+	milliseconds_data = (float(data_array[2]))
+	send(data_array,milliseconds_data)
+	
 def send(data_array,formatted_data):
+	# Send formatted data to Exis endpoints
     endpoint = data_array[0] + "_" + data_array[1]
     backend.publish(endpoint, formatted_data)
-	print('Sent CAN message ' + formatted_data + ' to exis endpoint')
-
-
+    print('Sent CAN data: ' + formatted_data + ' to exis endpoint: ' + endpoint)
 
 def main():
+	# Define switch statement
+    switch = { 
+               'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
+               'ecm':_ecm,
+               'vcm':_vcm,
+               'mcm':_mcm,
+               'wcm':_wcm,
+               'bpm2':_bpm2
+             }
 
-    
-    class Backend(riffle.Domain):
-
-        def onJoin(self):
-        	print("Successfully joined")
-
-    
-    app = riffle.Domain("xs.demo.badgerloop.bldashboard")
-    backend = riffle.Domain("backend", superdomain=app)
-    DataProvider("datasource", superdomain=app).join()
-
-    # Define switch statement
     while 1:
+    	# Read can string messages from buffer
         data = subprocess.check_output("./can_parse_single", shell=True).decode('utf-8').rstrip('\n').split('_')
-        switch = { 'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
-                   'ecm':_ecm,
-                   'vcm':_vcm,
-                   'mcm':_mcm,
-                   'wcm':_wcm,
-                   'bpm2':_bpm2
-                 }
-
+        
         # Run message decoding and sending in separate processes to improve throughput 
-        p = Process(target=switch[data[0]], args=(data,backend))
+        p = Process(target=switch[data[0]], args=(data,))
         p.start()
         p.join()
 
