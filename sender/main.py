@@ -76,7 +76,7 @@ def main():
     
     app = riffle.Domain("xs.demo.badgerloop.bldashboard")
     backend = riffle.Domain("backend", superdomain=app)
-    datasource = riffle.Domain("datasource", superdomain=app)
+    DataProvider("datasource", superdomain=app).join()
 
     # Define switch statement
     while 1:
