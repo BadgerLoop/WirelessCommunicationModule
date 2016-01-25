@@ -62,7 +62,7 @@ def _case_5(data_array):
 def send(data_array,formatted_data):
     endpoint = data_array[0] + "_" + data_array[1]
     backend.publish(endpoint, formatted_data)
-	print('Sent CAN message to exis endpoint')
+	print('Sent CAN message ' + formatted_data + ' to exis endpoint')
 
 
 
