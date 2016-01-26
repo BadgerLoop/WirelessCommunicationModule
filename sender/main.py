@@ -4,22 +4,6 @@ import subprocess
 import yaml
 from multiprocessing import Process
 
-# Read config variables from config yaml file
-with open('config.yml') as config_data:
-     config = yaml.safe_load(config_data)
-
-# Set up exis backend
-class Backend(riffle.Domain):
-    def onJoin(self):
-        print("Successfully joined")
-app = riffle.Domain(config['exis']['domain'])
-backend = riffle.Domain("backend", superdomain=app)
-DataProvider("datasource", superdomain=app).join()
-"""
-Should add logic to re-establish exis backend connection if it fails...
-However this may be built into the exis riffle api idk.
-"""
-
 def _bpm(data_array):
     print('Parcing bpm data')
     rpm_data = (float(data_array[2]))
@@ -60,30 +44,30 @@ def send(data_array,formatted_data):
     backend.publish(endpoint, formatted_data)
     print('Sent CAN data: ' + formatted_data + ' to exis endpoint: ' + endpoint)
 
-def main():
-    # Define switch statement
-    switch = { 
-               'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
-               'ecm':_ecm,
-               'vcm':_vcm,
-               'mcm':_mcm,
-               'wcm':_wcm,
-               'bpm2':_bpm2
-             }
 
-    while 1:
-        # Read can string messages from buffer
-        try:
+class DataProvider(riffle.Domain):
+
+    def onJoin(self):
+        print("Successfully joined")
+
+        while True:
             data = subprocess.check_output("./can_parse_single", shell=True).decode('utf-8').rstrip('\n').split('_')
-        except Exception as e:
-            print('Unable to retrieve CAN message.  Exception: %s' % (str(e),))
+            switch = { 'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
+                   'ecm':_ecm,
+                   'vcm':_vcm,
+                   'mcm':_mcm,
+                   'wcm':_wcm,
+                   'bpm2':_bpm2
+                 }
 
-        
-        # Run message decoding and sending in separate processes to improve throughput 
-        if data != '' and data is not None:
-            p = Process(target=switch[data[0]], args=(data,))
-            p.start()
-            p.join()
+            switch[data[0]](data, backend)
+    
+def main():
+    app = riffle.Domain("xs.demo.badgerloop.bldashboard")
+    riffle.SetFabric("ws://localhost:8000/ws") #For local fabric - will need to change to static IP
+    backend = riffle.Domain("backend", superdomain=app)
+    datasource = DataProvider("datasource", superdomain=app).join()
+
 
 if __name__ == "__main__":
     main()
