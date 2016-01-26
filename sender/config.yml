@@ -1,3 +1,5 @@
 exis:
   domain: xs.demo.badgerloop.bldashboard
   containerKey: jRyWJzO6nbZeCvjnYcddp3TsblyACIWg00sRAe6GiZFYVs534rH4dQdeNqDD1n5Eylffo8Uep4wSYdV4dAKGwZ4HQ4cwLNJD8.9QjMopiagDW1b3nJ66isicMFh4TG.Xhx7h8IuDjpCn1D2NsA-4AKM5xDqUqlUr8xfr14cicCw_
+  localFabric: ws://localhost:8000/ws
+buffer: ./can_parse_single
