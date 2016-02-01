@@ -51,7 +51,7 @@ class DataProvider(riffle.Domain):
         print("Successfully joined")
 
         while True:
-            data = subprocess.check_output("./can_parse_single", shell=True).decode('utf-8').rstrip('\n').split('_')
+            data = subprocess.check_output("nc -l 2999", shell=True).decode('utf-8').rstrip('\n').split('_')
             switch = { 'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
                    'ecm':_ecm,
                    'vcm':_vcm,
