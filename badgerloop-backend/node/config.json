@@ -1,0 +1,14 @@
+{
+    "Agent": "xs.node",
+    "RequestLimits": [
+        ["xs.demo", 20],
+        ["xs.node", 1000],
+        ["xs", 100],
+        ["", 10]
+    ],
+    "AuthName": "Auth",
+    "Bouncer": "xs.demo.Bouncer",
+    "MessageLogFile": "messages.log",
+    "MessageLogMaxLines": 12500,
+    "HoldCalls": 300
+}
