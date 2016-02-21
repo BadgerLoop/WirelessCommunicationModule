@@ -7,6 +7,7 @@ The badger loop backend uses an [Exis fabric node](https://github.com/exis-io/no
 ## Requirements
 
 [docker](https://docs.docker.com/engine/installation/) 
+
 [docker toolbox](https://www.docker.com/products/docker-toolbox)
 
 * Note these must be installed in order to run the scripts properly.  It would also be useful to become familiar with the docker and docker toolbox CLIs
