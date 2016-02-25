@@ -19,7 +19,7 @@ To initialize the Badger Loop HA backend run:
 
 	./bl-ha-init.sh 
 
-This will start a docker machine instance (Basically a Virtual Machine) called "bl-backend" and start running 3 Exis node containers and an ha proxy container on that docker-machine instance.  
+This will start a docker machine instance (Basically a Virtual Machine) called "bl-backend"
 
 To stop the containers from running run:
 
