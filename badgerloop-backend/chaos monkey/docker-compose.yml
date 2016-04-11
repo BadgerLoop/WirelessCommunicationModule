@@ -1,0 +1,12 @@
+chaos-monkey:
+    build: .
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+    container_name: chaos-monkey
+# docker-http:
+#     image: sequenceiq/socat
+#     volumes:
+#          - /var/run/docker.sock:/var/run/docker.sock
+#     ports:
+#         - "2375:2375"
+#     container_name: docker-http

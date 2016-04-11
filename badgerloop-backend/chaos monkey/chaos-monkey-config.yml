@@ -1,0 +1,22 @@
+chaos_monkey: 
+  run_time: 1
+  min_containers: 1
+  max_containers: 3
+  # base_url: http://192.168.99.100:2375
+  start:
+    policy: random
+    interval: 5
+    workers: 3
+    exempt_containers:
+      - haproxy
+      - chaos-monkey
+      - docker-http
+  kill:
+    policy: random
+    interval: 5
+    workers: 3
+    exempt_containers:
+      - haproxy
+      - chaos-monkey
+      - docker-http
+  docker_remote_api_version: "1.20"
