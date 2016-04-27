@@ -3,13 +3,13 @@ package main
 import "time"
 import "github.com/exis-io/core"
 import "github.com/exis-io/core/goRiffle"
-
+import "math/rand"
 
 func main() {
 	core.LogLevel = core.LogLevelDebug
 	var err error
 	var conn core.Connection
-	core.Fabric = "ws://192.168.99.100:8000/ws"
+	core.Fabric = "ws://192.168.99.100:8000"
 	// Create a domain
 	if conn, err = goRiffle.Open(core.Fabric); err != nil {
 		core.Error("Unable to connect")
@@ -25,8 +25,8 @@ func main() {
 		time.Sleep(5 * time.Millisecond)
 		var ep string
 		var ret []interface{}
-		ret = append(ret, 12345)
-		ep = "testep"
+		ret = append(ret, rand.Intn(100))
+		ep = "demo"
 		// Do important stuff
 		for {
 			// Make the call to get the data we need
