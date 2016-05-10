@@ -1,20 +1,20 @@
 chaos_monkey: 
-  run_time: 1
-  min_containers: 1
-  max_containers: 3
-  # base_url: http://192.168.99.100:2375
+  run_time: 10
+  min_containers: 2
+  max_containers: 5
+  base_url: http://192.168.99.100:2375
   start:
     policy: random
-    interval: 5
-    workers: 3
+    interval: 8
+    workers: 1
     exempt_containers:
       - haproxy
       - chaos-monkey
       - docker-http
   kill:
     policy: random
-    interval: 5
-    workers: 3
+    interval: 8
+    workers: 2
     exempt_containers:
       - haproxy
       - chaos-monkey

@@ -2,6 +2,7 @@ import os
 import riffle
 import random
 import time
+from riffle import want
 
 print('starting ha test')
 #riffle.SetFabricLocal()
@@ -21,6 +22,20 @@ class DataProvider(riffle.Domain):
             time.sleep(1)
    
 
+
+
+riffle.SetFabricSandbox()
+
+class Backend(riffle.Domain):
+
+    def onJoin(self):
+
+        # Exis code goes here
+
+
+app = riffle.Domain("xs.demo.test")
+
+Backend("backend", superdomain=app).join()
 def main():
  #For local fabric - will need to change to static IP
     try:
