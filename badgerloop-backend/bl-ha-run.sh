@@ -1,4 +1,3 @@
-eval $(docker-machine env bl-backend)
 echo "starting exis node containers"
 docker build -t exis-node ./node
 docker build -t haproxy ./haproxy
