@@ -1,4 +1,4 @@
-FROM golang:1.5.3
+FROM apicht/rpi-golang
 
 # This is where the node will look for public keys in case authentication is
 # enabled (default: on).  When starting the container, this should be mounted

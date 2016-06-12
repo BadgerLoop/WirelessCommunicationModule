@@ -1,14 +1,14 @@
 package main
 
 import "time"
-//import "github.com/exis-io/core"
+import "github.com/exis-io/core"
 import "github.com/exis-io/core/riffle"
 import "math/rand"
 
 func main() {
-	//core.LogLevel = core.LogLevelDebug
+	core.LogLevel = core.LogLevelDebug
 	// Create a domain
-	riffle.SetFabric("ws://192.168.99.100:8000")
+	riffle.SetFabric("ws://192.168.1.2:8000")
 
 	// Create the domain objects
 	app := riffle.NewDomain("xs.node")
@@ -23,7 +23,7 @@ func main() {
 		for {
 			// Make the call to get the data we need
 			//core.Info("Sending %v, %v", ep, ret)
-			time.Sleep(100 * time.Millisecond)
+			time.Sleep(30 * time.Millisecond)
 			defer func(){main()}()
 			sender.Publish(ep, rand.Intn(100))
 			
