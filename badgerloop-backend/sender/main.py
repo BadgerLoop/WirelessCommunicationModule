@@ -51,16 +51,17 @@ class DataProvider(riffle.Domain):
         print("Successfully joined")
 
         while True:
-            data = subprocess.check_output("nc -l 2999", shell=True).decode('utf-8').rstrip('\n').split('_')
-            switch = { 'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
-                   'ecm':_ecm,
-                   'vcm':_vcm,
-                   'mcm':_mcm,
-                   'wcm':_wcm,
-                   'bpm2':_bpm2
-                 }
+            #data = subprocess.check_output("nc -l 2999", shell=True).decode('utf-8').rstrip('\n').split('_')
+            # switch = { 'bpm':_bpm, #keys for cases should be the prifix of the raw data string?
+            #        'ecm':_ecm,
+            #        'vcm':_vcm,
+            #        'mcm':_mcm,
+            #        'wcm':_wcm,
+            #        'bpm2':_bpm2
+            #      }
 
-            switch[data[0]](data, backend)
+            # switch[data[0]](data, backend)
+            switch[data[0]]('data', backend)
     
 def main():
     app = riffle.Domain("xs.demo.badgerloop.bldashboard")
