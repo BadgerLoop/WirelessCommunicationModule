@@ -7,7 +7,7 @@ import "github.com/exis-io/core/riffle"
 func main() {
         riffle.SetLogLevelInfo()
         // Create a domain
-        riffle.SetFabric("ws://192.168.1.99:8000")
+        riffle.SetFabric("ws://badgerloop-nuc-1:8000")
         cmd := "run"
         // Create the domain objects
         app := riffle.NewDomain("xs")

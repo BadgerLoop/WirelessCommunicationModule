@@ -5,8 +5,10 @@ import random
 import os
 from multiprocessing import Process
 
-ep = "exis"
-cmd = "cmd"
+ep = os.environ.get('DATA_EP',"data")
+cmd = os.environ.get('CMD_EP',"cmd")
+fabric = os.environ.get('FABRIC',"ws://192.168.1.99:8000")
+
 running = False
 rpm_max = 5000
 temp_max = 90
@@ -54,12 +56,13 @@ def initialize(sender):
       data["vnm_prog"] = data["vnm_prog"] + random.randint(0,4)
       sender.publish(ep, data)
       time.sleep(wait)
-    data["state"] = 4
+    data["state"] = 5
     data["mcm_prog"] = 100
     data["bcm_prog"] = 100
     data["vsm_prog"] = 100
     data["vnm_prog"] = 100
     sender.publish(ep, data)
+    print("Initialization Complete")
 
 def accelerate(sender,data):
 	print("Accellerating...")
@@ -132,7 +135,7 @@ def brake(sender,data):
 		data["rw1_tmp"] = temp_min + data["velocity"]/3 + random.randint(0,t_range_offset)
 		data["rw2_tmp"] = temp_min + data["velocity"]/3 + random.randint(0,t_range_offset)
 
-		data["velocity"] = data["velocity"] - random.randint(0,v_range_offset) - 1
+		data["velocity"] = data["velocity"] - 2
 
 		if data["velocity"] > 0:
 			data["slow_prog"] = 50 - (data["velocity"]/4)
@@ -204,7 +207,7 @@ class Send(riffle.Domain):
 
 if __name__ == '__main__':
     #riffle.SetLogLevelDebug()
-    riffle.SetFabric('ws://badgerloop-nuc-1:8000')
+    riffle.SetFabric(fabric)
     domain = 'xs.node'
     Send(domain).join()
     exit()
