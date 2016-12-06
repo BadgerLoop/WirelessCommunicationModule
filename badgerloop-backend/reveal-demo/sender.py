@@ -26,7 +26,7 @@ wait = 0.1
 def initialize(sender):
 
     running = True
-    data = {"state":0,"start":1,"launch":0,"mcm_prog":0,"bcm_prog":0,"vsm_prog":0,"vnm_prog":0,"accel_prog":0,"coast_prog":0,"node1_prog":0,"node2_prog":0,"node3_prog":0,"node4_prog":0}
+    data = {"state":0,"start":True,"launch":False,"mcm_prog":0,"bcm_prog":0,"vsm_prog":0,"vnm_prog":0,"accel_prog":0,"coast_prog":0,"node1_prog":0,"node2_prog":0,"node3_prog":0,"node4_prog":0}
     sender.publish(ep, data)
     time.sleep(0.05)
     print("Initializing Nodes... ")
@@ -138,7 +138,7 @@ def brake(sender,data):
 	data["dt"] = 0
 	data["db"] = dtb
 	data["state"] = 4
-	data["launch"] = 0
+	data["launch"] = False
 	data["velocity"] = 0
 	data["lw1_rpm"] = 0
 	data["lw2_rpm"] = 0
@@ -154,7 +154,7 @@ def brake(sender,data):
 def run(sender):
     running = True
     print("Starting Simulation...")
-    data = {"state":4,"lw1_rpm":0,"lw2_rpm":0,"rw1_rpm":0,"rw2_rpm":0,"lw1_tmp":0,"lw2_tmp":0,"rw1_tmp":0,"rw2_tmp":0,"velocity":0,"accel_prog":0,"coast_prog":0,"slow_prog":0,"launch":1,"start":0,"dt":0,"db":0}
+    data = {"state":4,"lw1_rpm":0,"lw2_rpm":0,"rw1_rpm":0,"rw2_rpm":0,"lw1_tmp":0,"lw2_tmp":0,"rw1_tmp":0,"rw2_tmp":0,"velocity":0,"accel_prog":0,"coast_prog":0,"slow_prog":0,"launch":True,"start":False,"dt":0,"db":0}
     accelerate(sender,data)
     coast(sender,data)
     brake(sender,data)
