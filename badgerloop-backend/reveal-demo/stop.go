@@ -18,10 +18,4 @@ func main() {
         sender.Publish("cmd", cmd)
         time.Sleep(200 * time.Millisecond)
         sender.Publish("cmd", cmd)
-        time.Sleep(200 * time.Millisecond)
-        sender.Publish("cmd", cmd)
-        time.Sleep(200 * time.Millisecond)
-        sender.Publish("cmd", cmd)
-        time.Sleep(200 * time.Millisecond)
-        sender.Publish("cmd", cmd)
 }
