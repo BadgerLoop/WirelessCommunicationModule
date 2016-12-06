@@ -120,6 +120,7 @@ def brake(sender,data):
 	print("Braking/Decelerating...")
 	data = data
 	data["db"] = 0
+	data["state"] = 3
 	while data["velocity"] > v_range_offset:
 		progress = data["accel_prog"]+data["coast_prog"]+data["slow_prog"]
 		data["dt"] = (progress * total_distance)/100
