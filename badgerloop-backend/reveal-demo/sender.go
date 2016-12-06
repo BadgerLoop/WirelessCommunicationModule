@@ -15,11 +15,12 @@ var temp_max int = 90
 var temp_min int = 20
 var velocity_max int = 200
 
+
 var  t_range_offset int = 4
 var  w_range_offset int = 100;
 var  v_range_offset int = 3;
 
-var  coast_count int = 100;
+var  coast_count int = 80;
 
 func connect(){
 	//Use if we want to print debug messages
@@ -35,7 +36,15 @@ func connect(){
 
 
 func initialize(){
-	
+		
+		m["state"] = 0
+		m["start"] = 1
+		m["launch"] = 0
+		m["accel_prog"] = 0
+		m["coast_prog"] = 0
+		m["slow_prog"] = 0
+
+		m["velocity"] = 0
 		m["mcm_prog"] = 0
 		m["bcm_prog"] = 0
 		m["vsm_prog"] = 0
@@ -79,21 +88,24 @@ func initialize(){
 
 
 func speed_up(){
-
+		m["state"] = 1
 		fmt.Printf("Accellerating... \n")
-		for m["velocity"] < velocity_max {
-			m["lw1_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-			m["lw2_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-			m["rw1_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-			m["rw2_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-			
-			m["lw1_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
-			m["lw2_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
-			m["rw1_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
-			m["rw2_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
+		var velocity int = m["velocity"];
+		for velocity < velocity_max {
+			velocity = m["velocity"]
 
-			m["velocity"] = m["velocity"] + rand.Intn(v_range_offset) + 2
-			m["accel_prog"] = m["velocity"]/3
+			m["lw1_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+			m["lw2_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+			m["rw1_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+			m["rw2_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+			
+			m["lw1_tmp"] = temp_min + velocity /3 + rand.Intn(t_range_offset)
+			m["lw2_tmp"] = temp_min + velocity /3 + rand.Intn(t_range_offset)
+			m["rw1_tmp"] = temp_min + velocity /3 + rand.Intn(t_range_offset)
+			m["rw2_tmp"] = temp_min + velocity /3 + rand.Intn(t_range_offset)
+
+			m["velocity"] = velocity + rand.Intn(v_range_offset) + 2
+			m["accel_prog"] = velocity /6
 
 		time.Sleep(120 * time.Millisecond)
 		sender.Publish("exis", m)
@@ -102,48 +114,53 @@ func speed_up(){
 }
 
 func coast(){
-
+	m["state"] = 2
 	fmt.Printf("Coasting... \n")
 	var count int = 0;
 	for count < coast_count {
-			
-			m["lw1_rpm"] = rpm_max + rand.Intn(w_range_offset)
-			m["lw2_rpm"] = rpm_max + rand.Intn(w_range_offset)
-			m["rw1_rpm"] = rpm_max  + rand.Intn(w_range_offset)
-			m["rw2_rpm"] = rpm_max  + rand.Intn(w_range_offset)
+		m["lw1_rpm"] = rpm_max + rand.Intn(w_range_offset)
+		m["lw2_rpm"] = rpm_max + rand.Intn(w_range_offset)
+		m["rw1_rpm"] = rpm_max  + rand.Intn(w_range_offset)
+		m["rw2_rpm"] = rpm_max  + rand.Intn(w_range_offset)
 
-			m["lw1_tmp"] = temp_max + rand.Intn(t_range_offset)
-			m["lw2_tmp"] = temp_max + rand.Intn(t_range_offset)
-			m["rw1_tmp"] = temp_max + rand.Intn(t_range_offset)
-			m["rw2_tmp"] = temp_max + rand.Intn(t_range_offset)
+		m["lw1_tmp"] = temp_max + rand.Intn(t_range_offset)
+		m["lw2_tmp"] = temp_max + rand.Intn(t_range_offset)
+		m["rw1_tmp"] = temp_max + rand.Intn(t_range_offset)
+		m["rw2_tmp"] = temp_max + rand.Intn(t_range_offset)
 
-			m["velocity"] = velocity_max + rand.Intn(v_range_offset)
-			m["coast_prog"] = count/6 + 1// Hacky
-		
-			time.Sleep(120 * time.Millisecond)
-			sender.Publish("exis", m)
+		m["velocity"] = velocity_max + rand.Intn(v_range_offset)
+		m["coast_prog"] = count/5 + 2// Hacky
+	
+		time.Sleep(120 * time.Millisecond)
+		sender.Publish("exis", m)
 		count = count+1
 	}
 	time.Sleep(120 * time.Millisecond)
 }
 
 func slow_down(){
-	
+	m["state"] = 3
 	fmt.Printf("Braking... \n")
-	for m["velocity"]>v_range_offset {
+	var velocity int = m["velocity"];
+	for velocity > v_range_offset {
+		velocity = m["velocity"]
+		m["lw1_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+		m["lw2_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+		m["rw1_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
+		m["rw2_rpm"] = (velocity * 20) + rand.Intn(w_range_offset)
 
-		m["lw1_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-		m["lw2_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-		m["rw1_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
-		m["rw2_rpm"] = (m["velocity"] * 20) + rand.Intn(w_range_offset)
+		m["lw1_tmp"] = temp_min + velocity/3 + rand.Intn(t_range_offset)
+		m["lw2_tmp"] = temp_min + velocity/3 + rand.Intn(t_range_offset)
+		m["rw1_tmp"] = temp_min + velocity/3 + rand.Intn(t_range_offset)
+		m["rw2_tmp"] = temp_min + velocity/3 + rand.Intn(t_range_offset)
 
-		m["lw1_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
-		m["lw2_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
-		m["rw1_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
-		m["rw2_tmp"] = temp_min + m["velocity"]/3 + rand.Intn(t_range_offset)
+		m["velocity"] = m["velocity"] - rand.Intn(v_range_offset) - 1
 
-		m["velocity"] = m["velocity"] - rand.Intn(v_range_offset) - 4
-		m["slow_prog"] = 50 - (m["velocity"]/4)
+		m["slow_prog"] = 50 - (velocity/4)  //Wut
+		
+		if m["slow_prog"] >= 50{
+			m["slow_prog"] = 50
+		}
 
 		time.Sleep(120 * time.Millisecond)
 		sender.Publish("exis", m)
@@ -159,11 +176,22 @@ func slow_down(){
 		time.Sleep(120 * time.Millisecond)
 		sender.Publish("exis", m)
 	}
-
+	m["state"] = 4
+	m["velocity"] = 0
+	m["mcm_prog"] = 0
+	m["bcm_prog"] = 0
+	m["vsm_prog"] = 0
+	m["vnm_prog"] = 0
+	m["node1_prog"] = 0
+	m["node2_prog"] = 0
+	m["node3_prog"] = 0
+	m["node4_prog"] = 0
 	m["lw1_rpm"] = 0
 	m["lw2_rpm"] = 0
 	m["rw1_rpm"] = 0
 	m["rw2_rpm"] = 0
+	m["start"] = 0
+	m["launch"] = 0
 
 	time.Sleep(120 * time.Millisecond)
 	sender.Publish("exis", m)
@@ -172,6 +200,9 @@ func slow_down(){
 func run(){
 
 		fmt.Printf("Starting Simulation... \n")
+		//State
+		m["state"] = 4
+
 		//Wheel RPMs
 		m["lw1_rpm"] = 0
 		m["lw2_rpm"] = 0
@@ -183,7 +214,6 @@ func run(){
 		m["lw2_tmp"] = temp_min
 		m["rw1_tmp"] = temp_min
 		m["rw2_tmp"] = temp_min
-		m["velocity"] = temp_min
 
 		//Velocity
 		m["velocity"] = 0
@@ -192,6 +222,9 @@ func run(){
 		m["accel_prog"] = 0
 		m["coast_prog"] = 0
 		m["slow_prog"] = 0
+
+		m["launch"] = 1
+		m["start"] = 0
 
 		speed_up()
 		coast()

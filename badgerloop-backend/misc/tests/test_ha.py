@@ -16,7 +16,8 @@ class Send(riffle.Domain):
         
         while True:
             self.publish("temp", {'module': random.choice(modules), 'data': str(random.random()), 'sensor': random.choice(sensors),'id': str(random.randrange(0,144)), 'type': random.choice(types), 'location': random.choice(locations)})
-            time.sleep(2)
+            print("sent message")
+            #time.sleep(2)
 
 if __name__ == '__main__':
     riffle.SetFabric('ws://192.168.1.99:8000')
