@@ -1,0 +1,7 @@
+exis:
+  fabric: ws://192.168.1.99:8000
+  domain: xs.node
+  endpoint: can
+can:
+  interface: can0
+  baud: 9600
