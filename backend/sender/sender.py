@@ -74,11 +74,11 @@ def listen_cmd(cfg):
       sys.stderr.write('Could not listen on interface %s' % (cfg['interface'], ))
       sys.exit(e.errno)
 
-    print 'Listening on %s' % (cfg['interface'], )
+    #print 'Listening on %s' % (cfg['interface'], )
 
     while True:
         cob_id, data = s.recv()
-        print('%s %03x#%s' % (cfg['can']['interface'], cob_id, format_data(data)))
+        #print('%s %03x#%s' % (cfg['can']['interface'], cob_id, format_data(data)))
 
 
 class Send(riffle.Domain):
