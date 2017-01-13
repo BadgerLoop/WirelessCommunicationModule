@@ -3,7 +3,7 @@ package main
 
 import (
 	// "fmt"
-	// "time"
+	//"time"
     "os/exec"
 	riffle "github.com/exis-io/core/riffle"
 )
@@ -11,7 +11,8 @@ import (
 func listen(sender riffle.Domain){
 		for {
 			// Make the call to get the data we need
-			if out, err := exec.Command("candump can0").Output(); err != nil {
+			//if out, err := exec.Command("python3","listen.py","can0").Output(); err != nil {
+			if out, err := exec.Command("candump","can0").Output(); err != nil {
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
@@ -20,6 +21,7 @@ func listen(sender riffle.Domain){
 					sender.Publish("can", str)
 				}
 			//}
+				//time.Sleep(3 * time.Second)
 		}
 }
 
@@ -34,7 +36,7 @@ func hb(heartbeat string) {
 func main() {
 	// set flags for testing
 	//riffle.SetFabricLocal()
-	riffle.SetLogLevelDebug()
+	riffle.SetLogLevelInfo()
 	riffle.SetFabric("ws://192.168.1.99:9000")
 	// Domain objects
 	app := riffle.NewDomain("xs.node")
