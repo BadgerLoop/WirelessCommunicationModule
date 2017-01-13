@@ -8,10 +8,10 @@ func main() {
         riffle.SetLogLevelInfo()
         // Create a domain
         riffle.SetFabric("ws://192.168.1.99:8000")
-        cmd := "init"
+        cmd := "test"
         // Create the domain objects
-        app := riffle.NewDomain("xs")
-        sender := app.Subdomain("node")
+        app := riffle.NewDomain("xs.node")
+        sender := app.Subdomain("can")
 
         sender.Join()
         time.Sleep(200 * time.Millisecond)
