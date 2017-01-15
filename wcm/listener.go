@@ -51,7 +51,7 @@ func main() {
 	sender.Join()
 
 	if e := receiver.Subscribe("cmd", cmd); e != nil {
-		riffle.Info("Unable to subscribe: to cmd endpoint", e.Error())
+		riffle.Info("Unable to subscribe to cmd endpoint", e.Error())
 	} else {
 		riffle.Info("Subscribed to cmd endpoint!")
 	}
