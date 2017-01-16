@@ -2,7 +2,7 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	//"time"
 	"strings"
     "os/exec"
@@ -17,25 +17,35 @@ func listen(app riffle.Domain){
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
-				pstring := strings.Split(str, " ")
-				// if ep, pyld, err := parse(str); err == nil {
-					riffle.Info("Sending %s", out)
-					app.Publish("can", pstring)
-					
-					//sender.Publish("can", pstring)
-			//}
-				
-		}
+				//TODO: This may be able to be optimized also need to handle errors
+				//Split output from candump
+				pstring := strings.Split(str, "  ")
+				//Split data segment to get message type
+				pdata := strings.SplitN(pstring[4], " ", 2)
+				send_data := string[4]{time.Now().String(),pstring[2],pdata[0],p2data[1]}
+				riffle.Info("Sending %s", send_data)
+				app.Publish("can", send_data)
+			}
 		//time.Sleep(5 * time.Second)
-	}
+		}
 }
 
 func cmd(command string) {
 	riffle.Info("Command received: %s", command)
+	if out, err := exec.Command("cansend","can1",command).Output(); err != nil {
+		riffle.Error("Error %v", err)
+	} else {
+		riffle.Info("Sent command to CAN: %s", command)
+	}
 }
 
 func hb(heartbeat string) {
 	riffle.Info("Heartbeat received: %s", heartbeat)
+	if out, err := exec.Command("cansend","can1",heartbeat).Output(); err != nil {
+		riffle.Error("Error %v", err)
+	} else {
+		riffle.Info("Sent heartbeat to CAN: %s", heartbeat)
+	}
 }
 
 func main() {
@@ -50,7 +60,6 @@ func main() {
 	// sender := app.Subdomain("can")
 	// receiver := app.Subdomain("cmd")
 	// Connect
-	//receiver.SetToken("1o1-sPF0NWy2kWcv0XHJxpVUkMHWblQrfa5-cVXcsMujjl-l3W2CNgFSR.1LIE6S-QNT31RCLWgRBvFyGFy0BznBOzvdS8Xr0z9i4iatUWDOV1EdH4PtVd4RDMA5yVr3Ioz2cdvHmWas4rA3plr8G-XiCCjzF7NYE-YYRiaOmZ0_")
 	app.Join()
 	// heartbeat.Join()
 	// sender.Join()
@@ -70,7 +79,6 @@ func main() {
 	}
 
 	go listen(app)
-
 	// Handle until the connection closes
 	app.Listen()
 	// receiver.Listen()
