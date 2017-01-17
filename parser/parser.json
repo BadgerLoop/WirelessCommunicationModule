@@ -3,167 +3,167 @@
 					/* Status messages */
 					1: {byte_length: 1,
 						 label: ["VNM.status"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 
 					2:  {byte_length: 1,
 						 label: ["VSM.status"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 
 					3:  {byte_length: 1,
 						 label: ["BCM.status"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 
 					4:	{byte_length: 1,
 						 label: ["MCM.status"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 
 					/* VNM messages */
 					5: {byte_length: 6,
 						 label: ["VNM.posX","VNM.posX","VNM.posY","VNM.posY","VNM.posZ","VNM.posZ"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					6: {byte_length: 6,
 						 label: ["VNM.velX","VNM.velX","VNM.velY","VNM.velY","VNM.velZ","VNM.velZ"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					7: { byte_length: 6,
 						 label: ["VNM.accX","VNM.accX","VNM.accY","VNM.accY","VNM.accZ","VNM.accZ"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					8: { byte_length: 6,
 						 label: ["VNM.pitch","VNM.pitch","VNM.roll","VNM.roll","VNM.yaw","VNM.yaw"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					9: { byte_length: 4,
 						 label: ["VSM.T_motor1","VSM.T_motor2","VSM.T_motor3","VSM.T_motor4"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 
 					/* VSM messages */
 					10: { byte_length: 4,
 						 label: ["VSM.T_HV1","VSM.T_HV2","VSM.T_WCM3","VSM.T_WCM4"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					
 					11: { byte_length: 7,
 						 label: ["BCM.T_cabin","BCM.T_12V1","BCM.T_12V2","BCM.Door_1","BCM.Door_2","PCM.P_tube","PCM.P_tube"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					 /* BCM messages */
 					 12: { byte_length: 7,
 						 label: ["BCM.Brake_PWM1_fault","BCM.Brake_PWM2_fault","BCM.Brake_PWM3_fault","BCM.Brake_PWM4_fault","BCM.Air_system","BCM.Pressure_1","BCM.Pressure_2"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					 13: { byte_length: 4,
 						 label: ["BCM.Brake_1_spd","BCM.Brake_1_spd","BCM.Brake_2_spd","BCM.Brake_2_spd"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					 14: { byte_length: 4,
 						 label: ["BCM.Brake_3_spd","BCM.Brake_3_spd","BCM.Brake_4_spd","BCM.Brake_4_spd"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 
 					 /* MCM messages */
 					 15: { byte_length: 4,
 						 label: ["MCM.Kelly_1",	"MCM.Kelly_2",	"MCM.Kelly_3",	"MCM.Kelly_4"],
-						 data: [],scalar:[],units[]//TODO add in values to array
+						 data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					    },
 					 16: {
 					 	byte_length: 4,
 					 	label: ["MCM.HB1_cmdV","MCM.HB2_cmdV",	"MCM.HB3_cmdV",	"MCM.HB4_cmdV"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 },
 					 17:{
 					 	byte_length: 4,
 					 	label: ["MCM.HB1_spd","MCM.HB1_spd","MCM.HB2_spd","MCM.HB2_spd"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 },
 					 18:{
 					 	byte_length: 4,
 					 	label: ["MCM.HB3_spd","MCM.HB3_spd","MCM.HB4_spd","MCM.HB4_spd"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 
 					/* CMD messages */
 					 19:{
 					 	byte_length: 1,
 					 	label: ["CMD.hb"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 20:{
 					 	byte_length: 1,
 					 	label: ["CMD.LAUNCH"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 21:{
 					 	byte_length: 1,
 					 	label: ["CMD.ESTOP"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 22:{
 					 	byte_length: 1,
 					 	label: ["CMD.RSTOP"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 23:{
 					 	byte_length: 1,
 					 	label: ["CMD.SAFE"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 
 					 /* VNM CMD messages */
 					 24:{
 					 	byte_length: 1,
 					 	label: ["VNM.EnterState"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 25:{
 					 	byte_length: 4,
 					 	label: ["VNM.Pos_x","VNM.Pos_x","VNM.Pos_y"	"VNM.Pos_y"	"VNM.Pos_z"	"VNM.Pos_z"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 26:{
 					 	byte_length: 1,
 					 	label: ["VSM.EnterState"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 
 					 /* BCM CMD messages */
 					 27:{
 					 	byte_length: 1,
 					 	label: ["BCM.EnterState"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 28:{
 					 	byte_length: 1,
 					 	label: ["BCM.AirActuate"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 29:{
 					 	byte_length: 4,
 					 	label: ["BCM.Brake_actuate_1","BCM.Brake_actuate_2","BCM.Brake_actuate_3","BCM.Brake_actuate_4"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 
 					 /* MCM CMD messages */
 					 30:{
 					 	byte_length: 1,
 					 	label: ["MCM.EnterState"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 31:{
 					 	byte_length: 4,
 					 	label: ["MCM.HB_1_ManSpinup","MCM.HB1_spd","MCM.HB_2_ManSpinup","MCM.HB2_spd"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 					 32:{
 					 	byte_length: 4,
 					 	label: ["MCM.HB_3_ManSpinup","MCM.HB3_spd","MCM.HB_4_ManSpinup","MCM.HB4_spd"],
-					 	data: [],scalar:[],units[]//TODO add in values to array
+					 	data: [],scalar:[],units[],nominal[]//TODO add in values to array
 					 	},
 			},
 	SID: {to: [] //Still in the works!

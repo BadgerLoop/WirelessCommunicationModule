@@ -2,14 +2,32 @@
 package main
 
 import (
-	"fmt"
-	//"time"
+	//"fmt"
+	"time"
 	"strings"
     "os/exec"
 	riffle "github.com/exis-io/core/riffle"
 )
 
+func parse(str string) []string{
+	//TODO: This may be able to be optimized also need to handle errors
+	//Split output from candump
+	pstring := strings.Split(str, "  ")
+	//Split data segment to get message type
+	pdata := strings.SplitN(pstring[4], " ", 2)
+	//[timestamp,sid,type,data]
+	return []string{time.Now().String(),pstring[2],pdata[0],pdata[1]}
+}
+
 func listen(app riffle.Domain){
+		//Heartbeat message ids
+		is_hb := map[string]bool{
+    		"01": true,
+    		"02": true,
+    		"03": true,
+    		"04": true,
+    		"19": true,
+		}
 		for {
 			// Make the call to get the data we need
 			//if out, err := exec.Command("python3","listen.py","can0").Output(); err != nil {
@@ -17,14 +35,14 @@ func listen(app riffle.Domain){
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
-				//TODO: This may be able to be optimized also need to handle errors
-				//Split output from candump
-				pstring := strings.Split(str, "  ")
-				//Split data segment to get message type
-				pdata := strings.SplitN(pstring[4], " ", 2)
-				send_data := string[4]{time.Now().String(),pstring[2],pdata[0],p2data[1]}
+				send_data := parse(str)
+
 				riffle.Info("Sending %s", send_data)
+
 				app.Publish("can", send_data)
+				if (is_hb[send_data[2]]){
+					app.Publish("hb", send_data)
+				}
 			}
 		//time.Sleep(5 * time.Second)
 		}
@@ -32,20 +50,16 @@ func listen(app riffle.Domain){
 
 func cmd(command string) {
 	riffle.Info("Command received: %s", command)
-	if out, err := exec.Command("cansend","can1",command).Output(); err != nil {
+	if _, err := exec.Command("cansend","can1",command).Output(); err != nil {
 		riffle.Error("Error %v", err)
 	} else {
 		riffle.Info("Sent command to CAN: %s", command)
 	}
 }
 
-func hb(heartbeat string) {
-	riffle.Info("Heartbeat received: %s", heartbeat)
-	if out, err := exec.Command("cansend","can1",heartbeat).Output(); err != nil {
-		riffle.Error("Error %v", err)
-	} else {
-		riffle.Info("Sent heartbeat to CAN: %s", heartbeat)
-	}
+func hb(heartbeat []string) {
+	riffle.Info("Heartbeat from nuc received: %s", heartbeat)
+
 }
 
 func main() {
