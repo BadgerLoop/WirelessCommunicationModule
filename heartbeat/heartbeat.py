@@ -15,7 +15,7 @@ class Heartbeat():
         self.fault_count = 0
         self.fault_max = 0
         self.interval_ms = 1000
-        self.run_hb = False
+        self.rx_hb_empty = True
         self.rx_hb = {
                 "01": None,
                 "02": None,
@@ -23,8 +23,15 @@ class Heartbeat():
                 "04": None,
                 "19": None,
             }
-    def validate(self):
-        pass
+    def generate_status(self):
+        #TODO: Check status of all hb messages and generate aggregate status
+          
+
+        
+    def reset(self):
+        for k,v in self.rx_hb:
+            self.rx_hb[k] = None
+        self.rx_hb_empty = True
 
 class HB(riffle.Domain):
 
@@ -44,11 +51,14 @@ class HB(riffle.Domain):
             print("starting hb subprocess")
             self.p = subprocess.Popen("python hb-driver.py %s" %data[1], stdout=subprocess.PIPE, shell=True)
         elif data[0] == 0:
-            self.Heartbeat.run_hb = False
             self.p.kill()
 
     def hb_handler(self, data):
         print("Received hb CAN message %s" %data)
+        if self.Heartbeat.rx_hb_empty:
+            self.Heartbeat.rx_hb[data[3]]
+
+
 
 if __name__ == '__main__':
     #riffle.SetLogLevelDebug()

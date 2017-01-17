@@ -13,7 +13,7 @@ class HB(riffle.Domain):
             self.publish("can","5C0#1301")
             self.publish("hb","5C0#1301")
             print("Sent WCM heartbeat")
-            time.sleep(interval_ms/1000)
+            time.sleep(float(interval_ms*.001))
             print("waiting...")
 
 if __name__ == '__main__':
