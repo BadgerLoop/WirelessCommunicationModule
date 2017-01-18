@@ -12,7 +12,7 @@ class HB(riffle.Domain):
         print("Connected to Exis Node")
         while True:
             self.publish("cmd","5C0#1301")
-            self.publish("can",[[str(current_milli_time()),"100","00","00 00"],[str(current_milli_time()),"100","00","00 00"]]) # Using for tests
+            #self.publish("can",[[str(current_milli_time()),"100","00","00 00"],[str(current_milli_time()),"100","00","00 00"]]) # Using for tests
             self.publish("hb","5C0#1301")
             print("Sent WCM heartbeat")
             time.sleep(float(interval_ms*.001))

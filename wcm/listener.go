@@ -2,7 +2,7 @@
 package main
 
 import (
-	//"fmt"
+	"fmt"
 	"time"
 	"strings"
     "os/exec"
@@ -13,6 +13,9 @@ func parse(str string) []string{
 	//TODO: This may be able to be optimized also need to handle errors
 	//Split output from candump
 	pstring := strings.Split(str, "  ")
+	if len(pstring) < 4{
+		return nil
+	}
 	//Split data segment to get message type
 	pdata := strings.SplitN(pstring[4], " ", 2)
 	//[timestamp,sid,type,data]
@@ -20,17 +23,19 @@ func parse(str string) []string{
 }
 
 func parse_batch(str string) [][]string{
-	
+	fmt.Printf(str)
 	message_list := strings.Split(str, "\n")
 	batch := [][]string{}
 	for i, _ := range message_list {
-    	batch[i] = parse(message_list[i])
+		parsed_message := parse(message_list[i])
+		if parsed_message != nil {
+    		batch = append(batch,parsed_message)
+    	}
 	}
 	return batch
-
 }
 
-func listen(app riffle.Domain){
+func listen_can(app riffle.Domain){
 		//Heartbeat message ids
 		// is_hb := map[string]bool{
   //   		"01": true,
@@ -46,6 +51,7 @@ func listen(app riffle.Domain){
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
+				fmt.Printf(str)
 				send_data := parse_batch(str)
 
 				riffle.Info("Sending %s", send_data)
@@ -72,6 +78,10 @@ func cmd(command string) {
 func hb(heartbeat []string) {
 	riffle.Info("Heartbeat from nuc received: %s", heartbeat)
 
+}
+
+func listen(app riffle.Domain){
+        app.Listen()
 }
 
 func main() {
@@ -104,8 +114,10 @@ func main() {
 		riffle.Info("Subscribed to heartbeat!")
 	}
 
-	go listen(app)
+	go listen_can(app)
+
 	// Handle until the connection closes
-	app.Listen()
-	// receiver.Listen()
+	listen(app)
+	//If connection closed reopen
+    defer func(){listen(app)}()
 }
