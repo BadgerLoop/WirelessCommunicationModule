@@ -2,8 +2,7 @@
 package main
 
 import (
-	"fmt"
-	"time"
+	//"fmt"
 	"strings"
     "os/exec"
 	riffle "github.com/exis-io/core/riffle"
@@ -12,22 +11,22 @@ import (
 func parse(str string) []string{
 	//TODO: This may be able to be optimized also need to handle errors
 	//Split output from candump
-	pstring := strings.Split(str, "  ")
-	if len(pstring) < 4{
+	pstring := strings.Split(str, " ")
+	if len(pstring) < 3{
 		return nil
 	}
 	//Split data segment to get message type
-	pdata := strings.SplitN(pstring[4], " ", 2)
-	if len(pdata[1])<2{
+	pdata := strings.Split(pstring[2], "#")
+	if len(pdata)<2{
 		return nil
 	}
+	replacer := strings.NewReplacer("(", "", ")", "")
 	//[timestamp,sid,type,data]
-	ts := fmt.Sprintf("%d",time.Now().UnixNano())
-	return []string{ts,pstring[2],pdata[0],pdata[1]}
+	ts := replacer.Replace(pstring[0])
+	return []string{ts,pdata[0],pdata[1][0:2],pdata[1][2:len(pdata[1])]}
 }
 
 func parse_batch(str string) [][]string{
-	fmt.Printf(str)
 	message_list := strings.Split(str, "\n")
 	batch := [][]string{}
 	for i, _ := range message_list {
@@ -51,11 +50,10 @@ func listen_can(app riffle.Domain){
 		for {
 			// Make the call to get the data we need
 			//if out, err := exec.Command("python3","listen.py","can0").Output(); err != nil {
-			if out, err := exec.Command("candump","-n","10","can1").Output(); err != nil {
+			if out, err := exec.Command("candump","-L","-n","10","can1").Output(); err != nil {
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
-				fmt.Printf(str)
 				send_data := parse_batch(str)
 
 				riffle.Info("Sending %s", send_data)
