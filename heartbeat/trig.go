@@ -13,14 +13,14 @@ func main() {
         sender := app.Subdomain("node")
 
         sender.Join()
-        time.Sleep(200 * time.Millisecond)
-        sender.Publish("hb_ctrl", [3]int{0,100,100})
-        time.Sleep(200 * time.Millisecond)
-        sender.Publish("hb_ctrl", [3]int{0,100,100})
-        time.Sleep(200 * time.Millisecond)
+        // time.Sleep(200 * time.Millisecond)
+        // sender.Publish("hb_ctrl", [3]int{0,100,100})
+        // time.Sleep(200 * time.Millisecond)
+        // sender.Publish("hb_ctrl", [3]int{0,100,100})
+        // time.Sleep(200 * time.Millisecond)
 
 
-        sender.Publish("hb", [3]int{1,100,100})
+        sender.Publish("can", [3]int{1,100,100})
         time.Sleep(200 * time.Millisecond)
-        sender.Publish("hb", [3]int{1,100,100})
+        sender.Publish("can", [3]int{1,100,100})
 }

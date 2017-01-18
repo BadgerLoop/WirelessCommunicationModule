@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker run -d -p 27017:27017 -p 28017:28017 tutum/mongodb
+docker run -d -p 27017:27017 -p 28017:28017 -e AUTH=no --name "bl-mongo" tutum/mongodb

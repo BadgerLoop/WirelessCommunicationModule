@@ -19,30 +19,42 @@ func parse(str string) []string{
 	return []string{time.Now().String(),pstring[2],pdata[0],pdata[1]}
 }
 
+func parse_batch(str string) [][]string{
+	
+	message_list := strings.Split(str, "\n")
+	batch := [][]string{}
+	for i, _ := range message_list {
+    	batch[i] = parse(message_list[i])
+	}
+	return batch
+
+}
+
 func listen(app riffle.Domain){
 		//Heartbeat message ids
-		is_hb := map[string]bool{
-    		"01": true,
-    		"02": true,
-    		"03": true,
-    		"04": true,
-    		"19": true,
-		}
+		// is_hb := map[string]bool{
+  //   		"01": true,
+  //   		"02": true,
+  //   		"03": true,
+  //   		"04": true,
+  //   		"19": true,
+		// }
 		for {
 			// Make the call to get the data we need
 			//if out, err := exec.Command("python3","listen.py","can0").Output(); err != nil {
-			if out, err := exec.Command("candump","-n","1","can1").Output(); err != nil {
+			if out, err := exec.Command("candump","-n","10","can1").Output(); err != nil {
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
-				send_data := parse(str)
+				send_data := parse_batch(str)
 
 				riffle.Info("Sending %s", send_data)
 
 				app.Publish("can", send_data)
-				if (is_hb[send_data[2]]){
-					app.Publish("hb", send_data)
-				}
+				//TODO: add hb validator logic
+				// if (is_hb[send_data[2]]){
+				// 	app.Publish("hb", send_data)
+				// }
 			}
 		//time.Sleep(5 * time.Second)
 		}
