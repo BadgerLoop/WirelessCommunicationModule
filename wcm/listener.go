@@ -13,7 +13,7 @@ func parse(str string) []string{
 	//TODO: This may be able to be optimized also need to handle errors
 	//Split output from candump
 	pstring := strings.Split(str, "  ")
-	if len(pstring) < 4{
+	if len(pstring) < 4 || len(pdata[1])<2{
 		return nil
 	}
 	//Split data segment to get message type
