@@ -13,13 +13,17 @@ func parse(str string) []string{
 	//TODO: This may be able to be optimized also need to handle errors
 	//Split output from candump
 	pstring := strings.Split(str, "  ")
-	if len(pstring) < 4 || len(pdata[1])<2{
+	if len(pstring) < 4{
 		return nil
 	}
 	//Split data segment to get message type
 	pdata := strings.SplitN(pstring[4], " ", 2)
+	if len(pdata[1])<2{
+		return nil
+	}
 	//[timestamp,sid,type,data]
-	return []string{time.Now().String(),pstring[2],pdata[0],pdata[1]}
+	ts := fmt.Sprintf("%d",time.Now().UnixNano())
+	return []string{ts,pstring[2],pdata[0],pdata[1]}
 }
 
 func parse_batch(str string) [][]string{
