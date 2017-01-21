@@ -15,7 +15,6 @@ func parse(str string) []string{
 	if len(pstring) < 3{
 		return nil
 	}
-	//Split data segment to get message type
 	pdata := strings.Split(pstring[2], "#")
 	if len(pdata)<2{
 		return nil

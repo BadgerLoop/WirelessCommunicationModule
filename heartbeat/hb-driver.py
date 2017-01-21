@@ -11,12 +11,11 @@ class HB(riffle.Domain):
     def onJoin(self):
         print("Connected to Exis Node")
         while True:
-            self.publish("cmd","5C0#1301")
+            self.publish("cmd","440#0101")
             #self.publish("can",[[str(current_milli_time()),"100","00","00 00"],[str(current_milli_time()),"100","00","00 00"]]) # Using for tests
-            self.publish("hb","5C0#1301")
+            #self.publish("hb","5C0#0101")
             print("Sent WCM heartbeat")
             time.sleep(float(interval_ms*.001))
-            print("waiting...")
 
 if __name__ == '__main__':
     print("Starting HB Driver")

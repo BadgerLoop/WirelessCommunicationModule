@@ -12,9 +12,10 @@ class HB(riffle.Domain):
     def onJoin(self):
         print("Connected to Exis Node")
         while True:
-            sid = "0" + str(os.urandom(1).encode('hex')) 
-            data = str(os.urandom(2).encode('hex'))
-            raw  = sid + "#" + data 
+            # sid = "0" + str(os.urandom(1).encode('hex')) 
+            # data = str(os.urandom(2).encode('hex'))
+            # raw  = sid + "#" + data 
+            raw = 440
             self.publish("cmd",raw)
             #self.publish("can",[[str(current_milli_time()),"100","00","00 00"],[str(current_milli_time()),"100","00","00 00"]]) # Using for tests
             print("Sent WCM cmd: " + raw)
