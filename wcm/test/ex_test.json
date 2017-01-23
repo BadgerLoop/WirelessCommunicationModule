@@ -1,0 +1,14 @@
+{
+	"messages":
+	[
+		{
+			"can": "00#0000",
+			"interval_ms" : 10
+		},
+		{
+			"can": "00#0000",
+			"interval_ms" : 10
+		}
+
+	] 
+}
