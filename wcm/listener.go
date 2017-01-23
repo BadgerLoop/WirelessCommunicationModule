@@ -10,6 +10,7 @@ import (
     "encoding/json"
 	"strconv"
     "io/ioutil"
+    "encoding/hex"
 	riffle "github.com/exis-io/core/riffle"
 )
 
@@ -57,11 +58,12 @@ func parse(str string) []string{
     	prev_index := 2
 		next_index := prev_index
 		if !Parser.Messages[i].Cmd {
+			hex,_:=  hex.DecodeString(pdata[1][2:len(pdata[1])]) 
 			for _,element := range Parser.Messages[i].Values {
 				next_index = next_index + (element.ByteSize *2)
-				str_hex :=  pdata[1][prev_index:next_index]
-				formatted_data, _ := strconv.ParseInt(str_hex, 16, 64) 
-				fmt.Printf("Formatted value%s\n", formatted_data)
+				
+				// formatted_data, _ := strconv.ParseFloat(hex, 16, 64) 
+				fmt.Printf("Formatted value%s\n", hex[1])
 				prev_index = prev_index + (element.ByteSize *2)
 			}
 		}
