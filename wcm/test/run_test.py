@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import time
 import os
 import sys
@@ -6,7 +8,7 @@ import json
 import argparse
 
 
-parser = argparse.ArgumentParser(description="A CLI for implementing String Functions over SPU ")
+parser = argparse.ArgumentParser(description="A Script for running tests via the Badgerloop WCM")
 parser.add_argument('-t','--test_file',default='ex_test.json',help="Location of test json file (must be in format outlined in ex_test.json.)",metavar="test_file")
 parser.add_argument('-i','--can_interface',default="can1", help="can interface used to read message from the bus",metavar="can_interface")
 parser.add_argument('-v','--validate',default=False, help="can interface used to read message from the bus",metavar="validate")
