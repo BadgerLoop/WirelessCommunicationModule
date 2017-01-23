@@ -3,11 +3,16 @@ package main
 
 import (
 	//"fmt"
+	"flag"
 	"strings"
     "os/exec"
 	riffle "github.com/exis-io/core/riffle"
 )
 
+var backend_location string
+var can_interface string
+
+// fmt.Printf("port = %d", port)
 func parse(str string) []string{
 	//TODO: This may be able to be optimized also need to handle errors
 	//Split output from candump
@@ -49,14 +54,12 @@ func listen_can(app riffle.Domain){
 		for {
 			// Make the call to get the data we need
 			//if out, err := exec.Command("python3","listen.py","can0").Output(); err != nil {
-			if out, err := exec.Command("candump","-L","-n","10","can1").Output(); err != nil {
+			if out, err := exec.Command("candump","-L","-n","10",can_interface).Output(); err != nil {
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
 				send_data := parse_batch(str)
-
 				riffle.Info("Sending %s", send_data)
-
 				app.Publish("can", send_data)
 				//TODO: add hb validator logic
 				// if (is_hb[send_data[2]]){
@@ -69,17 +72,17 @@ func listen_can(app riffle.Domain){
 
 func cmd(command string) {
 	riffle.Info("Command received: %s", command)
-	if _, err := exec.Command("cansend","can1",command).Output(); err != nil {
+	if _, err := exec.Command("cansend",can_interface,command).Output(); err != nil {
 		riffle.Error("Error %v", err)
 	} else {
 		riffle.Info("Sent command to CAN: %s", command)
 	}
 }
 
-func hb(heartbeat []string) {
-	riffle.Info("Heartbeat from nuc received: %s", heartbeat)
+// func hb(heartbeat []string) {
+// 	riffle.Info("Heartbeat from nuc received: %s", heartbeat)
 
-}
+// }
 
 func listen(app riffle.Domain){
         app.Listen()
@@ -88,8 +91,11 @@ func listen(app riffle.Domain){
 func main() {
 	// set flags for testing
 	//riffle.SetFabricLocal()
+	flag.StringVar(&backend_location, "l", "ws://192.168.1.99:9000", "Location of Exis backend \nDefaults to ws://192.168.1.99:9000")
+	flag.StringVar(&can_interface, "i", "can1", "CAN network interface \nCan be can0, can1, can2 or can3 \nDefaults to can1 ")
+	flag.Parse()
 	riffle.SetLogLevelInfo()
-	riffle.SetFabric("ws://192.168.1.99:9000")
+	riffle.SetFabric(backend_location)
 	// Domain objects
 	core := riffle.NewDomain("xs")
 	app := core.Subdomain("node")
@@ -109,11 +115,11 @@ func main() {
 	}
 
 	// if e := heartbeat.Subscribe("hb", hb); e != nil {
-	if e := app.Subscribe("cmd", cmd); e != nil {
-		riffle.Info("Unable to subscribe to heartbeat endpoint ", e.Error())
-	} else {
-		riffle.Info("Subscribed to heartbeat!")
-	}
+	// if e := app.Subscribe("cmd", cmd); e != nil {
+	// 	riffle.Info("Unable to subscribe to heartbeat endpoint ", e.Error())
+	// } else {
+	// 	riffle.Info("Subscribed to heartbeat!")
+	// }
 
 	go listen_can(app)
 
