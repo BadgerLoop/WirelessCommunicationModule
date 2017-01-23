@@ -44,11 +44,11 @@
 			"id": 2,
 			"name" : "PING_TO",
 			"module" : "ALL",
-			"byte_length": 7,
+			"byte_length": 8,
 			"cmd": true,
 			"values": [
 					{	"title":"hello!", 
-						"byte_size":7,
+						"byte_size":6,
 						"scalar":1,
 						"precision" : 2,
 						"units":"str",
@@ -64,7 +64,7 @@
 			"byte_length": 8,
 			"values": [
 					{	"title":"gotmsg", 
-						"byte_size":7,
+						"byte_size":6,
 						"scalar":1,
 						"precision" : 2,
 						"units":"str",

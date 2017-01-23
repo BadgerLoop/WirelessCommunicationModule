@@ -2,23 +2,43 @@
 package main
 
 import (
-	// "os"
-	// "encoding/json"
-	// "strconv"
-    // "io/ioutil"
-    // "encoding/hex"
-	// "fmt"
+	"fmt"
 	"flag"
 	"strings"
-
+	"os"
     "os/exec"
-
+    "encoding/json"
+	"strconv"
+    "io/ioutil"
+    // "encoding/hex"
 	riffle "github.com/exis-io/core/riffle"
 )
 
 var backend_location string
 var can_interface string
-var batch_size string
+var Parser MessageCollection
+
+type Value struct {
+    Title string `json:"title"`
+	ByteSize int `json:"byte_size"`
+	Scalar float64 `json:"scalar"`
+	Precision int `json:"precision"`
+	Units string `json:"units"`
+	NominalHigh float64 `json:"nominal_high"`
+	NominalLow float64 `json:"nominal_low"`
+}
+type Message struct {
+    Id int `json:"id"`
+	Cmd  bool `json:"cmd"`
+	Name string `json:"name"`
+	ByteLength int `json:"byte_length"`
+	Module string `json:"module"`
+    Values []Value `json:"values"`
+}
+
+type MessageCollection struct {
+	Messages []Message `json:"messages"`
+}
 
 // fmt.Printf("port = %d", port)
 func parse(str string) []string{
@@ -32,6 +52,27 @@ func parse(str string) []string{
 	if len(pdata)<2{
 		return nil
 	}
+
+	// if i, err := strconv.ParseInt(pdata[1][0:2], 16, 64); err == nil {
+ //    	fmt.Printf("i=%d, chars: %i\n", i, len(pdata[1] ))
+ //  //   	prev_index := 2
+	// 	// next_index := prev_index
+	// 	if !Parser.Messages[i].Cmd {
+	// 		// hex,_:=  hex.DecodeString(pdata[1][2:len(pdata[1])]) 
+	// 		hex_string_full := pdata[1]
+	// 		for _,element := range Parser.Messages[i].Values {
+				
+				
+	// 			// formatted_data, _ := strconv.ParseFloat(hex, 16, 64) 
+	// 			fmt.Println("parsed hex val")
+	// 			fmt.Println(hex_string_full[:(element.ByteSize *2)])
+	// 			hex_string_full = hex_string_full[(element.ByteSize *2):]
+	// 			// prev_index = prev_index + (element.ByteSize *2)
+	// 		}
+	// 	}
+	// }
+	// hex, _ := DecodeString()
+
 
 	replacer := strings.NewReplacer("(", "", ")", "")
 
@@ -64,7 +105,7 @@ func listen_can(app riffle.Domain){
 		for {
 			// Make the call to get the data we need
 			//if out, err := exec.Command("python3","listen.py","can0").Output(); err != nil {
-			if out, err := exec.Command("candump","-L","-n",batch_size,can_interface).Output(); err != nil {
+			if out, err := exec.Command("candump","-L","-n","10",can_interface).Output(); err != nil {
 				riffle.Error("Error %v", err)
 			} else {
 				str := string(out)
@@ -103,20 +144,18 @@ func main() {
 	//riffle.SetFabricLocal()
 	flag.StringVar(&backend_location, "l", "ws://192.168.1.99:9000", "Location of Exis backend \nDefaults to ws://192.168.1.99:9000")
 	flag.StringVar(&can_interface, "i", "can1", "CAN network interface \nCan be can0, can1, can2 or can3 \nDefaults to can1 ")
-	flag.StringVar(&batch_size, "b", "10", "Size of can message batches to be sent \nDefaults to 10 ")
 	flag.Parse()
 
-
-	// file, e := ioutil.ReadFile("./parser.json")
-	// if e != nil {
-	//     fmt.Printf("File error: %v\n", e)
-	//     os.Exit(1)
-	// }
+	file, e := ioutil.ReadFile("./parser.json")
+	if e != nil {
+	    fmt.Printf("File error: %v\n", e)
+	    os.Exit(1)
+	}
 	//fmt.Printf("%s\n", string(file))
 
 	//m := new(Dispatch)
 	//var m interface{}
-	// json.Unmarshal(file, &Parser)
+	json.Unmarshal(file, &Parser)
 
 
 	riffle.SetLogLevelInfo()
