@@ -3,9 +3,18 @@ from riffle import want
 import time
 import os
 import subprocess
+import argparse
+import json
+import re
 
+parser = argparse.ArgumentParser(description="A script for converting raw can messages to correct values")
+parser.add_argument('-p','--parser',default='../wcm/parser.json',help="Location of parser json file",metavar="parser")
+parser.add_argument('-l','--backend_location',default="ws://localhost:8000", help="Location of backend.  Defaults to ws://localhost:9000",metavar="backend")
+args = vars(parser.parse_args())
 
-fabric = "ws://192.168.1.99:9000"
+with open(args['parser']) as parser_file:    
+    parser = json.load(parser_file)
+
 current_milli_time = lambda: int(round(time.time() * 1000))
 
 class Heartbeat():
@@ -16,22 +25,32 @@ class Heartbeat():
         self.fault_max = 0
         self.interval_ms = 1000
         self.rx_hb_empty = True
-        self.rx_hb = {
-                "01": None,
-                "02": None,
-                "03": None,
-                "04": None,
-                "19": None,
-            }
-    def generate_status(self):
+        self.modules = {
+                'VSM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
+                'BCM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
+                'MCM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
+                'WCM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
+                'VNM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
+                'BMS' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()}
+        }
+
+    def check_timing_fault(self):
+        now = time.time()
+        for k in self.modules:
+            if (now - self.modules[k]['last_updated']) > self.interval_ms:
+                self.fault_count = self.fault_count + 1
+                return
+        self.fault_count = 0
+
         #TODO: Check status of all hb messages and generate aggregate status
           
-
-        
-    def reset(self):
-        for k,v in self.rx_hb:
-            self.rx_hb[k] = None
-        self.rx_hb_empty = True
+    def update_module_hb(self,module,data):
+        self.modules[module]['last_updated'] = time.time()
+        self.modules[module]['prev_fault']= data[0]
+        self.modules[module]['fault']= data[1]
+        self.modules[module]['prev']= data[2]
+        self.modules[module]['cur']= data[3]
+        self.modules[module]['next']= data[4]
 
 class HB(riffle.Domain):
 
@@ -39,8 +58,57 @@ class HB(riffle.Domain):
         print("Connected to Exis Node")
         self.Heartbeat = Heartbeat()
         self.subscribe("hb_ctrl", self.hb_ctrl)
-        self.subscribe("hb", self.hb_handler)
+        # self.subscribe("hb", self.hb_handler)
+        self.subscribe("can", self.can_parser)
         self.p=None
+
+    def send_hb(self,sid,data):
+        print("updating heartbeat")
+        split_data = re.findall('..',data[3])
+        # print(split_data)
+        for module in parser['SID']:
+
+            if 'from' in parser['SID'][module]:
+                from_mask = parser['SID'][module]['from']
+                # TODO Fix this logic
+                and_res = int(sid,16) & from_mask
+                # print(and_res)
+                if and_res == from_mask and and_res != 0:
+                    print("Got status for " + module)
+                    self.Heartbeat.update_module_hb(module,split_data)
+                    self.Heartbeat.check_timing_fault()
+                    send = {}
+                    send['modules'] = self.Heartbeat.modules
+                    send['fault_count'] = self.Heartbeat.fault_count
+                    print(send)
+                    self.publish("hb",send)
+                   
+    def can_parser(self,data):
+        #TODO: Ensure this logic is correct
+        converted_batch = []
+        # msg in format [timestamp,sid,msg_type,data]
+        for msg in data:
+            
+            ts = float(msg[0])
+            sid = msg[1]
+            msg_type = int(msg[2],16)
+            data_str = msg[3]
+
+            if msg_type == 1:
+                self.send_hb(sid,msg)
+                    #if (int(sid,16) & from_mask) == from_mask:
+                      #  print("Got status for " + module)
+            converted_data = [ts,sid,msg_type]
+            message_spec = parser['messages'][msg_type]
+            index = 0
+            for val in message_spec['values']:
+                formatted_val  = round(int(data_str[index:(index+val['byte_size'])],16)*val['scalar'],val['precision'])
+                # print(formatted_val)
+                converted_data.append(formatted_val)
+                index = index + val['byte_size']
+            converted_batch.append(converted_data)
+        # print(converted_batch)
+        self.publish("data",converted_batch)
 
     def hb_ctrl(self, data):
         if data[0] == 1:
@@ -53,15 +121,15 @@ class HB(riffle.Domain):
         elif data[0] == 0:
             self.p.kill()
 
-    def hb_handler(self, data):
-        print("Received hb CAN message %s" %data)
-        if self.Heartbeat.rx_hb_empty:
-            self.Heartbeat.rx_hb[data[3]]
+    # def hb_handler(self, data):
+    #     print("Received hb CAN message %s" %data)
+    #     if self.Heartbeat.rx_hb_empty:
+    #         self.Heartbeat.rx_hb[data[3]]
 
 
 
 if __name__ == '__main__':
     #riffle.SetLogLevelDebug()
-    riffle.SetFabric(fabric)
+    riffle.SetFabric(args['backend_location'])
     HB('xs.node').join()
 
