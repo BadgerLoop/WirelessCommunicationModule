@@ -54,7 +54,7 @@ func parse(str string) []string{
 	}
 
 	if i, err := strconv.ParseInt(pdata[1][0:2], 16, 64); err == nil {
-    	fmt.Printf("i=%d, type: %T\n", i, i)
+    	fmt.Printf("i=%d, chars: %i\n", i, len(pdata[1] ))
     	prev_index := 2
 		next_index := prev_index
 		if !Parser.Messages[i].Cmd {
@@ -63,7 +63,8 @@ func parse(str string) []string{
 				next_index = next_index + (element.ByteSize *2)
 				
 				// formatted_data, _ := strconv.ParseFloat(hex, 16, 64) 
-				fmt.Printf("Formatted value%s\n", hex[1])
+				fmt.Println("parsed hex val")
+				fmt.Println(pdata[1][prev_index:next_index])
 				prev_index = prev_index + (element.ByteSize *2)
 			}
 		}

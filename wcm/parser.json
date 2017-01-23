@@ -64,7 +64,7 @@
 			"byte_length": 8,
 			"values": [
 					{	"title":"gotmsg", 
-						"byte_size":8,
+						"byte_size":7,
 						"scalar":1,
 						"precision" : 2,
 						"units":"str",
@@ -80,7 +80,7 @@
 			"byte_length": 8,
 			"values": [
 					{	"title":"gotmsg", 
-						"byte_size":8,
+						"byte_size":7,
 						"scalar":1,
 						"precision" : 2,
 						"units":"str",
