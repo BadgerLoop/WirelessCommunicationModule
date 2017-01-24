@@ -1,0 +1,45 @@
+{
+  "name": "pg.progress-bars",
+  "version": "0.2.1",
+  "authors": [
+    "Pavel Grinchenko <psdcoder@gmail.com>"
+  ],
+  "description": "Flexible progress bars module for Angular.js",
+  "main": "dist/pg.progress-bars.js",
+  "keywords": [
+    "angular",
+    "module",
+    "progress",
+    "bar",
+    "ng",
+    "pg"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "gulp",
+    "gulpfile.js",
+    ".jshintrc",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.2.25"
+  },
+  "homepage": "https://github.com/PSDCoder/progress-bars",
+  "_release": "0.2.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.1",
+    "commit": "aec1bcdb365ff26afb44ca271d6355c4012861bc"
+  },
+  "_source": "https://github.com/PSDCoder/progress-bars.git",
+  "_target": "^0.2.1",
+  "_originalSource": "pg.progress-bars",
+  "_direct": true
+}

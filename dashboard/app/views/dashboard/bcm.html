@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Control</div>
+            This is where the BCM control stuff is gonna go
+        </div>
+    </div>
+    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">State</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Previous State</th>
+                                <th>Current State</th>
+                                <th>Next State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-class="BCM_state.prev.level || 'info'">{{BCM_state.prev.name || 'N/a'}}</td>
+                                <td ng-class="BCM_state.curr.level || 'info'">{{BCM_state.curr.name || 'N/a'}}</td>
+                                <td ng-class="BCM_state.next.level || 'info'">{{BCM_state.next.name || 'N/a'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div class="col-md-6" ng-controller="ChartCtrl">    
+        <div class="panel panel-default">
+            <div class="panel-heading">Brakes</div>
+            <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Brake 1 Speed</th>
+                        <td ng-class="BCM_Brake_1_spd.status_style">{{BCM_Brake_1_spd.val}}</td>
+                    </tr>
+                    <tr>
+                        <th>Brake 2 Speed</th>
+                        <td ng-class="BCM_Brake_2_spd.status_style">{{BCM_Brake_2_spd.val}}</td>
+                    </tr>
+                    <tr>
+                        <th>Brake 3 Speed</th>
+                        <td ng-class="BCM_Brake_3_spd.status_style">{{BCM_Brake_3_spd.val}}</td>
+                    </tr>
+                    <tr>
+                        <th>Brake 4 Speed</th>
+                        <td ng-class="BCM_Brake_4_spd.status_style">{{BCM_Brake_4_spd.val}}</td>
+                    </tr>
+                    <tr>
+                        <th>BCM Pressure 1</th>
+                        <td ng-class="BCM_Pressure_1.status_style">{{BCM_Pressure_1.val}}</td>
+                    </tr>                    
+                    <tr>
+                        <th>BCM Pressure 2</th>
+                        <td ng-class="BCM_Pressure_2.status_style">{{BCM_Pressure_2.val}}</td>
+                    </tr>
+            </table>
+        </div>
+    </div>   
+</div>
+<div class="row">
+    <div class="col-sm-6" id="line-chart" ng-controller="ChartCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">RPM</div>
+                <nvd3 options="MCM_linegraph_options" data="MCM_linegraph_data"></nvd3>
+        </div>
+    </div>
+<!--     <div class="col-sm-12" id="line-chart" ng-controller="ChartCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Temperatures</div>
+            <nvd3 options="options" data="data"></nvd3>
+        </div>
+    </div> -->
+</div>

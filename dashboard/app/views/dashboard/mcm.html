@@ -1,0 +1,185 @@
+<div class="row">
+    <div class="col-sm-3" id="line-chart" >
+        <div class="panel panel-default">
+
+            <div class="panel-heading">Control</div>
+            <span class="input-group-addon">MCM State</span>
+            <select class="form-control" ng-change="update_enter_state('MCM')"  ng-model="MCM_EnterState" ng-options="s.name for s in states">
+            </select>
+            <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update MCM State</button>
+<!--             <br></br> -->
+            <span class="input-group-addon">Hb Wheel speed RPM  {{MCM_rpm}}</span>
+            <input type="range" ng-model="MCM_rpm" min="0" max="6000" />
+            <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update RPM</button>
+
+        </div>
+    </div>
+    <div class="col-sm-3" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading">State</div>
+            <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Previous State</th>
+                                <th>Current State</th>
+                                <th>Next State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-class="MCM_state.prev.level || 'info'">{{MCM_state.prev.name || 'N/a'}}</td>
+                                <td ng-class="MCM_state.curr.level || 'info'">{{MCM_state.curr.name || 'N/a'}}</td>
+                                <td ng-class="MCM_state.next.level || 'info'">{{MCM_state.next.name || 'N/a'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div class="col-md-3" >   
+        
+        <div class="panel panel-default">
+
+            <div class="panel-heading">Wheel 1</div>
+                <div justgage
+                title-font-color="black"
+                value="{{MCM_HB1_spd.val}}" value-font-color="black" min="0" max="7000"
+                hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
+                gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
+                show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
+                shadow-size="{{shadowSize}}" shadow-vertical-offset="{{shadowVerticalOffset}}"
+                level-colors="{{level_colors}}" custom-sectors="{{hb_gauge_custom_sectors}}" no-gradient="{{noGradient}}"
+                label="rpm" label-font-color="black"
+                donut="true" donut-start-angle="{{donutStartAngle}}"
+                counter="{{counter}}" decimals="{{decimals}}" symbol="{{symbol}}" format-number="{{formatNumber}}"
+                human-friendly="{{humanFriendly}}" human-friendly-decimal="{{humanFriendlyDecimal}}"
+                text-renderer="textRenderer">
+            </div>
+             <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Temp</th>
+                        <th>RPM</th>
+                        <th>V</th>
+                        <th>A</th>
+                    </tr>
+                    <tr>
+                        <td ng-class="VSM_T_motor1.status_style">{{VSM_T_motor1.val}}</td>
+                        <td ng-class="MCM_HB1_spd.status_style">{{MCM_HB1_spd.val}}</td>
+                        <td>tbd</td>
+                        <td>tbd</td>
+                    </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3" >    
+        <div class="panel panel-default">
+            <div class="panel-heading">Wheel 2</div>
+                <div justgage
+                title-font-color="black"
+                value="{{MCM_HB2_spd.val}}" value-font-color="black" min="0" max="7000"
+                hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
+                gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
+                show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
+                shadow-size="{{shadowSize}}" shadow-vertical-offset="{{shadowVerticalOffset}}"
+                level-colors="{{level_colors}}" custom-sectors="{{hb_gauge_custom_sectors}}" no-gradient="{{noGradient}}"
+                label="rpm" label-font-color="black"
+                donut="true" donut-start-angle="{{donutStartAngle}}"
+                counter="{{counter}}" decimals="{{decimals}}" symbol="{{symbol}}" format-number="{{formatNumber}}"
+                human-friendly="{{humanFriendly}}" human-friendly-decimal="{{humanFriendlyDecimal}}"
+                text-renderer="textRenderer">
+            </div>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Temp</th> 
+                        <th>RPM</th>
+                        <th>V</th>
+                        <th>A</th>
+                    </tr>
+                    <tr>
+                        <td ng-class="VSM_T_motor2.status_style">{{VSM_T_motor2.val}}</td>
+                        <td ng-class="MCM_HB2_spd.status_style">{{MCM_HB2_spd.val}}</td>
+                        <td>tbd</td>
+                        <td>tbd</td>
+                    </tr>
+            </table>
+        </div>
+    </div>   
+</div>
+<div class="row">
+    <div class="col-sm-6" id="line-chart" >
+        <div class="panel panel-default">
+            <div class="panel-heading">RPM</div>
+                <nvd3 options="MCM_linegraph_options" data="MCM_linegraph_data"></nvd3>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">Wheel 3</div>
+               <div justgage
+                title-font-color="black"
+                value="{{MCM_HB3_spd.val}}" value-font-color="black" min="0" max="7000"
+                hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
+                gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
+                show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
+                shadow-size="{{shadowSize}}" shadow-vertical-offset="{{shadowVerticalOffset}}"
+                level-colors="{{level_colors}}" custom-sectors="{{hb_gauge_custom_sectors}}" no-gradient="{{noGradient}}"
+                label="rpm" label-font-color="black"
+                donut="true" donut-start-angle="{{donutStartAngle}}"
+                counter="{{counter}}" decimals="{{decimals}}" symbol="{{symbol}}" format-number="{{formatNumber}}"
+                human-friendly="{{humanFriendly}}" human-friendly-decimal="{{humanFriendlyDecimal}}"
+                text-renderer="textRenderer">
+            </div>
+             <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Temp</th>
+                        <th>RPM</th>
+                        <th>V</th>
+                        <th>A</th>
+                    </tr>
+                    <tr>
+                        <td ng-class="VSM_T_motor2.status_style">{{VSM_T_motor3.val}}</td>
+                        <td ng-class="MCM_HB2_spd.status_style">{{MCM_HB3_spd.val}}</td>
+                        <td>tbd</td>
+                        <td>tbd</td>
+                    </tr>
+            </table>
+        </div> 
+    </div>
+    <div class="col-md-3" >
+        <div class="panel panel-default">
+            <div class="panel-heading">Wheel 4</div>
+                <div justgage
+                title-font-color="black"
+                value="{{MCM_HB4_spd.val}}" value-font-color="black" min="0" max="7000"
+                hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
+                gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
+                show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
+                shadow-size="{{shadowSize}}" shadow-vertical-offset="{{shadowVerticalOffset}}"
+                level-colors="{{level_colors}}" custom-sectors="{{hb_gauge_custom_sectors}}" no-gradient="{{noGradient}}"
+                label="rpm" label-font-color="black"
+                donut="true" donut-start-angle="{{donutStartAngle}}"
+                counter="{{counter}}" decimals="{{decimals}}" symbol="{{symbol}}" format-number="{{formatNumber}}"
+                human-friendly="{{humanFriendly}}" human-friendly-decimal="{{humanFriendlyDecimal}}"
+                text-renderer="textRenderer">
+            </div>
+             <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Temp</th>
+                        <th>RPM</th>
+                        <th>V</th>
+                        <th>A</th>
+                    </tr>
+                    <tr>
+                        <td ng-class="VSM_T_motor2.status_style">{{VSM_T_motor4.val}}</td>
+                        <td ng-class="MCM_HB2_spd.status_style">{{MCM_HB4_spd.val}}</td>
+                        <td>tbd</td>
+                        <td>tbd</td>
+                    </tr>
+            </table>
+        </div> 
+    </div>     
+</div>
+<div class="row">
+
+</div>

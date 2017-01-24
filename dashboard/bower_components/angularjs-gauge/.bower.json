@@ -1,0 +1,38 @@
+{
+  "name": "angularjs-gauge",
+  "version": "1.0.0",
+  "description": "A Gauge directive for Angular 1.x apps and dashboards",
+  "keywords": [
+    "angular",
+    "gauge",
+    "speedometer",
+    "js",
+    "dial",
+    "semi",
+    "full",
+    "arc"
+  ],
+  "main": "dist/angularjs-gauge.js",
+  "authors": "Ashish Chopra",
+  "license": "MIT",
+  "homepage": "https://github.com/ashish-chopra/angular-gauge",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.5.8"
+  },
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.0",
+    "commit": "7db162fbd284bbbed8067861b37db400495c3942"
+  },
+  "_source": "https://github.com/ashish-chopra/angular-gauge.git",
+  "_target": "^1.0.0",
+  "_originalSource": "angularjs-gauge"
+}

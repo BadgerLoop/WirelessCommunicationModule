@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Control</div>
+            This is where the MCM control stuff is gonna go
+        </div>
+    </div>
+    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">State</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Previous State</th>
+                                <th>Current State</th>
+                                <th>Next State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-class="VSM_state.prev.level || 'info'">{{VSM_state.prev.name || 'N/a'}}</td>
+                                <td ng-class="VSM_state.curr.level || 'info'">{{VSM_state.curr.name || 'N/a'}}</td>
+                                <td ng-class="VSM_state.next.level || 'info'">{{VSM_state.next.name || 'N/a'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+        <div class="panel panel-default">
+            <div class="panel-heading">Doors</div>
+            This is where the VSM Door stuff is gonna go
+        </div>
+    </div>
+    <div class="col-md-3" ng-controller="ChartCtrl">    
+        <div class="panel panel-default">
+            <div justgage
+                title="Pressure" title-font-color="black"
+                value="{{VSM_P_tube.val}}" value-font-color="black"
+                relative-gauge-size="{{relativeGaugeSize}}"
+                value-min-font-size="{{valueMinFontSize}}" title-min-font-size="{{titleMinFontSize}}"
+                label-min-font-size="{{labelMinFontSize}}" min-label-min-font-size="{{minLabelMinFontSize}}"
+                maxLabelMinFontSize="{{maxLabelMinFontSize}}"
+                min="600" max="101326"
+                hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
+                gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
+                show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
+                shadow-size="{{shadowSize}}" shadow-vertical-offset="{{shadowVerticalOffset}}"
+                level-colors="{{levelColors}}" custom-sectors="{{customSectors}}" no-gradient="{{noGradient}}"
+                label="Pa" label-font-color="black"
+                start-animation-time="{{startAnimationTime}}" start-animation-type="{{startAnimationType}}"
+                refresh-animation-time="{{refreshAnimationTime}}" refresh-animation-type="{{refreshAnimationType}}"
+                donut="true" donut-start-angle="{{donutStartAngle}}"
+                counter="{{counter}}" decimals="{{decimals}}" symbol="{{symbol}}" format-number="{{formatNumber}}"
+                human-friendly="{{humanFriendly}}" human-friendly-decimal="{{humanFriendlyDecimal}}"
+                text-renderer="textRenderer">
+            </div>
+<!--                 <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Temp</th> 
+                        <th>RPM</th>
+                        <th>Voltage</th>
+                        <th>Current</th>
+                    </tr>
+                    <tr>
+                        <td>20</td>
+                        <td>5000</td>
+                        <td><button type="button" class="btn btn-outline btn-warning">100</button></td>
+                        <td>100</td>
+                    </tr>
+            </table> -->
+        </div>
+    </div>   
+</div>
+<div class="row">
+    <div class="col-sm-12" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading">Temperatures</div>
+            <nvd3 options="VSM_barchart_options" data="VSM_barchart_data" api="d3_api"></nvd3>
+            <div class="panel panel-default">
+            <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>HV1</th>
+                        <th>HV2</th>
+                        <th>Motor 1</th>
+                        <th>Motor 2</th>
+                        <th>Motor 3</th>
+                        <th>Motor 4</th>
+                        <th>WCM1</th>
+                        <th>WCM1</th>
+                        <th>Cabin</th>
+                        <th>12V1</th>
+                        <th>12V2</th>
+                    </tr>
+                    <tr>
+                        <td ng-class="VSM_T_HV1.status_style">{{VSM_T_HV1.val}}</td>
+                        <td ng-class="VSM_T_HV2.status_style">{{VSM_T_HV2.val}}</td>
+                        <td ng-class="VSM_T_motor1.status_style">{{VSM_T_motor1.val}}</td>
+                        <td ng-class="VSM_T_motor2.status_style">{{VSM_T_motor2.val}}</td>
+                        <td ng-class="VSM_T_motor3.status_style">{{VSM_T_motor3.val}}</td>
+                        <td ng-class="VSM_T_motor4.status_style">{{VSM_T_motor4.val}}</td>
+                        <td ng-class="VSM_T_WCM1.status_style">{{VSM_T_WCM1.val}}</td>
+                        <td ng-class="VSM_T_WCM2.status_style">{{VSM_T_WCM2.val}}</td>
+                        <td ng-class="VSM_T_cabin.status_style">{{VSM_T_cabin.val}}</td>
+                        <td ng-class="VSM_T_12V1.status_style">{{VSM_T_12V1.val}}</td>
+                        <td ng-class="VSM_T_12V2.status_style">{{VSM_T_12V2.val}}</td>
+                    </tr>
+            </table>
+        </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "jsriffle",
+  "version": "0.4.9",
+  "description": "Riffle allows applications to connect over a fabric",
+  "main": "index.js",
+  "browser": {
+    "src/transport/rawsocket.js": false
+  },
+  "dependencies": {
+    "mimetype": "0.0.8",
+    "q": "^1.4.1",
+    "request": "^2.72.0",
+    "ws": ">= 0.8.0"
+  },
+  "devDependencies": {
+    "browserify": ">= 11.0.1",
+    "nodeunit": ">= 0.9.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/exis-io/jsRiffle.git"
+  },
+  "keywords": [
+    "Riffle",
+    "WebSocket"
+  ],
+  "author": "Exis",
+  "license": "MIT"
+}

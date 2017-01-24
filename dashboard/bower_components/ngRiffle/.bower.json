@@ -1,0 +1,37 @@
+{
+  "name": "ngRiffle",
+  "main": "release/ngRiffle.min.js",
+  "authors": [
+    "Exis <developers@exis.io>"
+  ],
+  "description": "Angular library wrapping jsRiffle",
+  "keywords": [
+    "WAMP",
+    "websockets",
+    "Angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.2.0",
+    "jsRiffle": "0.4.9"
+  },
+  "homepage": "https://github.com/exis-io/ngRiffle",
+  "version": "0.4.9",
+  "_release": "0.4.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.9",
+    "commit": "1c402a56fe66961d307455c47f29b96494677993"
+  },
+  "_source": "https://github.com/exis-io/ngRiffle.git",
+  "_target": "^0.4.9",
+  "_originalSource": "ngRiffle"
+}

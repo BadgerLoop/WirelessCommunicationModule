@@ -8,7 +8,7 @@ import json
 import re
 
 parser = argparse.ArgumentParser(description="A script for converting raw can messages to correct values")
-parser.add_argument('-p','--parser',default='../wcm/parser.json',help="Location of parser json file",metavar="parser")
+parser.add_argument('-p','--parser',default='../dashboard/app/parser.json',help="Location of parser json file",metavar="parser")
 parser.add_argument('-l','--backend_location',default="ws://localhost:8000", help="Location of backend.  Defaults to ws://localhost:9000",metavar="backend")
 args = vars(parser.parse_args())
 
@@ -97,14 +97,12 @@ class HB(riffle.Domain):
 
             if msg_type == 1:
                 self.send_hb(sid,msg)
-                    #if (int(sid,16) & from_mask) == from_mask:
-                      #  print("Got status for " + module)
             else:
                 converted_data = [ts,sid,msg_type]
                 message_spec = parser['messages'][msg_type]
                 for val in message_spec['values']:
                     data_value = data_str[:(val['byte_size']*2)]
-                    data_str.replace(data_value,'')
+                    data_str.replace(data_value,'',1)
                     # print(data_value)
                     formatted_val = round(int(data_value,16)*val['scalar'],val['precision'])
                     # print(formatted_val)
@@ -122,7 +120,8 @@ class HB(riffle.Domain):
             print("starting hb subprocess")
             self.p = subprocess.Popen("python hb-driver.py %s" %data[1], stdout=subprocess.PIPE, shell=True)
         elif data[0] == 0:
-            self.p.kill()
+            if self.p:
+                self.p.kill()
 
     # def hb_handler(self, data):
     #     print("Received hb CAN message %s" %data)

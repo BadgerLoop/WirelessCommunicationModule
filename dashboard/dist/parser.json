@@ -1,0 +1,252 @@
+{
+	"type": { 
+
+		"01": {
+			"byte_length": 1,
+			"label": ["VNM.status"],
+			"scalar":[0],
+			"units":[0],
+			"nominal":[0]
+		},
+		"02":  {
+			"byte_length": 1,
+			"label": ["VSM.status"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"03":  {
+			"byte_length": 1,
+			"label": ["BCM.status"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"04":  {
+			"byte_length": 1,
+			"label": ["MCM.status"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"05": {
+			"byte_length": 6,
+			"label": ["VNM.posX","VNM.posX","VNM.posY","VNM.posY","VNM.posZ","VNM.posZ"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"06": {
+			"byte_length": 6,
+			"label": ["VNM.velX","VNM.velX","VNM.velY","VNM.velY","VNM.velZ","VNM.velZ"],
+			
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"07": { 
+			"byte_length": 6,
+			"label": ["VNM.accX","VNM.accX","VNM.accY","VNM.accY","VNM.accZ","VNM.accZ"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"08": { 
+			"byte_length": 6,
+			"label": ["VNM.pitch","VNM.pitch","VNM.roll","VNM.roll","VNM.yaw","VNM.yaw"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"09": { 
+			"byte_length": 4,
+			"label": ["VSM.T_motor1","VSM.T_motor2","VSM.T_motor3","VSM.T_motor4"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"0A": { 
+			"byte_length": 4,
+			"label": ["VSM.T_HV1","VSM.T_HV2","VSM.T_WCM3","VSM.T_WCM4"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+		"0B": { 
+			"byte_length": 7,
+			"label": ["BCM.T_cabin","BCM.T_12V1","BCM.T_12V2","BCM.Door_1","BCM.Door_2","PCM.P_tube","PCM.P_tube"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"0C": { 
+			"byte_length": 7,
+			"label": ["BCM.Brake_PWM1_fault","BCM.Brake_PWM2_fault","BCM.Brake_PWM3_fault","BCM.Brake_PWM4_fault","BCM.Air_system","BCM.Pressure_1","BCM.Pressure_2"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"0D": { 
+			"byte_length": 4,
+			"label": ["BCM.Brake_1_spd","BCM.Brake_1_spd","BCM.Brake_2_spd","BCM.Brake_2_spd"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"0E": { 
+			"byte_length": 4,
+			"label": ["BCM.Brake_3_spd","BCM.Brake_3_spd","BCM.Brake_4_spd","BCM.Brake_4_spd"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"0F": { 
+			"byte_length": 4,
+			"label": ["MCM.Kelly_1", "MCM.Kelly_2",  "MCM.Kelly_3",  "MCM.Kelly_4"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"10": {
+			"byte_length": 4,
+			"label": ["MCM.HB1_cmdV","MCM.HB2_cmdV",  "MCM.HB3_cmdV", "MCM.HB4_cmdV"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"11":{
+			"byte_length": 4,
+			"label": ["MCM.HB1_spd","MCM.HB1_spd","MCM.HB2_spd","MCM.HB2_spd"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"12":{
+			"byte_length": 4,
+			"label": ["MCM.HB3_spd","MCM.HB3_spd","MCM.HB4_spd","MCM.HB4_spd"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"13":{
+			"byte_length": 1,
+			"label": ["CMD.hb"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"14":{
+			"byte_length": 1,
+			"label": ["CMD.LAUNCH"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"15":{
+			"byte_length": 1,
+			"label": ["CMD.ESTOP"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"16":{
+			"byte_length": 1,
+			"label": ["CMD.RSTOP"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"17":{
+			"byte_length": 1,
+			"label": ["CMD.SAFE"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"18":{
+			"byte_length": 1,
+			"label": ["VNM.EnterState"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"19":{
+			"byte_length": 4,
+			"label": ["VNM.Pos_x","VNM.Pos_x","VNM.Pos_y","VNM.Pos_y","VNM.Pos_z","VNM.Pos_z"],
+			"scalar":[],
+			"units": [],
+				"nominal": []   
+		},
+		"1A":{
+			"byte_length": 1,
+			"label": ["VSM.EnterState"],		
+			"scalar":[],
+			"units": [],
+				"nominal": []   
+		},
+
+
+		"1B":{
+			"byte_length": 1,
+			"label": ["BCM.EnterState"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"1C":{
+			"byte_length": 1,
+			"label": ["BCM.AirActuate"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"1D":{
+			"byte_length": 4,
+			"label": ["BCM.Brake_actuate_1","BCM.Brake_actuate_2","BCM.Brake_actuate_3","BCM.Brake_actuate_4"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+
+
+		"1E":{
+			"byte_length": 1,
+			"label": ["MCM.EnterState"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"1F":{
+			"byte_length": 4,
+			"label": ["MCM.HB_1_ManSpinup","MCM.HB1_spd","MCM.HB_2_ManSpinup","MCM.HB2_spd"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+		},
+		"20":{
+			"byte_length": 4,
+			"label": ["MCM.HB_3_ManSpinup","MCM.HB3_spd","MCM.HB_4_ManSpinup","MCM.HB4_spd"],
+			"scalar":[],
+			"units": [],
+			"nominal": []   
+
+		}
+	},
+	"SID": {
+		"to": [],
+		"from": []
+	}
+}

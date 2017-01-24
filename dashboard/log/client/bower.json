@@ -1,0 +1,21 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/jonahpelfrey/Badgerloop_Competition_Dashboard",
+  "authors": [
+    "Jonah Pelfrey <jsp916@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jsRiffle": "^0.4.9",
+    "ngRiffle": "^0.4.9"
+  }
+}

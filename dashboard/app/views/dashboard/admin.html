@@ -1,0 +1,241 @@
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="psize panel panel-default">
+                    <div class="panel-heading" style="text-align: center;">Compose CAN Message</div>
+                    <div class="panel-body">
+                            <div class="btn-group">
+                                <label class="btn btn-primary" ng-model="custMsgType" ng-click="toggleCustMsgType('Template')"uib-btn-radio="'Template'">Template</label>
+                                <label class="btn btn-primary" ng-model="custMsgType" ng-click="toggleCustMsgType('Custom')"uib-btn-radio="'Custom'">Custom</label>   
+                                <label class="btn btn-primary" ng-model="custMsgType" ng-click="toggleCustMsgType('Raw')"uib-btn-radio="'Raw'">Raw</label>
+                            </div>
+<!--                         <label class="checkbox-inline"><input type="checkbox" ng-model="custom">Custom</label>
+                        <label class="checkbox-inline"><input type="checkbox" ng-model="raw">RAW</label>
+                        <label class="checkbox-inline"><input type="checkbox" ng-model="template">Template</label> -->
+                        <div class="input-group" ng-show="custMsgType=='Template'">
+                            <span class="input-group-addon">Template</span>
+                            <select class="form-control" ng-options="t.label for t in templates" ng-model="selectedTemplate" ></select>
+                            <!-- <select ng-disabled="custom" class="form-control" style="width: 220px;">
+                                <option>Heartbeat</option>
+                                <option>Start</option>
+                                <option>Stop</option>
+                            </select> -->
+                        </div>
+
+
+<!--                         (format {sid}#{type byte}{data}) -->
+                    <div ng-show="custMsgType=='Custom'">
+                        <div class="input-group" style="padding-top: 10px;">
+                            <span class="input-group-addon">To</span>
+                            <select class="form-control" ng-change="updateSID()"  ng-model="toModule" ng-options="m.name for m in modules">
+                            </select>
+                            <span class="input-group-addon">From</span>
+                            <select class="form-control" ng-change="changeModule()" ng-model="fromModule" ng-options="m.name for m in modules">
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-addon">Type</span>
+                            <select class="form-control" ng-model="selectedType" ng-options="s.name for s in msgTypes">  
+<!--                              | unique:'name' -->
+                            </select>
+                            <span class="input-group-addon">Size (bytes)  {{selectedType.byte_length}}</span>
+<!--                             <select class="form-control" ng-change="changeSize()" ng-model="msgDataSize" ng-options="s.name for s in msgSizes">
+                            </select> -->
+                        </div>
+                        <div class="input-group">
+                            <!-- make this configurable to not be in hex -->
+                            <span class="input-group-addon">Data (hex)</span>
+                            <input type="text" class="form-control" ng-model="customData">
+                        </div>
+                    </div>
+                    <div ng-show="custMsgType=='Raw'">
+                        Format: {sid}#{type byte}{data bytes}
+                        <div class="input-group">
+                            <span class="input-group-addon">Raw</span>
+                            <input type="text" class="form-control" ng-model="rawMessage">
+                        </div>
+                    </div>
+                        
+                        <button class="btn btn-primary btn-block" ng-click="sendMessage(sendMessage)">Send</button>
+                    </div>  
+
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="text-align: center;">Sent Messages</div>
+                    <div class="psizeScroll panel-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <tr>
+                            <th>
+                                <a href="#" ng-click="sentSortType = 'timestamp'; sentSortReverse = !sentSortReverse">
+                                Timestamp
+                                <span ng-show="sentSortType == 'timestamp' && !sentSortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sentSortType == 'timestamp' && sentSortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sentSortType = 'sid'; sentSortReverse = !sentSortReverse">
+                                SID
+                                <span ng-show="sentSortType == 'sid' && !sentSortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sentSortType == 'sid' && sentSortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sentSortType = 'type'; sentSortReverse = !sentSortReverse">
+                                Type
+                                <span ng-show="sentSortType == 'type' && !sentSortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sentSortType == 'type' && sentSortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            <th>
+                                <a href="#" ng-click="sentSortType = 'data'; sentSortReverse = !sentSortReverse">
+                                Data
+                                <span ng-show="sentSortType == 'data' && !sentSortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sentSortType == 'data' && sentSortReverse" class="fa fa-caret-up"></span>
+                                </a>
+                            </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="message in sentMessages | orderBy: sentSortType:sentSortReverse">
+                            <td>{{message.timestamp}}</td>
+                            <td>{{message.sid}}</td>
+                            <td><span class="label label-info">{{message.type}}</span></td>
+                            <td>{{message.data}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+                    
+    <!-- <div class="row">
+        <div class="col-sm-12">
+        <div class="panel panel-default">
+        <div class="panel-heading">CAN Messages</div>
+        <table ng-table="tableParams" class="table" show-filter="true">
+            <tr ng-repeat="message in messages">
+                <td title="'Module'" filter="{ module: 'text'}" sortable="'module'">
+                    {{message.module}}</td>
+                <td title="'Value'" filter="{ value: 'number'}" sortable="'value'">
+                    {{message.value}}</td>
+            </tr>
+        </table>
+        </div>
+        </div>
+    </div> -->
+    <div class="row">
+        <div class="col-md-3">
+         <div class="panel panel-default">
+            <div class="panel-heading">Status</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Previous State</th>
+                                <th>Current State</th>
+                                <th>Next State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>MCM</b></td>
+                                <td ng-class="states[MCM.prev].level || 'info'">{{states[MCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[MCM.cur].level || 'info'"><b>{{states[MCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[MCM.next].level || 'info'">{{states[MCM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>VNM</b></td>
+                                <td ng-class="states[VNM.prev].level || 'info'">{{states[VNM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[VNM.cur].level || 'info'"><b>{{states[VNM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[VNM.next].level || 'info'">{{states[VNM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>VSM</b></td>
+                                <td ng-class="states[VSM.prev].level || 'info'">{{states[VSM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[VSM.cur].level || 'info'"><b>{{states[VSM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[VSM.next].level || 'info'">{{states[VSM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>BCM</b></td>
+                                <td ng-class="states[BCM.prev].level || 'info'">{{states[BCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[BCM.cur].level || 'info'"><b>{{states[BCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[BCM.next].level || 'info'">{{states[BCM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>WCM</b></td>
+                                <td ng-class="states[WCM.prev].level || 'info'">{{states[WCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4>Message Archive</h4>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                            <input type="text" class="form-control" placeholder="Search messages" ng-model="messageSearch">
+                        </div>
+                    </div>
+                </form>
+                <div class="panel-body contact">
+                
+                <table class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                        <th>
+                            <a href="#" ng-click="sortType = 'timestamp'; sortReverse = !sortReverse">
+                            Timestamp
+                            <span ng-show="sortType == 'timestamp' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'timestamp' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'sid'; sortReverse = !sortReverse">
+                            SID
+                            <span ng-show="sortType == 'sid' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'sid' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'type'; sortReverse = !sortReverse">
+                            Type
+                            <span ng-show="sortType == 'type' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'type' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        <th>
+                            <a href="#" ng-click="sortType = 'data'; sortReverse = !sortReverse">
+                            Data
+                            <span ng-show="sortType == 'data' && !sortReverse" class="fa fa-caret-down"></span>
+                            <span ng-show="sortType == 'data' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="msg in messages | orderBy: sortType:sortReverse | filter: messageSearch">
+                        <td>{{msg.timestamp}}</td>
+                        <td><span class="label label-info">{{msg.sid}}</span></td>
+                        <td>{{msg.type}}</td>
+                        <td>{{msg.data}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+

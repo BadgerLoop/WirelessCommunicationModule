@@ -1,0 +1,70 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4>Message Archive</h4>
+			</div>
+			<form>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-search"></i>
+						</div>
+						<input class="form-control" type="text" ng-model="mSearch" placeholder="Search">
+					</div>
+				</div>
+			<div class="panel-body contact">
+			<table class="table table-striped">
+		        	<thead>
+					<tr>
+					<th>Timestamp</th>
+					<th>SID</th>
+					<th>Type</th>
+					<th>Data</th>
+<!-- 					<th>Select</th>
+					<th>Parse</th> -->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="msg in messages | filter : mSearch">
+					<td>{{msg.timestamp}}</td>
+					<td>{{msg.sid}}</td>
+					<td>{{msg.type}}</td>
+					<td>{{msg.data}}</td>
+<!-- 					<td><button class="btn btn-success btn-sm" ng-click="add(msg)">Save</button></td>
+					<td><button class="btn btn-primary btn-sm" ng-click="add(msg)">Parse</button></td> -->
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-heading" style="text-align: center;"> Saved Results</div>
+			<div class="panel-body saved">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>Module</th>
+						<th>Timestamp</th>
+						<th>Data</th>
+						<th>Select</th>
+						<th>Parse</th>
+					</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="msg in saved">
+							<td><span class="label label-info">{{msg.module}}</td>
+							<td>{{msg.timestamp}}</td>
+							<td>{{msg.data}}</td>
+							<td><button class="btn btn-danger btn-sm" ng-click="remove(msg)">Remove</button></td>
+							<td><button class="btn btn-primary btn-sm" ng-click="add(msg)">Parse</button></td>
+						</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+</div>

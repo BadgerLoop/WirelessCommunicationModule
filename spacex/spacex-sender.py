@@ -2,21 +2,27 @@
 """
 @brief Hyperloop team telemetry packet sender 
 @author Kyle Grieger
-
-Subject to the existing rights of third parties, SPACE EXPLORATION
-TECHNOLOGIES is the owner of the copyright in this work and no portion
-thereof is to be copied, reproduced or communicated to any person without
-written permission.
 """
 import socket
 import struct
 import time
 import riffle
 from datetime import datetime
+import argparse
 #import ctypes 
 #c_int8
+parser = argparse.ArgumentParser(description="A script for exposing telemetry data to spacex")
+#parser.add_argument('-p','--parser',default='../wcm/parser.json',help="Location of parser json file",metavar="parser")
+parser.add_argument('-i','--interval_ms', default="100", help="Interval (in ms) to send telemetry packet. Defaults to 100",metavar="interval")
+parser.add_argument('-l','--backend_location',default="ws://localhost:8000", help="Location of backend.  Defaults to ws://localhost:9000",metavar="backend")
+parser.add_argument('-t','--team_id',default="1", help="Team id assagned by spacex.  Defaults to 1",metavar="team_id")
+parser.add_argument('-p','--port',default=3000, help="Port to expose spacex telemetry",metavar="port")
+parser.add_argument('-ip','--ip',default="localhost", help="IP address used to expose Spacex telemetry",metavar="ip")
+args = vars(parser.parse_args())
 
-team_id = bytes(1) #change this to what team id spacex gives us
+UDP_IP = args['ip']
+UDP_PORT = int(args['port'])
+#change this to what team id spacex gives us
 
 class telemetry():
     def __init__(self):
@@ -106,8 +112,7 @@ class telemetry():
     def send_packet(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         #sock.bind(('localhost', 3000)) 
-        UDP_IP = 'localhost'
-        UDP_PORT = 3000
+
         pattern = '!BBi7I'
         packet = struct.pack(pattern, 
             team_id,
@@ -142,7 +147,7 @@ class listener(riffle.Domain):
                 self.telemetry.ts = datetime.now()
             # Do something if data is not valid i.e. there are null values and such
 def main():
-    riffle.SetFabric(fabric)
+    riffle.SetFabric(args['backend_location'])
     listener('xs.node').join()
     # tel = telemetry()
     # tel.update_telemetry('blah','04','aaaa')

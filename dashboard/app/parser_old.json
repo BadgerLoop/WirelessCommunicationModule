@@ -1,0 +1,703 @@
+{
+	"msg_type": { 
+
+		"01": {
+			"name" : "heartbeat",
+			"module" : "ALL",
+			"byte_length": 3,
+			"values": [
+					{"prev_state":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high":5}
+					},
+					{"state":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high":5}
+					},
+					{"next_state":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high":5}
+					}
+				]
+			},
+		"02":  {
+			"name" : "PING_TO",
+			"module" : "ALL",
+			"byte_length": 7,
+			"cmd": true,
+			"values": [
+					{"hello!":{ 
+						"byte_size":7,
+						"scalar":1,
+						"units":"str",
+						"nominal_high": "hello!",
+						"nominal_low": "hello!"}
+					}
+				]
+			},
+		"03":  {
+			"name" : "PING_FROM",
+			"module" : "ALL",
+			"byte_length": 8,
+			"values": [
+					{"gotmsg":{ 
+						"byte_size":8,
+						"scalar":1,
+						"units":"str",
+						"nominal_low": "gotmsg",
+						"nominal_high": "gotmsg"}
+					}
+				]
+			},
+		"04":  {
+			"name" : "SOFTWARE_VERSION",
+			"module" : "ALL",
+			"byte_length": 8,
+			"values": [
+					{"gotmsg":{ 
+						"byte_size":8,
+						"scalar":1,
+						"units":"str",
+						"nominal_low": "vX.X.X",
+						"nominal_high": "vX.X.X"}
+					}
+				]
+			},
+		"05":  {
+			"name" : "FAULT",
+			"module" : "ALL",
+			"byte_length": 4,
+			"values": [
+					{"fault_type":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"previous_state":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high":5}
+					},
+					{"current_state":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high":5}
+					},
+					{"next_state":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high":5}
+					}
+				]
+			},
+		"06":  {
+			"name" : "SOFTWARE_VERSION",
+			"module" : "ALL",
+			"byte_length": 0,
+			"values": []
+			},
+
+
+		"07":  {
+			"module":"VNM",
+			"byte_length": 6,
+			"values": [
+					{"VNM_posX":{ 
+						"byte_size":2,
+						"scalar":0.02594,
+						"units":"m",
+						"nominal_low": 0,
+						"nominal_high": 1609}
+					},
+					{"VNM_posY":{ 
+						"byte_size":2,
+						"scalar":0.00003,
+						"units":"m",
+						"nominal_low": -0.01,
+						"nominal_high": 0.01}
+					},
+					{"VNM_posZ":{ 
+						"byte_size":2,
+						"scalar":0.00003,
+						"units":"m",
+						"nominal_low": -0.01,
+						"nominal_high": 0.01}
+					}
+				]
+			},
+		"08": {
+			"module":"VNM",
+			"byte_length": 6,
+			"values": [
+					{"VNM_velX":{ 
+						"byte_size":2,
+						"scalar":0.00168,
+						"units":"m/s",
+						"nominal_low": 0,
+						"nominal_high": 70}
+					},
+					{"VNM_velY":{ 
+						"byte_size":2,
+						"scalar":0.00168,
+						"units":"m/s",
+						"nominal_low": 0,
+						"nominal_high": 0.02}
+					},
+					{"VNM_velZ":{ 
+						"byte_size":2,
+						"scalar":0.00168,
+						"units":"m/s",
+						"nominal_low": 0,
+						"nominal_high": 0.02}
+					}
+				]
+			},
+		"09": { 
+			"module":"VNM",
+			"byte_length": 6,
+			"values": [
+					{"VNM_accX":{ 
+						"byte_size":2,
+						"scalar":0.00122,
+						"units":"m/s^2",
+						"nominal_low": 0,
+						"nominal_high": 0.20}
+					},
+					{"VNM_accY":{ 
+						"byte_size":2,
+						"scalar":0.00122,
+						"units":"m/s^2",
+						"nominal_low": 0,
+						"nominal_high": 0.5}
+					},
+					{"VNM_accZ":{ 
+						"byte_size":2,
+						"scalar":0.00122,
+						"units":"m/s^2",
+						"nominal_low": 0,
+						"nominal_high": 0.5}
+					}
+				]
+			},
+		"0A": { 
+			"module":"VNM",
+			"byte_length": 6,
+			"values": [
+					{"VNM_pitch":{ 
+						"byte_size":2,
+						"scalar":0.00549,
+						"units":"degrees",
+						"nominal_low": -4,
+						"nominal_high": 4}
+					},
+					{"VNM_roll":{ 
+						"byte_size":2,
+						"scalar":0.00549,
+						"units":"degrees",
+						"nominal_low": -10,
+						"nominal_high": 10}
+					},
+					{"VNM_yaw":{ 
+						"byte_size":2,
+						"scalar":0.00549,
+						"units":"degrees",
+						"nominal_low": -5,
+						"nominal_high": 5}
+					}
+				] 
+			},
+		"0B": { 
+			"module":"VSM",
+			"byte_length": 4,
+			"values": [
+					{"VSM_T_motor1":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_motor2":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_motor3":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_motor4":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					}
+				]
+			},
+		"0C": { 
+			"module":"VSM",
+			"byte_length": 4,
+			"values": [
+					{"VSM_T_HV1":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_HV2":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_WCM1":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 60}
+					},
+					{"VSM_T_WCM2":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 60}
+					}
+				]
+			},
+		"0D": { 
+			"module":"VSM",
+			"byte_length": 7,
+			"values": [
+					{"VSM_T_cabin":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_12V1":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_T_12V2":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"Celcius",
+						"nominal_low": 15,
+						"nominal_high": 50}
+					},
+					{"VSM_Door_1":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"VSM_Door_2":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"VSM_P_tube":{ 
+						"byte_size":2,
+						"scalar":1.60217,
+						"units":"Pa",
+						"nominal_low": 600,
+						"nominal_high": 101326}
+					}
+				]
+			},
+		"0E": { 
+			"module":"BCM",
+			"byte_length": 7,
+			"values": [
+					{"BCM_Brake_PWM1_fault":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"BCM_Brake_PWM2_fault":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"BCM_Brake_PWM3_fault":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"BCM_Brake_PWM4_fault":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"BCM_Air_system":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 1,
+						"nominal_high": 1}
+					},
+					{"BCM_Pressure_1":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"PSI",
+						"nominal_low": 80,
+						"nominal_high": 120}
+					},
+					{"BCM_Pressure_2":{ 
+						"byte_size":1,
+						"scalar":0.58594,
+						"units":"PSI",
+						"nominal_low": 80,
+						"nominal_high": 120}
+					}
+				] 
+			},
+		"0F": { 
+			"module":"BCM",
+			"byte_length": 4,
+			"values": [
+					{"BCM_Brake_1_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 3000}
+					},
+					{"BCM_Brake_2_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 3000}
+					}
+				]
+			},
+		"10": { 
+			"module":"BCM",
+			"byte_length": 4,
+			"values": [
+					{"BCM_Brake_3_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 3000}
+					},
+					{"BCM_Brake_4_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 3000}
+					}
+				]
+			},
+
+		"11": { 
+			"module":"MCM",
+			"byte_length": 4,
+			"values": [
+					{"MCM_Kelly_1":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"MCM_Kelly_2":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"MCM_Kelly_3":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					},
+					{"MCM_Kelly_4":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					}
+				]
+			},
+		"12": {
+			"module":"MCM",
+			"byte_length": 4,
+			"values": [
+					{"MCM_HB1_cmdV":{ 
+						"byte_size":1,
+						"scalar":0.01953,
+						"units":"Volts",
+						"nominal_low": 0,
+						"nominal_high": 5}
+					},
+					{"MCM_HB2_cmdV":{ 
+						"byte_size":1,
+						"scalar":0.01953,
+						"units":"Volts",
+						"nominal_low": 0,
+						"nominal_high": 5}
+					},
+					{"MCM_HB3_cmdV":{ 
+						"byte_size":1,
+						"scalar":0.01953,
+						"units":"Volts",
+						"nominal_low": 0,
+						"nominal_high": 5}
+					},
+					{"MCM_HB4_cmdV":{ 
+						"byte_size":1,
+						"scalar":0.01953,
+						"units":"Volts",
+						"nominal_low": 0,
+						"nominal_high": 5}
+					}
+				]
+			},
+		"13":{
+			"module":"MCM",
+			"byte_length": 4,
+			"values": [
+					{"MCM_HB1_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 6000}
+					},
+					{"MCM_HB2_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 6000}
+					}
+				]
+			},
+		"14":{
+			"module":"MCM",
+			"byte_length": 4,
+			"values": [
+					{"MCM_HB3_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 6000}
+					},
+					{"MCM_HB4_spd":{ 
+						"byte_size":2,
+						"scalar":0.07629,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 6000}
+					}
+				]
+			},
+		"15":{
+			"module":"VNM",
+			"byte_length": 1,
+			"values": [
+					{"STRIP_DETECTION_LOST":{ 
+						"byte_size":1,
+						"scalar":1,
+						"units":"",
+						"nominal_low": 0,
+						"nominal_high": 0}
+					}
+				]
+			},
+
+
+
+
+
+		"16":{
+			"cmd": true,
+			"name": "ENTER_STATE",
+			"byte_length": 1,
+			"module":"ALL",
+			"values": [
+					{"ENTER_STATE":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				]
+			},
+		"17":{
+			"cmd": true,
+			"name": "VNM_PosIndexReset",
+			"byte_length": 6,
+			"module":"VNM",
+			"values": [
+					{"VNM_PosIndexReset_Pos_x":{ 
+						"byte_size":2,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					},
+					{"VNM_PosIndexReset_Pos_y":{ 
+						"byte_size":2,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					},
+					{"VNM_PosIndexReset_Pos_z":{ 
+						"byte_size":2,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				] 
+			},
+		"18":{
+			"cmd": true,
+			"name": "BCM_AirActuate",
+			"module":"BCM",
+			"byte_length": 1,
+			"values": [
+					{"Air_actuate":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				]  
+			},
+		"19":{
+			"cmd": true,
+			"name": "BCM_BrakeActuate",
+			"byte_length": 4,
+			"module":"BCM",
+			"values": [
+					{"Brake_actuate_1":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					},
+					{"Brake_actuate_2":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					},
+					{"Brake_actuate_3":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					},
+					{"Brake_actuate_4":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				] 
+			},
+		"1A":{
+			"cmd": true,
+			"name":"ABS_state",
+			"module":"BCM",
+			"byte_length": 1,
+			"values": [
+					{"ABS_state":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				]
+			},
+		"1B":{
+			"cmd": true,
+			"name":"MCM_spinWheels",
+			"module":"MCM",
+			"byte_length": 2,
+			"values": [
+					{"MCM_spinWheels":{ 
+						"byte_size":2,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				]
+			},
+		"1C":{
+			"cmd": true,
+			"name":"VSM_contactor",
+			"module":"VNM",
+			"byte_length": 1,
+			"values": [
+					{"Contactor_CMD":{ 
+						"byte_size":1,
+						"scalar":[0],
+						"units":[0],
+						"nominal":[0]}
+					}
+				]
+			}
+		},
+	"SID": {
+		"NONE":{"to": 0, "from":0},
+		"VNM":{ "to": 1, "from":128},
+        "VSM":{ "to": 2, "from":320},
+        "BCM":{ "to": 4, "from":192},
+        "MCM":{ "to": 8, "from":256},
+        "WCM":{ "to": 16, "from":64},
+        "BMS":{ "to": 32, "from":384},
+        "ALL":{ "to": 1024}
+	}
+}

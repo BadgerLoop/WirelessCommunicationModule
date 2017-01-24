@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-sm-3" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading">Control</div>
+            This is where the VNM control stuff is gonna go
+        </div>
+    </div>
+    <div class="col-sm-3" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading">State</div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Previous State</th>
+                                <th>Current State</th>
+                                <th>Next State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td ng-class="VNM_state.prev.level || 'info'">{{VNM_state.prev.name || 'N/a'}}</td>
+                                <td ng-class="VNM_state.curr.level || 'info'">{{VNM_state.curr.name || 'N/a'}}</td>
+                                <td ng-class="VNM_state.next.level || 'info'">{{VNM_state.next.name || 'N/a'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+    <div class="panel panel-default" style="text-align:center;"> 
+         <h4>Roll</h4>
+         <!-- <canvas gauge-js options="guageOptions" ng-model="roll" style="width: 100%; height 100%"></canvas> -->
+        <div ng-radial-gauge ranges="roll_ranges" value="VNM_roll.val || 0" value-unit="unit" 
+            precision="precision" lower-limit="lowerLimit" upper-limit="upperLimit">
+         </div>
+         <h4>{{VNM_roll.val}}&deg</h4>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="panel panel-default" style="text-align:center;"> 
+         <h4>Pitch</h4>
+         <!-- <canvas gauge-js options="guageOptions" ng-model="pitch" style="width: 100%; height 100%"></canvas> -->
+        <div ng-radial-gauge ranges="pitch_ranges" value="VNM_pitch.val || 0" value-unit="unit" 
+            precision="precision" lower-limit="lowerLimit" upper-limit="upperLimit">
+         </div>
+         <h4>{{VNM_pitch.val}}&deg</h4>
+    </div>
+</div>
+<div class="col-md-2">
+    <div class="panel panel-default" style="text-align:center;"> 
+         <h4>Yaw</h4>
+         <!-- <canvas gauge-js options="guageOptions" ng-model="yaw" style="width: 100%; height 100%"></canvas> -->
+         <div ng-radial-gauge ranges="yaw_ranges" value="VNM_yaw.val || 0" value-unit="unit" 
+            precision="precision" lower-limit="lowerLimit" upper-limit="upperLimit">
+         </div>
+         <h4>{{VNM_yaw.val}}&deg</h4>
+    </div>
+</div> 
+</div>
+<div class="row">
+        <div class="col-sm-6" id="line-chart">
+        <div class="panel panel-default">
+            <div class="panel-heading">Telemetry</div>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th></th>
+                        <th>Pos</th>
+                        <th>Vel</th>
+                        <th>Accel</th>
+                    </tr>
+                    <tr>
+                        <td><b>X</b></td>
+                        <td ng-class="VNM_posX.status_style">{{VNM_posX.val}}</td>
+                        <td ng-class="VNM_velX.status_style">{{VNM_velX.val}}</td>
+                        <td ng-class="VNM_accX.status_style">{{VNM_accX.val}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Y</b></td>
+                        <td ng-class="VNM_posY.status_style">{{VNM_posY.val}}</td>
+                        <td ng-class="VNM_velY.status_style">{{VNM_velY.val}}</td>
+                        <td ng-class="VNM_accY.status_style">{{VNM_accY.val}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Z</b></td>
+                        <td ng-class="VNM_posZ.status_style">{{VNM_posZ.val}}</td>
+                        <td ng-class="VNM_velZ.status_style">{{VNM_velZ.val}}</td>
+                        <td ng-class="VNM_accZ.status_style">{{VNM_accZ.val}}</td>
+                    </tr>
+            </table>
+<!--             <nvd3 options="options" data="data"></nvd3> -->
+        </div>
+    </div> 
+</div>
+<div class="row">
+
+</div>

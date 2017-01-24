@@ -1,0 +1,109 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+        <ul class="nav in" id="side-menu">
+            <!-- <sidebar-search></sidebar-search> -->
+
+            <!-- Badgerloop Sidebar Menu -->
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.admin" style="color: #d43f3a;"><i class="fa fa-wrench fa-fw"></i> Admin</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.telemetry" style="color: #d43f3a;"><i class="fa fa-dashboard fa-fw"></i> Telemetry</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.mcm" style="color: #d43f3a;"><i class="fa fa-magnet fa-fw"></i> MCM</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.vnm" style="color: #d43f3a;"><i class="fa fa-map-marker fa-fw"></i> VNM</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.vsm" style="color: #d43f3a;"><i class="fa fa-check-square fa-fw"></i> VSM</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.bcm" style="color: #d43f3a;"><i class="fa fa-car fa-fw"></i> BCM</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.bms" style="color: #d43f3a;"><i class="fa fa-bolt fa-fw"></i> BMS</a>
+            </li>
+          
+
+            <br></br>
+            <div class="panel panel-default">
+                <div class="panel-heading" style="text-align: center;">Controls</div>
+                    <button type="button" class="btn btn-success btn-circle btn-xl"><i class="fa fa-play"></i>
+                    </button>
+                    <button type="button" class="btn btn-warning btn-circle btn-xl"><i class="fa fa-times"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-circle btn-xl"><i class="fa fa-stop"></i>
+                    </button>
+<!--             </div>
+            <div class="panel panel-default"> -->
+                <div class="panel-heading" style="text-align: center;">Heartbeat</div>
+                    <span class="input-group-addon">Interval ms</span>
+                    <input type="number" class="form-control" ng-model="hb_interval_ms">
+                    <span class="input-group-addon">Fault Tolerance</span>
+                    <input type="number" class="form-control" ng-model="hb_fault_tollerance">
+                    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-heart"></i>   Start
+                    </button>
+                    <button type="button" class="btn btn-danger btn-block"><i class="fa fa-heart"></i>   Stop
+                    </button>
+                    Put aggregate hb status here
+                    <!-- <button type="button" class="btn btn-info btn-block"><i class="fa fa-check"></i></button> -->
+            </div>
+
+             <br></br>
+            <!-- Template Sidebar Menu -->
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+            </li>
+
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.chart"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span></span></a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.table"><i class="fa fa-table fa-fw"></i> Tables</a>
+            </li>
+            <li ui-sref-active="active">
+                <a ui-sref="dashboard.form"><i class="fa fa-edit fa-fw"></i> Forms</a>
+            </li>
+            <li ng-class="{active: collapseVar==1}">{{dropDown}}
+                <a href="" ng-click="check(1)"><i class="fa fa-wrench fa-fw"></i> UI Elements<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=1">
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.panels-wells">Panels and Wells</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.buttons">Buttons</a>
+                    </li>
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.notifications">Notifications</a>
+                    </li>
+                   
+                    <li ui-sref-active="active">
+                        <a ui-sref="dashboard.grid">Grid</a>
+                    </li>
+                </ul>
+            </li>
+           
+            <li ng-class="{active:collapseVar==4}">
+                <a href="" ng-click="check(4)"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span
+                        class="fa arrow"></span></a>
+                <ul class="nav nav-second-level" collapse="collapseVar!=4">
+                    <li ng-class="{active: selectedMenu=='blank'}">
+                        <a ui-sref="dashboard.blank" ng-click="selectedMenu='blank'">Blank Page</a>
+                    </li>
+                    <li>
+                        <a ui-sref="login">Login Page</a>
+                    </li>
+                </ul>
+            
+            </li>
+            
+        </ul>
+    </div>
+    
+</div> 
+
+
+
