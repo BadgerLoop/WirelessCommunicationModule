@@ -46,11 +46,11 @@ class Heartbeat():
           
     def update_module_hb(self,module,data):
         self.modules[module]['last_updated'] = time.time()
-        self.modules[module]['prev_fault']= data[0]
-        self.modules[module]['fault']= data[1]
-        self.modules[module]['prev']= data[2]
-        self.modules[module]['cur']= data[3]
-        self.modules[module]['next']= data[4]
+        self.modules[module]['prev_fault']= int(data[0],16)
+        self.modules[module]['fault']= int(data[1],16)
+        self.modules[module]['prev']= int(data[2],16)
+        self.modules[module]['cur']= int(data[3],16)
+        self.modules[module]['next']= int(data[4],16)
 
 class HB(riffle.Domain):
 
