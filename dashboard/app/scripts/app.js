@@ -31,6 +31,7 @@ angular
     $stateProvider
       .state('dashboard', {
         url:'/dashboard',
+        controller: 'MainCtrl',
         templateUrl: 'views/dashboard/main.html',
         resolve: {
             loadMyDirectives:function($ocLazyLoad){

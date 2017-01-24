@@ -11,6 +11,9 @@ angular.module('sbAdminApp')
 
     //INITIALIZE SCOPE VARIABLES
     $scope.d3_api
+    $scope.hb_interval = 250
+    $scope.hb_on = false
+    $scope.hb_fault_tollerance = 0
     $scope.msgTypes = []
     $scope.parser = {}
     $scope.colors = {
@@ -55,7 +58,7 @@ angular.module('sbAdminApp')
                 }
             }
         }
-        console.log($scope)
+        //console.log($scope)
         console.log("Updated Scope variables")
     }
     //INITIALIZE PARSER FROM CONFIG FILE
@@ -92,6 +95,16 @@ angular.module('sbAdminApp')
                 console.log("updated: "+ modules[u] +" State to: " +$scope[modules[u]+'_state'].curr.name)
             }
         } 
+    }
+    $scope.toggle_heartbeat = function(op){
+        console.log("updating heartbeat")
+        $riffle.publish("hb_ctrl",[op,$scope.hb_interval,$scope.hb_fault_tollerance])
+        console.log("Sent: " + [op,$scope.hb_interval,$scope.hb_fault_tollerance] + " to hb_ctrl")
+        if (op ==1){
+            $scope.hb_on = true
+        } else {
+            $scope.hb_on = false
+        }
     }
 
 ///////////////Admin/////////////////////////////////
@@ -151,6 +164,7 @@ angular.module('sbAdminApp')
     $scope.sortReverse = false;
     $scope.messageSearch = '';
     $scope.tableParams = new NgTableParams({}, { dataset: $scope.messages});
+
     
     $scope.sendMessage = function() {
         var endpoint
@@ -158,7 +172,7 @@ angular.module('sbAdminApp')
         if ($scope.custMsgType == 'Template'){
             endpoint = $scope.selectedTemplate.endpoint
             message = $scope.selectedTemplate.message
-            $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.name ,data: $scope.customData })
+            $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.selectedTemplate.sid,type: $scope.selectedTemplate.name ,data: $scope.data })
         }
         else if ($scope.custMsgType == 'Custom'){
             console.log($scope.selectedType)
@@ -171,9 +185,10 @@ angular.module('sbAdminApp')
 
                 message = $scope.custSid+"#"+ $scope.selectedType.hex + data
                 console.log("Custom message to be sent: " + message)
-                $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.name ,data: $scope.customData })
+                $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.label ,data: $scope.selectedType.label })
         }
         else if ($scope.custMsgType == 'Raw'){
+            console.log("raw messages are not recorded in sent table")
             message = $scope.rawMessage
             endpoint = 'cmd'
 
@@ -186,6 +201,7 @@ angular.module('sbAdminApp')
         $scope.custMsgType = type;
 
     }
+
     $scope.updateSID = function(){
         $scope.custSid = 0;
         var to_mask = 0

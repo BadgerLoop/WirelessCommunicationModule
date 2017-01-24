@@ -15,7 +15,7 @@ angular.module('sbAdminApp')
       replace: true,
       scope: {
       },
-      controller:function($scope){
+      controller:function($scope,$riffle){
         $scope.selectedMenu = 'dashboard';
         $scope.collapseVar = 0;
         $scope.multiCollapseVar = 0;
