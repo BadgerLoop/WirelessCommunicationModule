@@ -9,7 +9,7 @@
 angular.module('sbAdminApp')
    .controller('MainCtrl', function($scope,$position,NgTableParams,$riffle,$http) {
 
-    //Initialize parser
+    //INITIALIZE SCOPE VARIABLES
     $scope.d3_api
     $scope.msgTypes = []
     $scope.parser = {}
@@ -31,6 +31,7 @@ angular.module('sbAdminApp')
                 {name:'WAITING_FOR_SAFE' ,value: '09',level: 'warning'},
                 {name:'SAFE' ,value: '0A',level: 'success'}
                 ]
+
 
     var set_up_scope = function(parser){
         for ( var i = 0; i< parser.messages.length; i++){
@@ -57,7 +58,7 @@ angular.module('sbAdminApp')
         console.log($scope)
         console.log("Updated Scope variables")
     }
-    //$scope.parser = 
+    //INITIALIZE PARSER FROM CONFIG FILE
     $http.get('../../parser.json').success(function(data) {
             $scope.parser = data
             console.log($scope.parser)
@@ -65,7 +66,8 @@ angular.module('sbAdminApp')
             set_up_scope($scope.parser)
     });
 
-    //Initialize modules
+
+    //INITIALIZE MODULE SCOPE VARIABLES
     $scope.WCM = {}
     $scope.MCM = {}
     $scope.VNM = {}
@@ -96,20 +98,29 @@ angular.module('sbAdminApp')
     $scope.templates = [{
       label: 'Heartbeat',
       message: '440#010101010101',
-      endpoint: 'cmd'
+      endpoint: 'cmd',
+      sid: "440",
+      msg_type: "01",
+      data: "0101010101"
     }, {
       label: 'Start',
       message: '00#0000',// TODO add this
-      endpoint: 'cmd'
+      endpoint: 'cmd',
+      sid: "440",
+      msg_type: "16",
+      data: "03"
     },
     {
       label: 'Stop',
       message: '00#0000',// TODO add this
-      endpoint: 'cmd'
+      endpoint: 'cmd',
+      sid: "440",
+      msg_type: "16",
+      data: "1606"
     }];
 
     $scope.modules = [
-        {name: 'NONE', mask:'FFF'},
+        {name: 'NONE',mask:'FFF'},
         {name: 'VNM', mask: '001'},
         {name: 'VSM', mask: '002'},
         {name: 'BCM', mask: '004'},
@@ -125,7 +136,6 @@ angular.module('sbAdminApp')
     //Template Messages
     $scope.selectedTemplate = $scope.templates[0];
     //Custom Messages
-    //$scope.selectedModule = $scope.modules[0];
     $scope.selectedType = $scope.msgTypes[0];
     $scope.customData = null;
     $scope.toModule = null // update this to work for more to modules []
@@ -148,14 +158,10 @@ angular.module('sbAdminApp')
         if ($scope.custMsgType == 'Template'){
             endpoint = $scope.selectedTemplate.endpoint
             message = $scope.selectedTemplate.message
-            
+            $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.name ,data: $scope.customData })
         }
         else if ($scope.custMsgType == 'Custom'){
             console.log($scope.selectedType)
-            // if ($scope.customData.length != $scope.selectedType.byte_length * 2){
-            //     alert("Error incorrect data length")
-            // }
-            // else{
                 endpoint = 'cmd'
                 //TODO implement SID generator
                 var data = $scope.customData
@@ -166,12 +172,11 @@ angular.module('sbAdminApp')
                 message = $scope.custSid+"#"+ $scope.selectedType.hex + data
                 console.log("Custom message to be sent: " + message)
                 $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.name ,data: $scope.customData })
-            // }
-            //Implement this
         }
         else if ($scope.custMsgType == 'Raw'){
             message = $scope.rawMessage
             endpoint = 'cmd'
+
         }
         $riffle.publish(endpoint,message)
         console.log("Sent message: " + message)
@@ -562,8 +567,7 @@ $scope.MCM_linegraph_data = [
 
 
 $scope.get_status = function(val, max, min){
-    //console.log("called_get_status")
-    //console.log("val: " + val + " max: " + max + " min: "+ min)
+    // TODO: Add logic for binary values
     var warn_max = max - (max * 0.1) // 10% of max do we want to warn?
     var warn_min = min + (max * 0.1) // 10% of max do we want to warn?
 
@@ -575,14 +579,13 @@ $scope.get_status = function(val, max, min){
     else if (val >= warn_max || val <= warn_min){
         return 'warning'
     }
-    else if (val < max && val > min){
+    else if (val <= max && val >= min){
         return 'success'
     }
     else{
         return 'info'
     }
 }
-
 
 $scope.get_progress = function() {
     $scope.stacked = [];
@@ -597,7 +600,21 @@ $scope.get_progress = function() {
     }
   };
 
-$scope.get_progress();
+//Don't think we need this
+// $scope.get_progress = function() {
+//     $scope.stacked = [];
+//     var types = ['success', 'info', 'warning', 'danger'];
+
+//     for (var i = 0, n = Math.floor(Math.random() * 4 + 1); i < n; i++) {
+//         var index = Math.floor(Math.random() * 4);
+//         $scope.progress.push({
+//           value: Math.floor(Math.random() * 30 + 1),
+//           type: types[index]
+//         });
+//     }
+//   };
+
+// $scope.get_progress();
 
 var add_message_to_array = function(msg){
     if ($scope.messages.length > 30){ //Limit number of messages in array to conserve memory
