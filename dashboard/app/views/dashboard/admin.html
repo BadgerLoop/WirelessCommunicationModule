@@ -41,10 +41,14 @@
 <!--                             <select class="form-control" ng-change="changeSize()" ng-model="msgDataSize" ng-options="s.name for s in msgSizes">
                             </select> -->
                         </div>
-                        <div class="input-group">
+                        <div class="input-group" ng-show="selectedType.name != 'ENTER_STATE'">
                             <!-- make this configurable to not be in hex -->
                             <span class="input-group-addon">Data (hex)</span>
                             <input type="text" class="form-control" ng-model="customData">
+                        </div>
+                        <div class="input-group" ng-show="selectedType.name == 'ENTER_STATE'">
+                            <span class="input-group-addon">State</span>
+                            <select class="form-control"  ng-options="s.name for s in states" ng-model="customData" ></select>
                         </div>
                     </div>
                     <div ng-show="custMsgType=='Raw'">

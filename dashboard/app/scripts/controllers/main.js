@@ -158,8 +158,12 @@ angular.module('sbAdminApp')
             // else{
                 endpoint = 'cmd'
                 //TODO implement SID generator
+                var data = $scope.customData
+                if ($scope.selectedType.name == 'ENTER_STATE'){
+                    data = $scope.customData.value
+                }
 
-                message = $scope.custSid+"#"+ $scope.selectedType.hex + $scope.customData
+                message = $scope.custSid+"#"+ $scope.selectedType.hex + data
                 console.log("Custom message to be sent: " + message)
                 $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.name ,data: $scope.customData })
             // }
