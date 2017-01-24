@@ -42,7 +42,15 @@ class Heartbeat():
                 return
         self.fault_count = 0
 
-        #TODO: Check status of all hb messages and generate aggregate status
+    def generate_status(self):
+        if self.fault_count>self.fault_max:
+            return "FAILURE"
+        for k in self.modules.keys:
+            if self.modules[k]['fault'] is not 0 or self.modules[k]['fault'] in [1,6]:
+                return "FAILURE"
+        return "SUCCESS"
+
+
           
     def update_module_hb(self,module,data):
         self.modules[module]['last_updated'] = time.time()
@@ -80,6 +88,7 @@ class HB(riffle.Domain):
                     send = {}
                     send['modules'] = self.Heartbeat.modules
                     send['fault_count'] = self.Heartbeat.fault_count
+                    sned['system_status'] = self.generate_status()
                     #print(send)
                     self.publish("hb",send)
 
