@@ -497,13 +497,13 @@ $scope.MCM_linegraph_data = [
                 },
                 color: function (d, i) {
                     //Print values here see if you can dynamically generate color
-                    if (d.value < 40){
+                    if (d.value < 100){
                         return "#00FF00"
                     }
-                    else if (d.value >= 40 && d.value < 50){
+                    else if (d.value >= 100 && d.value < 150){
                         return "#FFFF00"
                     }
-                    else if (d.value >= 50){
+                    else if (d.value >= 150){
                         return "#FF0000"
                     }
                 },
@@ -513,7 +513,7 @@ $scope.MCM_linegraph_data = [
                 valueFormat: function(d){
                     return d3.format(',.4f')(d);
                 },
-                forceY: [0,100],
+                forceY: [0,150],
                 duration: 500,
                 xAxis: {
                     axisLabel: ''

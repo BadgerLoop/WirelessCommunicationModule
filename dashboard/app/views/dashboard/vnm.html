@@ -2,7 +2,25 @@
     <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
-            This is where the VNM control stuff is gonna go
+            <div class="panel-heading">Reset Postion</div>
+            <div class="input-group">
+                <span class="input-group-addon">VNM State</span>
+                <select class="form-control" ng-change="update_enter_state('MCM')"  ng-model="MCM_EnterState" ng-options="s.name for s in states">
+                </select>
+                <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update VNM State</button>
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon">X</span>
+                <input type="number" class="form-control"  ng-model="posX">
+                <span class="input-group-addon">Y</span>
+                <input type="number"  class="form-control" ng-model="posY" >
+                <span class="input-group-addon">Z</span>
+                <input type="number"  class="form-control" ng-model="posZ" >
+<!--                 ng-click="update_position()" -->
+
+            </div>
+            <button type="button" class="btn btn-primary btn-block">Submit
+            </button>
         </div>
     </div>
     <div class="col-sm-3" id="line-chart">
