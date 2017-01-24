@@ -98,15 +98,16 @@ class HB(riffle.Domain):
                 self.send_hb(sid,msg)
                     #if (int(sid,16) & from_mask) == from_mask:
                       #  print("Got status for " + module)
-            converted_data = [ts,sid,msg_type]
-            message_spec = parser['messages'][msg_type]
-            index = 0
-            for val in message_spec['values']:
-                formatted_val  = round(int(data_str[index:(index+val['byte_size'])],16)*val['scalar'],val['precision'])
-                # print(formatted_val)
-                converted_data.append(formatted_val)
-                index = index + val['byte_size']
-            converted_batch.append(converted_data)
+            elif parser['messages'][msg_type]['cmd']:
+                converted_data = [ts,sid,msg_type]
+                message_spec = parser['messages'][msg_type]
+                index = 0
+                for val in message_spec['values']:
+                    formatted_val  = round(int(data_str[index:(index+val['byte_size'])],16)*val['scalar'],val['precision'])
+                    # print(formatted_val)
+                    converted_data.append(formatted_val)
+                    index = index + val['byte_size']
+                converted_batch.append(converted_data)
         # print(converted_batch)
         self.publish("data",converted_batch)
 
