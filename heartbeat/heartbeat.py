@@ -80,12 +80,13 @@ class HB(riffle.Domain):
                     send = {}
                     send['modules'] = self.Heartbeat.modules
                     send['fault_count'] = self.Heartbeat.fault_count
-                    print(send)
+                    #print(send)
                     self.publish("hb",send)
-                   
+
     def can_parser(self,data):
         #TODO: Ensure this logic is correct
         converted_batch = []
+        print(data)
         # msg in format [timestamp,sid,msg_type,data]
         for msg in data:
             
@@ -98,15 +99,16 @@ class HB(riffle.Domain):
                 self.send_hb(sid,msg)
                     #if (int(sid,16) & from_mask) == from_mask:
                       #  print("Got status for " + module)
-            elif parser['messages'][msg_type]['cmd']:
+            else:
                 converted_data = [ts,sid,msg_type]
                 message_spec = parser['messages'][msg_type]
-                index = 0
                 for val in message_spec['values']:
-                    formatted_val  = round(int(data_str[index:(index+val['byte_size'])],16)*val['scalar'],val['precision'])
+                    data_value = data_str[:(val['byte_size']*2)]
+                    data_str.replace(data_value,'')
+                    # print(data_value)
+                    formatted_val = round(int(data_value,16)*val['scalar'],val['precision'])
                     # print(formatted_val)
                     converted_data.append(formatted_val)
-                    index = index + val['byte_size']
                 converted_batch.append(converted_data)
         # print(converted_batch)
         self.publish("data",converted_batch)
