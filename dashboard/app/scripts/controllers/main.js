@@ -633,8 +633,9 @@ $riffle.subscribe("data", function(data) {
             //add_message_to_array(msg)
             //console.log("updated: "+ data_val_title +" to: " +data[i][3+j])
         }
+        add_message_to_array(msg)
     }
-    add_message_to_array(data)
+    
     update_chart_values()
     $scope.$apply()
     //Add messages to messages array?
