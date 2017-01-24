@@ -237,7 +237,7 @@
 						"nominal_low": 0,
 						"nominal_high": 0.20
 					},
-					{"title":"VNM_accY", 
+					{	"title":"VNM_accY", 
 						"byte_size":2,
 						"scalar":0.00122,
 						"precision" : 2,
@@ -299,7 +299,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"str",
+						"units":"bool",
 						"nominal_low": 0,
 						"nominal_high": 0
 					}
@@ -312,37 +312,37 @@
 			"byte_length": 4,
 			"cmd": false,
 			"values": [
-					{"title":"VSM_T_motor1", 
+					{	"title":"VSM_T_motor1", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"VSM_T_motor2", 
+					{	"title":"VSM_T_motor2", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"VSM_T_motor3", 
+					{	"title":"VSM_T_motor3", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"VSM_T_motor4", 
+					{	"title":"VSM_T_motor4", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					}
 				]
 			},
@@ -353,37 +353,37 @@
 			"byte_length": 4,
 			"cmd": false,
 			"values": [
-					{"title":"VSM_T_HV1", 
+					{	"title":"VSM_T_HV1", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"VSM_T_HV2", 
+					{	"title":"VSM_T_HV2", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"VSM_T_WCM1",
+					{	"title":"VSM_T_WCM1",
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 60
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"VSM_T_WCM2", 
+					{	"title":"VSM_T_WCM2", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 60
+						"nominal_low": 0,
+						"nominal_high": 150
 					}
 				]
 			},
@@ -399,29 +399,29 @@
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
 					{	"title":"VSM_T_12V1", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
 					{	"title":"VSM_T_12V2", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"Celcius",
-						"nominal_low": 15,
-						"nominal_high": 50
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
 					{	"title":"VSM_Door_1", 
 						"byte_size":1,
 						"scalar":1,
-						"precision" : 2,
+						"precision" : 0,
 						"units":"",
 						"nominal_low": 0,
 						"nominal_high": 0
@@ -429,7 +429,7 @@
 					{	"title":"VSM_Door_2", 
 						"byte_size":1,
 						"scalar":1,
-						"precision" : 2,
+						"precision" : 0,
 						"units":"",
 						"nominal_low": 0,
 						"nominal_high": 0
@@ -439,8 +439,8 @@
 						"scalar":1.60217,
 						"precision" : 2,
 						"units":"Pa",
-						"nominal_low": 600,
-						"nominal_high": 101326
+						"nominal_low": 0,
+						"nominal_high": 105000
 					}
 				]
 			},
@@ -451,61 +451,61 @@
 			"byte_length": 7,
 			"cmd": false,
 			"values": [
-					{"title":"BCM_Brake_PWM1_fault", 
+					{	"title":"BCM_Brake_PWM1_intensity", 
 						"byte_size":1,
-						"scalar":1,
-						"precision" : 0,
+						"scalar":0.39063,
+						"precision" : 4,
 						"units":"bool",
 						"nominal_low": 0,
-						"nominal_high": 0
+						"nominal_high": 100
 					},
-					{"title":"BCM_Brake_PWM2_fault", 
+					{	"title":"BCM_Brake_PWM2_intensity", 
 						"byte_size":1,
-						"scalar":1,
-						"precision" : 0,
+						"scalar":0.39063,
+						"precision" : 4,
 						"units":"bool",
 						"nominal_low": 0,
-						"nominal_high": 0
+						"nominal_high": 100
 					},
-					{"title":"BCM_Brake_PWM3_fault", 
+					{	"title":"BCM_Brake_PWM3_intensity", 
 						"byte_size":1,
-						"scalar":1,
-						"precision" : 0,
-						"units":"bool",
+						"scalar":0.39063,
+						"precision" : 4,
+						"units":"",
 						"nominal_low": 0,
-						"nominal_high": 0
+						"nominal_high": 100
 					},
-					{"title":"BCM_Brake_PWM4_fault", 
+					{	"title":"BCM_Brake_PWM4_intensity", 
 						"byte_size":1,
-						"scalar":1,
-						"precision" : 0,
-						"units":"bool",
+						"scalar":0.39063,
+						"precision" : 4,
+						"units":"",
 						"nominal_low": 0,
-						"nominal_high": 0
+						"nominal_high": 100
 					},
-					{"title":"BCM_Air_system", 
+					{	"title":"BCM_Air_system", 
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"bool",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high": 1
 					},
-					{"title":"BCM_Pressure_1", 
+					{	"title":"BCM_Pressure_1", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"PSI",
-						"nominal_low": 80,
-						"nominal_high": 120
+						"nominal_low": 0,
+						"nominal_high": 150
 					},
-					{"title":"BCM_Pressure_2", 
+					{	"title":"BCM_Pressure_2", 
 						"byte_size":1,
 						"scalar":0.58594,
 						"precision" : 2,
 						"units":"PSI",
-						"nominal_low": 80,
-						"nominal_high": 120
+						"nominal_low": 0,
+						"nominal_high": 150
 					}
 				] 
 			},
@@ -516,7 +516,7 @@
 			"byte_length": 4,
 			"cmd": false,
 			"values": [
-					{"title":"BCM_Brake_1_spd", 
+					{	"title":"BCM_Brake_1_spd", 
 						"byte_size":2,
 						"scalar":0.07629,
 						"precision" : 2,
@@ -524,7 +524,7 @@
 						"nominal_low": 0,
 						"nominal_high": 3000
 					},
-					{"title":"BCM_Brake_2_spd", 
+					{	"title":"BCM_Brake_2_spd", 
 						"byte_size":2,
 						"scalar":0.07629,
 						"precision" : 2,
@@ -574,7 +574,7 @@
 						"nominal_low": 0,
 						"nominal_high": 0
 					},
-					{"title":"MCM_Kelly_2", 
+					{	"title":"MCM_Kelly_2", 
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
@@ -582,7 +582,7 @@
 						"nominal_low": 0,
 						"nominal_high": 0
 					},
-					{"title":"MCM_Kelly_3", 
+					{	"title":"MCM_Kelly_3", 
 						"byte_size":1,
 						"scalar":1,
 						"precision": 0,
@@ -590,7 +590,7 @@
 						"nominal_low": 0,
 						"nominal_high": 0
 					},
-					{"title":"MCM_Kelly_4", 
+					{	"title":"MCM_Kelly_4", 
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
@@ -604,41 +604,17 @@
 			"id": 19,
 			"module":"MCM",
 			"name": "MCM_cmdV",
-			"byte_length": 4,
+			"byte_length": 2,
 			"cmd": false,
 			"values": [
-					{"title":"MCM_HB1_cmdV", 
-						"byte_size":1,
-						"scalar":0.01953,
+					{	"title":"MCM_HB_cmdV", 
+						"byte_size":2,
+						"scalar":1,
 						"precision" : 2,
 						"units":"Volts",
 						"nominal_low": 0,
 						"nominal_high": 5
 					},
-					{"title":"MCM_HB2_cmdV", 
-						"byte_size":1,
-						"scalar":0.01953,
-						"precision" : 2,
-						"units":"Volts",
-						"nominal_low": 0,
-						"nominal_high": 5
-					},
-					{"title":"MCM_HB3_cmdV", 
-						"byte_size":1,
-						"scalar":0.01953,
-						"precision" : 2,
-						"units":"Volts",
-						"nominal_low": 0,
-						"nominal_high": 5
-					},
-					{	"title":"MCM_HB4_cmdV", 
-						"byte_size":1,
-						"scalar":0.01953,
-						"precision" : 2,
-						"units":"Volts",
-						"nominal_low": 0,
-						"nominal_high": 5
-					}
 				]
 			},
 			{
@@ -654,7 +630,7 @@
 						"precision" : 2,
 						"units":"RPM",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 5000
 					},
 					{"title":"MCM_HB2_spd", 
 						"byte_size":2,
@@ -662,7 +638,7 @@
 						"precision" : 2,
 						"units":"RPM",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 5000
 					}
 				]
 			},
@@ -679,7 +655,7 @@
 						"precision" : 2,
 						"units":"RPM",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 5000
 					},
 					{	"title":"MCM_HB4_spd", 
 						"byte_size":2,
@@ -687,7 +663,7 @@
 						"precision" : 2,
 						"units":"RPM",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 5000
 					}
 				]
 			},
@@ -760,7 +736,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"",
+						"units":"state",
 						"nominal_high":0,
 						"nominal_low":0
 					}
@@ -854,8 +830,9 @@
 			"values": [
 					{	"title":"Contactor_CMD", 
 						"byte_size":1,
-						"scalar":[0],
-						"units":[0],
+						"scalar":1,
+						"precision" : 0,
+						"units":"",
 						"nominal_high":0,
 						"nominal_low":0
 					}
@@ -877,35 +854,35 @@
 			"values": [
 					{	"title":"BMS_pack_summed", 
 						"byte_size":2,
-						"scalar":1,
-						"precision" : 2,
-						"units":"RPM",
+						"scalar":0.00232,
+						"precision" : 3,
+						"units":"Volts",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 152
 					},
-					{	"title":"BMS_TPC_ADC", 
+					{	"title":"BMS_TP_ADC", 
 						"byte_size":2,
-						"scalar":1,
-						"precision" : 2,
-						"units":"RPM",
+						"scalar":0.00232,
+						"precision" : 3,
+						"units":"Volts",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 152
 					},
 					{	"title":"BMS_pack_current", 
 						"byte_size":2,
-						"scalar":1,
-						"precision" : 2,
-						"units":"RPM",
+						"scalar":0.01526,
+						"precision" : 3,
+						"units":"Amps",
 						"nominal_low": 0,
-						"nominal_high": 600
+						"nominal_high": 1000
 					},
 					{	"title":"BMS_populated_cells", 
 						"byte_size":1,
-						"scalar":1,
-						"precision" : 2,
+						"scalar":0.13672,
+						"precision" : 3,
 						"units":"RPM",
-						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_low": 1,
+						"nominal_high": 36
 					}
 
 				]
@@ -918,20 +895,36 @@
 			"cmd": false,
 			"values": [
 					{	"title":"BMS_low_cell_voltage", 
-						"byte_size":3,
-						"scalar":1,
+						"byte_size":2,
+						"scalar":0.00008,
 						"precision" : 2,
-						"units":"RPM",
+						"units":"Volts",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 5
+					},
+					{	"title":"BMS_low_cell_voltage", 
+						"byte_size":1,
+						"scalar":0.13672,
+						"precision" : 0,
+						"units":"Volts",
+						"nominal_low": 1,
+						"nominal_high": 36
 					},
 					{	"title":"BMS_high_cell_voltage", 
-						"byte_size":3,
-						"scalar":1,
+						"byte_size":2,
+						"scalar":0.00008,
 						"precision" : 2,
 						"units":"RPM",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 5
+					},
+					{	"title":"BMS_high_cell_voltage", 
+						"byte_size":1,
+						"scalar":0.14063,
+						"precision" : 0,
+						"units":"RPM",
+						"nominal_low": 0,
+						"nominal_high": 36
 					}
 				]
 			},
@@ -942,29 +935,45 @@
 			"byte_length": 6,
 			"cmd": false,
 			"values": [
+					{	"title":"BMS_high_temperature", 
+						"byte_size":1,
+						"scalar":0.46875,
+						"precision" : 2,
+						"units":"C",
+						"nominal_low": -40,
+						"nominal_high": 80
+					},
 					{	"title":"BMS_high_thermistor", 
-						"byte_size":2,
-						"scalar":1,
+						"byte_size":1,
+						"scalar":0.62109,
 						"precision" : 2,
 						"units":"RPM",
-						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_low": 1,
+						"nominal_high": 160
+					},
+					{	"title":"BMS_low_temperature", 
+						"byte_size":1,
+						"scalar":0.46875,
+						"precision" : 0,
+						"units":"ID",
+						"nominal_low": -40,
+						"nominal_high": 80
 					},
 					{	"title":"BMS_low_thermistor", 
-						"byte_size":2,
-						"scalar":1,
-						"precision" : 2,
+						"byte_size":1,
+						"scalar":0.62109,
+						"precision" : 0,
 						"units":"RPM",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 160
 					},
 					{	"title":"BMS_fan_voltage", 
 						"byte_size":2,
-						"scalar":1,
-						"precision" : 2,
-						"units":"RPM",
+						"scalar":0.00023,
+						"precision" : 3,
+						"units":"Volts",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 15
 					}
 				]
 			},
@@ -975,37 +984,37 @@
 			"byte_length": 6,
 			"cmd": false,
 			"values": [
-					{	"title":"BMS_low_internal_r", 
+					{	"title":"BMS_low_internal_resistance", 
 						"byte_size":2,
-						"scalar":1,
-						"precision" : 0,
-						"units":"ohm",
-						"nominal_low": 0,
-						"nominal_high": 6000
+						"scalar":0.00023,
+						"precision" : 2,
+						"units":"mOhm",
+						"nominal_low": 0.01,
+						"nominal_high": 15
 					},
 					{	"title":"BMS_low_cell_resistance", 
 						"byte_size":1,
-						"scalar":1,
+						"scalar":0.13672,
 						"precision" : 0,
-						"units":"ohm",
+						"units":"id",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 36
 					},
 					{	"title":"BMS_high_internal_resistance", 
 						"byte_size":2,
-						"scalar":1,
-						"precision" : 0,
-						"units":"RPM",
-						"nominal_low": 0,
-						"nominal_high": 6000
+						"scalar":0.00023,
+						"precision" : 2,
+						"units":"mOhm",
+						"nominal_low": 0.01,
+						"nominal_high": 15
 					},
 					{	"title":"BMS_high_cell_resistance", 
 						"byte_size":1,
-						"scalar":1,
+						"scalar":0.13672,
 						"precision" : 0,
-						"units":"RPM",
+						"units":"id",
 						"nominal_low": 0,
-						"nominal_high": 6000
+						"nominal_high": 36
 					}
 				]
 			},
@@ -1020,7 +1029,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"ohm",
+						"units":"state",
 						"nominal_low": 0,
 						"nominal_high": 0
 					}
