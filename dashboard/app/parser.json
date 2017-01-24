@@ -614,7 +614,7 @@
 						"units":"Volts",
 						"nominal_low": 0,
 						"nominal_high": 5
-					},
+					}
 				]
 			},
 			{
