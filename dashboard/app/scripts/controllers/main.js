@@ -402,6 +402,7 @@ $scope.MCM_linegraph_data = [
                 ]
             }
         ]
+        x = new Date().now()
         $scope.MCM_linegraph_data[0].values.push([x,$scope.MCM_HB1_spd.val]);
         $scope.MCM_linegraph_data[1].values.push([x,$scope.MCM_HB2_spd.val]);
         $scope.MCM_linegraph_data[2].values.push([x,$scope.MCM_HB3_spd.val]);
