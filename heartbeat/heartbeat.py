@@ -48,7 +48,7 @@ class Heartbeat():
         for k in self.modules.keys:
             if self.modules[k]['fault'] is not 0 or self.modules[k]['fault'] in [1,6]:
                 return "FAILURE"
-        return "SUCCESS"
+        return "GOOD"
 
 
           
@@ -95,7 +95,7 @@ class HB(riffle.Domain):
     def can_parser(self,data):
         #TODO: Ensure this logic is correct
         converted_batch = []
-        print(data)
+        #print(data)
         # msg in format [timestamp,sid,msg_type,data]
         for msg in data:
             
@@ -115,8 +115,9 @@ class HB(riffle.Domain):
                     # print(data_value)
                     formatted_val = round(int(data_value,16)*val['scalar'],val['precision'])
                     # print(formatted_val)
-                    converted_data.append(formatted_val)
-                converted_batch.append(converted_data)
+                    #converted_data.append(formatted_val)
+                    converted_batch.append([val['title'],formatted_val])
+                #converted_batch.append(converted_data)
         # print(converted_batch)
         self.publish("data",converted_batch)
 
@@ -127,7 +128,7 @@ class HB(riffle.Domain):
             self.Heartbeat.run_hb = True
             #Add more logic to check if hb is still running
             print("starting hb subprocess")
-            self.p = subprocess.Popen("python hb-driver.py %s" %data[1], stdout=subprocess.PIPE, shell=True)
+            self.p = subprocess.Popen("python hb-driver.py %s %s" %(data[1],args['backend_location']), stdout=subprocess.PIPE, shell=True)
         elif data[0] == 0:
             if self.p:
                 self.p.kill()

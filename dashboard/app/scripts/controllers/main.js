@@ -16,6 +16,7 @@ angular.module('sbAdminApp')
     $scope.hb_fault_tollerance = 0
     $scope.msgTypes = []
     $scope.parser = {}
+    $scope.system_status = "GOOD"
     $scope.colors = {
         green: "#00FF00",
         yellow : "#FFFF00",
@@ -172,7 +173,10 @@ angular.module('sbAdminApp')
         if ($scope.custMsgType == 'Template'){
             endpoint = $scope.selectedTemplate.endpoint
             message = $scope.selectedTemplate.message
-            $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.selectedTemplate.sid,type: $scope.selectedTemplate.name ,data: $scope.data })
+            $scope.sentMessages.push({timestamp: new Date().getTime(),
+                                      sid: $scope.selectedTemplate.sid,
+                                      type: $scope.selectedTemplate.label ,
+                                      data: $scope.selectedTemplate.data })
         }
         else if ($scope.custMsgType == 'Custom'){
             console.log($scope.selectedType)
@@ -182,16 +186,17 @@ angular.module('sbAdminApp')
                 if ($scope.selectedType.name == 'ENTER_STATE'){
                     data = $scope.customData.value
                 }
-
                 message = $scope.custSid+"#"+ $scope.selectedType.hex + data
                 console.log("Custom message to be sent: " + message)
-                $scope.sentMessages.push({timestamp: new Date().getTime(),sid: $scope.custSid,type: $scope.selectedType.label ,data: $scope.selectedType.label })
+                $scope.sentMessages.push({timestamp: new Date().getTime(),
+                                          sid: $scope.custSid,
+                                          type: $scope.selectedType.label ,
+                                          data: $scope.selectedType.label })
         }
         else if ($scope.custMsgType == 'Raw'){
             console.log("raw messages are not recorded in sent table")
             message = $scope.rawMessage
             endpoint = 'cmd'
-
         }
         $riffle.publish(endpoint,message)
         console.log("Sent message: " + message)
@@ -199,7 +204,6 @@ angular.module('sbAdminApp')
 
     $scope.toggleCustMsgType = function(type){
         $scope.custMsgType = type;
-
     }
 
     $scope.updateSID = function(){
@@ -347,12 +351,34 @@ $scope.MCM_linegraph_data = [
                 values: [] 
             }
         ];
+$scope.BCM_linegraph_data = [
+            {
+                key: "Brake 1",
+                values: []
+                //mean: 250
+            },
+            {
+                key: "Brake 2",
+                values: []
+                //mean: -60
+            },
+
+            {
+                key: "Brake 3",
+                //mean: 125,
+                values: [] 
+            },
+            {
+                key: "Brake 4",
+                values: [] 
+            }
+        ];
     var x = new Date().getTime();
     var update_chart_values = function(){
         $scope.status_bar_data.measures = [($scope.VNM_posX.val || 0)]
         $scope.VSM_barchart_data = [
             {
-                key: "Cumulative Return",
+                key: "Temperatures",
                 values: [
                     {
                         "label" : "HV1" ,
@@ -402,7 +428,8 @@ $scope.MCM_linegraph_data = [
                 ]
             }
         ]
-        x = new Date().now()
+        x = new Date().getTime();
+        // Add MCM Wheel RPM speed
         $scope.MCM_linegraph_data[0].values.push([x,$scope.MCM_HB1_spd.val]);
         $scope.MCM_linegraph_data[1].values.push([x,$scope.MCM_HB2_spd.val]);
         $scope.MCM_linegraph_data[2].values.push([x,$scope.MCM_HB3_spd.val]);
@@ -420,45 +447,30 @@ $scope.MCM_linegraph_data = [
         if ($scope.MCM_linegraph_data[3].values.length > 20){
             $scope.MCM_linegraph_data[3].values.shift();
         }
+
+        // Add BCM Wheel RPM speed
+        $scope.BCM_linegraph_data[0].values.push([x,$scope.BCM_Brake_1_spd.val]);
+        $scope.BCM_linegraph_data[1].values.push([x,$scope.BCM_Brake_2_spd.val]);
+        $scope.BCM_linegraph_data[2].values.push([x,$scope.BCM_Brake_3_spd.val]);
+        $scope.BCM_linegraph_data[3].values.push([x,$scope.BCM_Brake_4_spd.val]);
+        //Conserve memory by shifting out old data
+        if ($scope.BCM_linegraph_data[0].values.length > 20){
+            $scope.BCM_linegraph_data[0].values.shift();
+        }
+        if ($scope.BCM_linegraph_data[1].values.length > 20){
+            $scope.BCM_linegraph_data[1].values.shift();
+        }
+        if ($scope.BCM_linegraph_data[2].values.length > 20){
+            $scope.BCM_linegraph_data[2].values.shift();
+        }
+        if ($scope.BCM_linegraph_data[3].values.length > 20){
+            $scope.BCM_linegraph_data[3].values.shift();
+        }
     }
+    setInterval(function(){
+        update_chart_values()
+    }, 500);
 
-    //The function that spams data
-    // setInterval(function(){
-    //     //Update line chart
-    //     // if (!$scope.run) return;
-    //     var parser_keys = Object.keys($scope.parser.msg_type)
-    //     for (var k in $scope.parser.msg_type){
-    //         var mesage_obj = $scope.parser.msg_type[k]
-    //         if (!mesage_obj.cmd){
-    //             for (var g = 0; g<mesage_obj.values.length; g++){
-
-                
-    //                 var scope_var_key = Object.keys(mesage_obj.values[g])[0]
-    //                 //console.log(scope_var_key)
-    //                 var max = $scope[scope_var_key].max
-    //                 var max = max + (max*.05)
-    //                 var min = $scope[scope_var_key].min
-    //                 var min = min - (max*.05)
-    //                 var offset = Math.floor(max * .1)
-    //                 $scope[scope_var_key].val = Math.floor(Math.random() * (max - min) + min);
-    //                 $scope[scope_var_key].status_style = $scope.get_status($scope[scope_var_key].val,$scope[scope_var_key].max,$scope[scope_var_key].min);
-    //                 //console.log($scope[scope_var_key].status_style)
-    //                 //console.log($scope.VNM_posX.val)
-    //                 //$scope.d3_api.refresh();
-
-    //             }
-    //         }
-    //     }
-    //     // for(var b = 0; b<parser_keys.length; b++){
-    //     //     message = parser_keys
-    //     //     for(var c = 0 c<parser_keys){
-
-    //     //     }
-    //     // }
-    //    update_chart_values();
-    //    $scope.$apply(); // update both chart
-    //    // $scope.d3_api.refresh();
-    // }, 500);
 //////////////////////////VSM////////////////////////////
 
         $scope.VSM_T_HV1 = {}
@@ -472,20 +484,8 @@ $scope.MCM_linegraph_data = [
         $scope.VSM_T_cabin = {}
         $scope.VSM_T_12V1 = {}
         $scope.VSM_T_12V2 = {}
-        // $scope.temp_chart_labels = ['HV1', 'HV2', 'WCM1', 'WCM2', 'Motor1', 'Motor2', 'Motor3'];
-        // $scope.temp_chart_series = ["Temperature C"]
-        // $scope.temp_chart_data =[
-        //                             [
-        //                             ($scope.VSM_T_HV1.val || 0),
-        //                             ($scope.VSM_T_HV2.val || 0),
-        //                             $scope.VSM_T_WCM1.val,
-        //                             $scope.VSM_T_WCM2.val,
-        //                             $scope.VSM_T_motor1.val,
-        //                             $scope.VSM_T_motor2.val,
-        //                             $scope.VSM_T_motor3.val,
-        //                             $scope.VSM_T_motor4.val
-        //                             ]
-        //                         ]
+
+        //Temperature bar chart
         $scope.VSM_barchart_options = {
             chart: {
                 type: 'discreteBarChart',
@@ -497,7 +497,6 @@ $scope.MCM_linegraph_data = [
                     left: 55
                 },
                 color: function (d, i) {
-                    //Print values here see if you can dynamically generate color
                     if (d.value < 100){
                         return "#00FF00"
                     }
@@ -525,11 +524,12 @@ $scope.MCM_linegraph_data = [
                 }
             }
         };
+
         //Hacky JS thing to get the chart to work
 
         $scope.VSM_barchart_data = [
             {
-                key: "Cumulative Return",
+                key: "Temperatures",
                 values: [
                     {
                         "label" : "HV1" ,
@@ -604,19 +604,6 @@ $scope.get_status = function(val, max, min){
     }
 }
 
-$scope.get_progress = function() {
-    $scope.stacked = [];
-    var types = ['success', 'info', 'warning', 'danger'];
-
-    for (var i = 0, n = Math.floor(Math.random() * 4 + 1); i < n; i++) {
-        var index = Math.floor(Math.random() * 4);
-        $scope.progress.push({
-          value: Math.floor(Math.random() * 30 + 1),
-          type: types[index]
-        });
-    }
-  };
-
 //Don't think we need this
 // $scope.get_progress = function() {
 //     $scope.stacked = [];
@@ -633,15 +620,17 @@ $scope.get_progress = function() {
 
 // $scope.get_progress();
 
-var add_message_to_array = function(msg){
+
+
+var add_message_to_array = function(timestamp,sid,type,data){
     if ($scope.messages.length > 30){ //Limit number of messages in array to conserve memory
         $scope.messages.shift();
     }
-    var timestamp = new Date(parseFloat(msg[0]))
-    var sid = msg[1]
-    var type = msg[2]
-    msg.splice(0,3)
-    console.log(msg)
+    // var timestamp = new Date(parseFloat(msg[0]))
+    // var sid = msg[1]
+    // var type = msg[2]
+    // msg.splice(0,3)
+    // console.log(msg)
     $scope.messages.push({
                             timestamp: timestamp,
                             sid:sid,
@@ -655,39 +644,36 @@ $riffle.subscribe("data", function(data) {
     //Data will be in the format [[timestamp, sid, message type, data]]
     //console.log(data)
     for (var i = 0; i<data.length; i++){
-        var msg = data[i]
-        console.log(msg)
-        var sid = msg[1]
-        var msg_type = msg[2]
-        var msg_spec = $scope.parser.messages[msg_type]
-        for (var j = 0; j<msg_spec.values.length; j++){
-            var data_val_title = msg_spec.values[j].title
-            $scope[data_val_title].val = msg[3+j]
-            $scope[data_val_title].status_style = $scope.get_status($scope[data_val_title].val,$scope[data_val_title].max, $scope[data_val_title].min)
-            //add_message_to_array(msg)
-            //console.log("updated: "+ data_val_title +" to: " +data[i][3+j])
-        }
-        add_message_to_array(msg)
+        // console.log(data[i][0])
+        // console.log(data[i][1])
+        var title = data[i][0]
+        var max = $scope[title].max
+        var min = $scope[title].min
+
+        $scope[data[i][0]].val = data[i][1]
+        $scope[title].status_style = $scope.get_status($scope[title].val,max,min)
     }
-    
-    update_chart_values()
-    $scope.$apply()
-    //Add messages to messages array?
+    //$scope.$apply()
 });
 
 $riffle.subscribe("hb", function(data) {
     var modules = Object.keys(data['modules'])
     for (var f = 0; f<modules.length; f++){
-        console.log(modules[f])
+        //console.log(modules[f])
         $scope[modules[f]] = data['modules'][modules[f]]
+
     }
-    console.log(data)
+    $scope['system_status'] = data['system_status']
+});
+
+$riffle.subscribe("can", function(data) {
+    console.log("got can data")
     //Data will be in the format [[timestamp, sid, message type, data]]
     //console.log(data)
-    $scope.$apply()
-    //Add messages to messages array?
+    for (var i = 0; i<data.length; i++){
+        add_message_to_array(data[i][0],data[i][1],data[i][2],data[i][3])
+    }
 });
-    
 
 //////////////////////////GUAGE CONGFIGURAION///////////////////////////
     $scope.upperLimit = 25;
@@ -831,4 +817,41 @@ $riffle.subscribe("hb", function(data) {
                 }
             }
         };
+
+    //The function that spams data
+    // setInterval(function(){
+    //     //Update line chart
+    //     // if (!$scope.run) return;
+    //     var parser_keys = Object.keys($scope.parser.msg_type)
+    //     for (var k in $scope.parser.msg_type){
+    //         var mesage_obj = $scope.parser.msg_type[k]
+    //         if (!mesage_obj.cmd){
+    //             for (var g = 0; g<mesage_obj.values.length; g++){
+
+                
+    //                 var scope_var_key = Object.keys(mesage_obj.values[g])[0]
+    //                 //console.log(scope_var_key)
+    //                 var max = $scope[scope_var_key].max
+    //                 var max = max + (max*.05)
+    //                 var min = $scope[scope_var_key].min
+    //                 var min = min - (max*.05)
+    //                 var offset = Math.floor(max * .1)
+    //                 $scope[scope_var_key].val = Math.floor(Math.random() * (max - min) + min);
+    //                 $scope[scope_var_key].status_style = $scope.get_status($scope[scope_var_key].val,$scope[scope_var_key].max,$scope[scope_var_key].min);
+    //                 //console.log($scope[scope_var_key].status_style)
+    //                 //console.log($scope.VNM_posX.val)
+    //                 //$scope.d3_api.refresh();
+    //             }
+    //         }
+    //     }
+    //     // for(var b = 0; b<parser_keys.length; b++){
+    //     //     message = parser_keys
+    //     //     for(var c = 0 c<parser_keys){
+
+    //     //     }
+    //     // }
+    //    update_chart_values();
+    //    $scope.$apply(); // update both chart
+    //    // $scope.d3_api.refresh();
+    // }, 500);
   });

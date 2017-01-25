@@ -2,7 +2,7 @@
     "Agent": "xs.node",
     "RequestLimits": [
         ["xs.demo", 20],
-        ["xs.node", 1000],
+        ["xs.node", 10000],
         ["xs", 100],
         ["", 10]
     ],

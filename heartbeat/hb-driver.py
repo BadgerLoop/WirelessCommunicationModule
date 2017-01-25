@@ -3,7 +3,7 @@ import time
 import os
 import sys
 
-fabric = "ws://192.168.1.99:9000"
+fabric = sys.argv[2]
 interval_ms = int(sys.argv[1])
 current_milli_time = lambda: int(round(time.time() * 1000))
 class HB(riffle.Domain):

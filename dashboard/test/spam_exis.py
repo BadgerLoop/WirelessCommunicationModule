@@ -30,7 +30,7 @@ def generate_sid(module):
     if module is not 'ALL' and 'from' in parser['SID'][module]:
         int_sid = parser['SID'][module]['from']
         sid = "{0:0{1}X}".format(int_sid,3)
-        print(sid)
+        #print(sid)
     else:
         sid = '000'
     return sid
@@ -42,17 +42,13 @@ def encode_data(data, bytes):
                 {'mask':0xFFFFFF, 'format_str':"%03X"},
                 {'mask':0xFFFFFFFF, 'format_str': "%04X"},
                 {'mask':0xFFFFFFFFFF, 'format_str': "%05X"},
-                {'mask':0xFFFFFFFFFFFF, 'format_str': "%012X"},
-                {'mask':0xFFFFFFFFFFFFFF, 'format_str': "%014X"}
+                {'mask':0xFFFFFFFFFFFF, 'format_str': "%06X"},
+                {'mask':0xFFFFFFFFFFFFFF, 'format_str': "%07X"}
                 ]
-
-    return encoding[bytes]['format_str'] % (data & encoding[bytes]['mask'],)
-    # data = int(data & byte_mask[bytes])
-    # encoded = format(data, 'x')
-    # length = len(encoded)
-    # encoded = encoded.zfill(length+length%2)
-    # print("Data: %s Byte Size: %s length %s" %(encoded ,bytes, len(encoded)))
-    # return encoded
+    print(data)
+    encoded_data = encoding[bytes]['format_str'] % (data & encoding[bytes]['mask'],)
+    #print(encoded_data)
+    return encoded_data 
 
 
 
@@ -60,7 +56,7 @@ def generate_message():
     print("Generating random message")
     data_hex = ""
     msg_spec = pick_message()
-    print(msg_spec)
+    #print(msg_spec)
     while msg_spec['cmd']:
         msg_spec = pick_message()
 
@@ -70,7 +66,7 @@ def generate_message():
 
     for val in msg_spec['values']:
         #print(val.keys()[0])
-        if 'nominal_high' in val and 'nominal_low' in val and 'scalar' in val and 'byte_size' in val and str(val['units']) != 'str':
+        if 'state' not in val or 'bool' not in val:
             off = val['nominal_high'] * .1
             high = val['nominal_high'] + off
             low = val['nominal_low'] - off
@@ -80,9 +76,13 @@ def generate_message():
             #fstring = '{:0' + str(byte_size*2) + 'x}'
             #print("0x%08X\n", x)f string.format(data)
             data_hex = data_hex + encode_data(data, byte_size)
-            print(data_hex)
+            #print(data_hex)
+            #print("Size: %s" %byte_size)
+
+        elif 'bool' in val:
+            data = int(random.randint(0, 1))
         else:
-            data_hex = "00"
+            data = int(random.randint(0, 1))
 
     
     print("SID: %s Type: %s Data: %s " %(sid,msg_type,data_hex))
@@ -108,10 +108,10 @@ class spammer(riffle.Domain):
                 #subprocess.call('cansend %s %s#%s%s'%(args['can_interface'],sid,msg_type,data) , shell=True)
             else:
                 batch = []
-                for i in range(0,args['batch_size']):
+                for i in range(0,int(args['batch_size'])):
                     sid, msg_type, data = generate_message()
                     batch.append([time.time(),sid,msg_type,data])
-                    self.send_exis(batch)
+                self.send_exis(batch)
             #self.publish("can",[[str(current_milli_time()),"100","00","00 00"],[str(current_milli_time()),"100","00","00 00"]]) # Using for tests
             wait_time = (1/int(args['frequency_hz']))
             time.sleep(sleep_time)
