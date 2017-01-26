@@ -2,7 +2,10 @@
     <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
-            This is where the BMS control stuff is gonna go
+            <span class="input-group-addon">BMS State</span>
+            <select class="form-control" ng-change="update_enter_state('BMS')"  ng-model="BMS_EnterState" ng-options="s.name for s in states">
+            </select>
+            <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update</button>
         </div>
     </div>
     <div class="col-sm-3" id="line-chart">
@@ -35,37 +38,46 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Voltage</th>
-                            <th>Temperature</th>
-                            <th>Resistance</th>
+                            <th>Voltage V</th>
+                            <th>Temperature C</th>
+                            <th>Resistance mOhm</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><b>Low</b></td>
-                            <td ng-class="states[MCM.prev].level || 'info'">stuff</td>
-                            <td ng-class="states[MCM.cur].level || 'info'"><b>stuff</b></td>
-                            <td ng-class="states[MCM.next].level || 'info'">stuff</td>
+                            <td ng-class="BMS_low_cell_voltage.status_style">{{BMS_low_cell_voltage.val}}</td>
+                            <td ng-class="BMS_low_temperature.status_style">{{BMS_low_temperature.val}}</td>
+                            <td ng-class="BMS_low_internal_resistance.status_style"><b>{{BMS_low_internal_resistance.val}}</b></td>
                         </tr>
                         <tr>
                             <td><b>Low ID</b></td>
-                            <td ng-class="states[VNM.prev].level || 'info'">stuff</td>
-                            <td ng-class="states[VNM.cur].level || 'info'"><b>stuff</b></td>
-                            <td ng-class="states[VNM.next].level || 'info'">stuff</td>
+                            <td ng-class="'info'">{{BMS_low_cell_voltage_id.val}}</td>
+                            <td ng-class="'info'"><b>{{BMS_low_thermistor.val}}</b></td>
+                            <td ng-class="'info'">{{BMS_low_cell_resistance_id.val}}</td>
                         </tr>
                         <tr>
                             <td><b>High</b></td>
-                            <td ng-class="states[VSM.prev].level || 'info'">stuff</td>
-                            <td ng-class="states[VSM.cur].level || 'info'"><b>stuff</b></td>
-                            <td ng-class="states[VSM.next].level || 'info'">stuff</td>
+                            <td ng-class="BMS_high_cell_voltage.status_style || 'info'">{{BMS_high_cell_voltage.val}}</td>
+                            <td ng-class="BMS_high_temperature.status_style || 'info'"><b>{{BMS_high_temperature.val}}</b></td>
+                            <td ng-class="BMS_high_internal_resistance.status_style || 'info'">{{BMS_high_internal_resistance.val}}</td>
                         </tr>
                         <tr>
                             <td><b>High ID</b></td>
-                            <td ng-class="states[BCM.prev].level || 'info'">stuff</td>
-                            <td ng-class="states[BCM.cur].level || 'info'"><b>stuff</b></td>
-                            <td ng-class="states[BCM.next].level || 'info'">stuff</td>
+                            <td ng-class="'info'">{{BMS_high_cell_voltage_id.val}}</td>
+                            <td ng-class="'info'"><b>{{BMS_high_thermistor.val}}</b></td>
+                            <td ng-class="'info'">{{BMS_high_cell_resistance_id.val}}</td>
                         </tr>
                     </tbody>
+                </table>
+                <br></br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Relay Status</th>
+                            <th ng-class="info">{{BMS_relay_status.val}}</th>
+                        </tr>
+                    </thead>
                 </table>
         </div>
     </div> 
