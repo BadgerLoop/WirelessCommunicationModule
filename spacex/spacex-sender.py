@@ -112,7 +112,6 @@ class telemetry():
     def send_packet(self):
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         #sock.bind(('localhost', 3000)) 
-
         pattern = '!BBi7I'
         packet = struct.pack(pattern, 
             team_id,
@@ -146,15 +145,29 @@ class listener(riffle.Domain):
                 self.telemetry.send_packet()
                 self.telemetry.ts = datetime.now()
             # Do something if data is not valid i.e. there are null values and such
+def test_packet():
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        #sock.bind(('localhost', 3000)) 
+        pattern = '!BBi7I'
+        packet = struct.pack(pattern, 
+            1,
+            1,
+            2,
+            56768,
+            567,
+            56768,
+            5676,
+            56768,
+            56768,
+            23) # Make sure that these values fit into the struct appropriately
+        sock.sendto(packet, (UDP_IP, UDP_PORT)) 
+
+
 def main():
     riffle.SetFabric(args['backend_location'])
     listener('xs.node').join()
-    # tel = telemetry()
-    # tel.update_telemetry('blah','04','aaaa')
-    # dt = datetime.now()
-    # time.sleep(.01)
-    # timed = datetime.now() - dt
-    # print(timed.microseconds/1000)
+    # test_packet()
+
 
 if __name__ == "__main__":
     main()

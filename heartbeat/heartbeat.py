@@ -119,11 +119,14 @@ class HB(riffle.Domain):
                     data_value = data_str[:(val['byte_size']*2)]
                     data_str.replace(data_value,'',1)
                     # print(data_value)
-                    formatted_val = round(int(data_value,16)*val['scalar'],val['precision'])
+                    if val['units'] in ['int','count','status','state']:
+                        formatted_val = int(data_value,16)
+                    else:
+                        formatted_val = round(int(data_value,16)*val['scalar'],val['precision'])
                     # print(formatted_val)
                     #converted_data.append(formatted_val)
-                    if 'STRIP' in val['title']:
-                        print(val['title'] + ": " + str(int(data_value,16)))
+                    # if 'STRIP' in val['title']:
+                    #     print(val['title'] + ": " + str(int(data_value,16)))
                     converted_batch.append([val['title'],formatted_val])
                 # print("converting data")
                 #converted_batch.append(converted_data)
