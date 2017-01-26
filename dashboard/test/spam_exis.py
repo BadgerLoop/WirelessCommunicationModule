@@ -66,10 +66,11 @@ def generate_message():
 
     for val in msg_spec['values']:
         #print(val.keys()[0])
-        if 'state' not in val or 'bool' not in val:
-            off = val['nominal_high'] * .1
-            high = val['nominal_high'] + off
-            low = val['nominal_low'] - off
+        if 'state' not in val or 'bool' not in val or 'str' and val['nominal_high'] not in ['gotmsg','vX.X.X']:
+            print(val['nominal_high'])
+            off = float(val['nominal_high']) * .1
+            high = float(val['nominal_high']) + off
+            low = float(val['nominal_low']) - off
             byte_size = val['byte_size']
             scalar = val['scalar']
             data = int(random.uniform(low,high)/scalar)

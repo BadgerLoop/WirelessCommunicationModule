@@ -82,7 +82,6 @@ angular
     })
       .state('dashboard.home',{
         url:'/home',
-        controller: 'MainCtrl',
         templateUrl:'views/dashboard/home.html',
         resolve: {
           loadMyFiles:function($ocLazyLoad) {
@@ -101,7 +100,6 @@ angular
       })
       .state('dashboard.telemetry',{
         url:'/telemetry',
-        controller: 'MainCtrl',
         templateUrl:'views/dashboard/telemetry.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -115,7 +113,6 @@ angular
             $ocLazyLoad.load({
                 name:'sbAdminApp',
                 files:[
-                'scripts/controllers/chartContoller.js',
                 'scripts/controllers/main.js',
                 'scripts/directives/dashboard/gauge/gauge-js.js'
               ]
@@ -125,7 +122,6 @@ angular
       })
       .state('dashboard.mcm',{
         url:'/mcm',
-        controller: 'MainCtrl',
         templateUrl:'views/dashboard/mcm.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -139,7 +135,6 @@ angular
             $ocLazyLoad.load({
                 name:'sbAdminApp',
                 files:[
-                'scripts/controllers/chartContoller.js',
                 'scripts/controllers/main.js']
             })
           }

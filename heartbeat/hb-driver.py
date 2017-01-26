@@ -11,7 +11,7 @@ class HB(riffle.Domain):
     def onJoin(self):
         print("Connected to Exis Node")
         while True:
-            self.publish("cmd","440#010101010101")
+            self.publish("cmd","440#010000010101")
             #self.publish("can",[[str(current_milli_time()),"100","00","00 00"],[str(current_milli_time()),"100","00","00 00"]]) # Using for tests
             #self.publish("hb","5C0#0101")
             print("Sent WCM heartbeat")

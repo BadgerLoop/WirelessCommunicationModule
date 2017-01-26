@@ -19,7 +19,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 2,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -27,7 +27,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 2,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -35,7 +35,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 2,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -43,7 +43,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 2,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -51,7 +51,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 2,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					}
@@ -110,7 +110,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"",
+						"units":"state",
 						"nominal_low": 0,
 						"nominal_high": 0
 					},
@@ -118,7 +118,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -126,7 +126,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -134,7 +134,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 2,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					},
@@ -142,7 +142,7 @@
 						"byte_size":1,
 						"scalar":1,
 						"precision" : 0,
-						"units":"",
+						"units":"state",
 						"nominal_low": 1,
 						"nominal_high":5
 					}
@@ -290,6 +290,39 @@
 			},
 			{
 			"id": 11,
+			"name" : "VNM_STRIP_COUNT",
+			"module" : "VNM",
+			"cmd": false,
+			"byte_length": 6,
+			"values": [
+					{	"title":"FRONT_STRIP", 
+						"byte_size":2,
+						"scalar":1,
+						"precision" : 0,
+						"units":"cout",
+						"nominal_low": 0,
+						"nominal_high": 520
+					},
+					{	"title":"MID_STRIP", 
+						"byte_size":2,
+						"scalar":1,
+						"precision" : 0,
+						"units":"cout",
+						"nominal_low": 0,
+						"nominal_high": 520
+					},
+					{	"title":"REAR_STRIP", 
+						"byte_size":2,
+						"scalar":1,
+						"precision" : 0,
+						"units":"cout",
+						"nominal_low": 0,
+						"nominal_high": 520
+					}
+				]
+			},
+			{
+			"id": 12,
 			"name" : "VNM_STRIP_DETECTION_LOST",
 			"module" : "VNM",
 			"cmd": false,
@@ -306,7 +339,7 @@
 				]
 			},
 			{ 
-			"id": 12,	
+			"id": 13,	
 			"module":"VSM",
 			"name": "VSM_temp1", 
 			"byte_length": 4,
@@ -347,7 +380,7 @@
 				]
 			},
 			{
-			"id": 13, 
+			"id": 14, 
 			"module":"VSM",
 			"name": "VSM_temp2", 
 			"byte_length": 4,
@@ -388,7 +421,7 @@
 				]
 			},
 			{
-			"id": 14, 
+			"id": 15, 
 			"module":"VSM",
 			"name": "VSM_Edata", 
 			"byte_length": 7,
@@ -445,7 +478,7 @@
 				]
 			},
 			{ 
-			"id": 15,
+			"id": 16,
 			"module":"BCM",
 			"name": "BCM_brakeState",
 			"byte_length": 7,
@@ -510,7 +543,7 @@
 				] 
 			},
 			{ 
-			"id": 16,
+			"id": 17,
 			"module":"BCM",
 			"name": "BCM_brakeSpeed1",
 			"byte_length": 4,
@@ -535,7 +568,7 @@
 				]
 			},
 			{
-			"id": 17, 
+			"id": 18, 
 			"module":"BCM",
 			"name": "BCM_brakeSpeed2",
 			"byte_length": 4,
@@ -560,7 +593,7 @@
 				]
 			},
 			{
-			"id": 18, 
+			"id": 19, 
 			"module":"MCM",
 			"name": "MCM_kellyState",
 			"byte_length": 4,
@@ -601,7 +634,7 @@
 				]
 			},
 			{
-			"id": 19,
+			"id": 20,
 			"module":"MCM",
 			"name": "MCM_cmdV",
 			"byte_length": 2,
@@ -618,7 +651,7 @@
 				]
 			},
 			{
-			"id": 20,
+			"id": 21,
 			"module":"MCM",
 			"name": "MCM_hbSpeed1",
 			"byte_length": 4,
@@ -643,7 +676,7 @@
 				]
 			},
 			{
-			"id": 21,
+			"id": 22,
 			"module":"MCM",
 			"name": "MCM_hbSpeed2",
 			"byte_length": 4,
@@ -673,9 +706,9 @@
 
 
 			{
-			"id": 22,
+			"id": 23,
 			"cmd": true,
-			"hex": "16",
+			"hex": "17",
 			"name": "ENTER_STATE",
 			"byte_length": 1,
 			"module":"ALL",
@@ -691,9 +724,9 @@
 				]
 			},
 			{
-			"id": 23,
+			"id": 24,
 			"cmd": true,
-			"hex": "17",
+			"hex": "18",
 			"name": "VNM_PosIndexReset",
 			"byte_length": 6,
 			"module":"VNM",
@@ -725,9 +758,9 @@
 				] 
 			},
 			{
-			"id": 24,
+			"id": 25,
 			"cmd": true,
-			"hex": "18",
+			"hex": "19",
 			"name": "BCM_AirActuate",
 			"module":"BCM",
 			"byte_length": 1,
@@ -743,9 +776,9 @@
 				]  
 			},
 			{
-			"id": 25,
+			"id": 26,
 			"cmd": true,
-			"hex": "19",
+			"hex": "1A",
 			"name": "BCM_BrakeActuate",
 			"byte_length": 4,
 			"module":"BCM",
@@ -785,9 +818,9 @@
 				] 
 			},
 			{
-			"id": 26,
+			"id": 27,
 			"cmd": true,
-			"hex": "1A",
+			"hex": "1B",
 			"name":"ABS_state",
 			"module":"BCM",
 			"byte_length": 1,
@@ -803,9 +836,9 @@
 				]
 			},
 			{
-			"id": 27,
+			"id": 28,
 			"cmd": true,
-			"hex": "1B",
+			"hex": "1C",
 			"name":"MCM_spinWheels",
 			"module":"MCM",
 			"byte_length": 2,
@@ -821,9 +854,9 @@
 				]
 			},
 			{
-			"id": 28,
+			"id": 29,
 			"cmd": true,
-			"hex": "1C",
+			"hex": "1D",
 			"name":"VSM_contactor",
 			"module":"VNM",
 			"byte_length": 1,
@@ -844,7 +877,7 @@
 
 
 			{
-			"id": 29,
+			"id": 30,
 			"module":"BMS",
 			"name": "BMS_pack_current_voltage",
 			"byte_length": 7,
@@ -886,7 +919,7 @@
 				]
 			},
 			{
-			"id": 30,
+			"id": 31,
 			"module":"BMS",
 			"name": "BMS_cell_voltage",
 			"byte_length": 6,
@@ -927,7 +960,7 @@
 				]
 			},
 			{
-			"id": 31,
+			"id": 32,
 			"module":"BMS",
 			"name": "BMS_temp",
 			"byte_length": 6,
@@ -976,7 +1009,7 @@
 				]
 			},
 			{
-			"id": 32,
+			"id": 33,
 			"module":"BMS",
 			"name": "BMS_Resistance",
 			"byte_length": 6,
@@ -1017,7 +1050,7 @@
 				]
 			},
 			{
-			"id": 33,
+			"id": 34,
 			"module":"BMS",
 			"name": "BMS_relay",
 			"byte_length": 1,

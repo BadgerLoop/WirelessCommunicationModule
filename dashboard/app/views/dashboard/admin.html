@@ -175,12 +175,18 @@
                                 <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
                                 <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td>
                             </tr>
+                            <tr>
+                                <td>Overall status</b></td>
+                                <td ng-class="info">{{system_status || 'N/a'}}</td>
+<!--                                 <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td> -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>
         </div>
         <div class="panel panel-default">
-            <div class="panel-heading" style="text-align: center;" ng-controller="MainCtrl">Heartbeat</div>
+            <div class="panel-heading" style="text-align: center;">Heartbeat</div>
                 <span class="input-group-addon">Interval ms</span>
                 <input type="number" class="form-control" ng-model="hb_interval">
                 <span class="input-group-addon">Fault Tolerance</span>

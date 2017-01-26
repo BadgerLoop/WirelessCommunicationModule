@@ -69,7 +69,7 @@
 			"id": 3,
 			"name" : "PING_BACK",
 			"module" : "ALL",
-			"cmd": false,
+			"cmd": true,
 			"byte_length": 7,
 			"values": [
 					{	"title":"gotmsg", 
@@ -86,7 +86,7 @@
 			"id": 4,
 			"name" : "SOFTWARE_VER",
 			"module" : "ALL",
-			"cmd": false,
+			"cmd": true,
 			"byte_length": 8,
 			"values": [
 					{	"title":"gotmsg", 
@@ -299,7 +299,7 @@
 						"byte_size":2,
 						"scalar":1,
 						"precision" : 0,
-						"units":"cout",
+						"units":"count",
 						"nominal_low": 0,
 						"nominal_high": 520
 					},
@@ -307,7 +307,7 @@
 						"byte_size":2,
 						"scalar":1,
 						"precision" : 0,
-						"units":"cout",
+						"units":"count",
 						"nominal_low": 0,
 						"nominal_high": 520
 					},
@@ -315,7 +315,7 @@
 						"byte_size":2,
 						"scalar":1,
 						"precision" : 0,
-						"units":"cout",
+						"units":"count",
 						"nominal_low": 0,
 						"nominal_high": 520
 					}

@@ -65,7 +65,7 @@ angular.module('sbAdminApp')
     //INITIALIZE PARSER FROM CONFIG FILE
     $http.get('../../parser.json').success(function(data) {
             $scope.parser = data
-            console.log($scope.parser)
+            //console.log($scope.parser)
             console.log("Parser read successfully")
             set_up_scope($scope.parser)
     });
@@ -81,11 +81,11 @@ angular.module('sbAdminApp')
 
     $scope.update_states  = function(sid,data){
         var modules = Object.keys($scope.parser.SID)
-        console.log(modules)
-        console.log(data)
+        //console.log(modules)
+        //console.log(data)
         for(var u = 0; u<modules.length; u++){
             var sid_from_mask = $scope.parser.SID[modules[u]].from
-            console.log(sid_from_mask)
+            //console.log(sid_from_mask)
             if (((sid_from_mask & parseInt(sid,16)) === sid_from_mask) && (modules[u] !== "NONE")) {
                 //Hopefully this works
                 console.log('update status of: ' + modules[u]) 
@@ -189,9 +189,9 @@ angular.module('sbAdminApp')
                 message = $scope.custSid+"#"+ $scope.selectedType.hex + data
                 console.log("Custom message to be sent: " + message)
                 $scope.sentMessages.push({timestamp: new Date().getTime(),
-                                          sid: $scope.custSid,
-                                          type: $scope.selectedType.label ,
-                                          data: $scope.selectedType.label })
+                                          sid:  $scope.custSid,
+                                          type: $scope.selectedType.name ,
+                                          data: data })
         }
         else if ($scope.custMsgType == 'Raw'){
             console.log("raw messages are not recorded in sent table")
@@ -635,14 +635,14 @@ var add_message_to_array = function(timestamp,sid,type,data){
                             timestamp: timestamp,
                             sid:sid,
                             type:type,
-                            data:msg
+                            data:data
                         })
 }
 
 $riffle.subscribe("data", function(data) {
-    console.log("got parsed data")
-    //Data will be in the format [[timestamp, sid, message type, data]]
     //console.log(data)
+    //Data will be in the format [[timestamp, sid, message type, data]]
+    console.log("RECEIVED FORMATTED DATA")
     for (var i = 0; i<data.length; i++){
         // console.log(data[i][0])
         // console.log(data[i][1])
@@ -652,11 +652,16 @@ $riffle.subscribe("data", function(data) {
 
         $scope[data[i][0]].val = data[i][1]
         $scope[title].status_style = $scope.get_status($scope[title].val,max,min)
+        if (data[i][0] === "FRONT_STRIP"){
+            console.log(data[i][1])
+        }
     }
     //$scope.$apply()
 });
 
+
 $riffle.subscribe("hb", function(data) {
+    console.log("RECEIVED HEARTBEAT DATA")
     var modules = Object.keys(data['modules'])
     for (var f = 0; f<modules.length; f++){
         //console.log(modules[f])
@@ -667,7 +672,7 @@ $riffle.subscribe("hb", function(data) {
 });
 
 $riffle.subscribe("can", function(data) {
-    console.log("got can data")
+    console.log("RECEIVED CAN DATA")
     //Data will be in the format [[timestamp, sid, message type, data]]
     //console.log(data)
     for (var i = 0; i<data.length; i++){
@@ -822,6 +827,7 @@ $riffle.subscribe("can", function(data) {
     // setInterval(function(){
     //     //Update line chart
     //     // if (!$scope.run) return;
+    //     console.log("spamming")
     //     var parser_keys = Object.keys($scope.parser.msg_type)
     //     for (var k in $scope.parser.msg_type){
     //         var mesage_obj = $scope.parser.msg_type[k]

@@ -9,7 +9,7 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var riffle = require('jsriffle');
 
-riffle.setFabric("ws://192.168.1.99:9000");
+riffle.setFabric("ws://localhost:8000");
 var exis_node = riffle.Domain("xs.node");
 
 
@@ -19,14 +19,14 @@ var core = riffle.Domain("xs");
 var node = core.subdomain("node");
 // Create event handler
 
-app.set('port', process.env.PORT || 8000);
+app.set('port', process.env.PORT || 6000);
 app.use(express.static(path.join(__dirname,  '/log/client')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Competition Connection
 
-mongoose.connect('mongodb://192.168.1.99:27017/badgerloop', function(error) {
+mongoose.connect('mongodb://localhost:27017/badgerloop', function(error) {
 	if(error) console.log(error);
 	else console.log('Connected to competition database');
 });
@@ -133,5 +133,5 @@ router.route('/messages')
 app.use('/logger', router);
 
 server.listen(app.get('port'), function() {
-	console.log('Collection Server running on port: 8000');
+	console.log('Collection Server running on port: 6000');
 });

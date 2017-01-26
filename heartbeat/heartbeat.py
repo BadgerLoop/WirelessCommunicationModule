@@ -9,7 +9,7 @@ import re
 
 parser = argparse.ArgumentParser(description="A script for converting raw can messages to correct values")
 parser.add_argument('-p','--parser',default='../dashboard/app/parser.json',help="Location of parser json file",metavar="parser")
-parser.add_argument('-l','--backend_location',default="ws://localhost:8000", help="Location of backend.  Defaults to ws://localhost:9000",metavar="backend")
+parser.add_argument('-l','--backend_location',default="ws://localhost:8000", help="Location of backend.  Defaults to ws://localhost:8000",metavar="backend")
 args = vars(parser.parse_args())
 
 with open(args['parser']) as parser_file:    
@@ -39,13 +39,13 @@ class Heartbeat():
         for k in self.modules:
             if (now - self.modules[k]['last_updated']) > self.interval_ms:
                 self.fault_count = self.fault_count + 1
-                return
         self.fault_count = 0
 
     def generate_status(self):
+        print("generating status")
         if self.fault_count>self.fault_max:
             return "FAILURE"
-        for k in self.modules.keys:
+        for k in self.modules.keys():
             if self.modules[k]['fault'] is not 0 or self.modules[k]['fault'] in [1,6]:
                 return "FAILURE"
         return "GOOD"
@@ -74,6 +74,7 @@ class HB(riffle.Domain):
         print("updating heartbeat")
         split_data = re.findall('..',data[3])
         # print(split_data)
+        send = {}
         for module in parser['SID']:
 
             if 'from' in parser['SID'][module]:
@@ -85,12 +86,13 @@ class HB(riffle.Domain):
                     print("Got status for " + module)
                     self.Heartbeat.update_module_hb(module,split_data)
                     self.Heartbeat.check_timing_fault()
-                    send = {}
+                    
                     send['modules'] = self.Heartbeat.modules
                     send['fault_count'] = self.Heartbeat.fault_count
-                    sned['system_status'] = self.generate_status()
+                    send['system_status'] = self.Heartbeat.generate_status()
                     #print(send)
-                    self.publish("hb",send)
+        if 'system_status' in send:
+            self.publish("hb",send)
 
     def can_parser(self,data):
         #TODO: Ensure this logic is correct
@@ -103,7 +105,6 @@ class HB(riffle.Domain):
             sid = msg[1]
             msg_type = int(msg[2],16)
             data_str = msg[3]
-
             if msg_type == 1:
                 self.send_hb(sid,msg)
             else:
@@ -116,9 +117,13 @@ class HB(riffle.Domain):
                     formatted_val = round(int(data_value,16)*val['scalar'],val['precision'])
                     # print(formatted_val)
                     #converted_data.append(formatted_val)
+                    if 'STRIP' in val['title']:
+                        print(val['title'] + ": " + str(int(data_value,16)))
                     converted_batch.append([val['title'],formatted_val])
+                # print("converting data")
                 #converted_batch.append(converted_data)
-        # print(converted_batch)
+        #print(converted_batch)
+        print('Sending formatted data')
         self.publish("data",converted_batch)
 
     def hb_ctrl(self, data):
