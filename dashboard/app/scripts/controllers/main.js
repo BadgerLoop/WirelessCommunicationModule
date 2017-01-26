@@ -16,7 +16,7 @@ angular.module('sbAdminApp')
     $scope.hb_fault_tollerance = 0
     $scope.msgTypes = []
     $scope.parser = {}
-    $scope.system_status = "GOOD"
+    $scope.system_status = "STANDBY"
     $scope.colors = {
         green: "#00FF00",
         yellow : "#FFFF00",
@@ -179,7 +179,6 @@ angular.module('sbAdminApp')
                                       data: $scope.selectedTemplate.data })
         }
         else if ($scope.custMsgType == 'Custom'){
-            console.log($scope.selectedType)
                 endpoint = 'cmd'
                 //TODO implement SID generator
                 var data = $scope.customData
@@ -289,6 +288,26 @@ angular.module('sbAdminApp')
     };
 
 //////////////////////////MCM////////////////////////////
+$scope.MCM_HB_throttle = 0
+$scope.zero_fill = function(string,correct_length){
+    var len_delta = string.length
+
+    for (var b=0; b<len_delta; b++){
+        string = '0'+ string
+    }
+    return string
+}
+
+$scope.update_hb_wheel = function(){
+        $scope.MCM_HB_throttle = parseInt($scope.MCM_HB_throttle)
+        // console.log($scope.MCM_HB_throttle)
+        var hex_throttle = $scope.zero_fill($scope.MCM_HB_throttle.toString(16),4)
+        console.log('Hex throttle for hb wheel spin: ' + hex_throttle)
+        var can_message = "008#1C" + hex_throttle 
+        console.log("Sending CAN message: " + can_message)
+        $riffle.publish("cmd", "008#1C") //Fix this
+
+}
 $scope.MCM_linegraph_options = {
             chart: {
                 type: 'lineChart',
@@ -310,7 +329,7 @@ $scope.MCM_linegraph_options = {
                 clipVoronoi: false,
 
                 xAxis: {
-                    axisLabel: 'X Axis',
+                    axisLabel: 'Time',
                     tickFormat: function(d) {
                         return d3.time.format('%m/%d/%y')(new Date(d))
                     },
@@ -373,103 +392,6 @@ $scope.BCM_linegraph_data = [
                 values: [] 
             }
         ];
-    var x = new Date().getTime();
-    var update_chart_values = function(){
-        $scope.status_bar_data.measures = [($scope.VNM_posX.val || 0)]
-        $scope.VSM_barchart_data = [
-            {
-                key: "Temperatures",
-                values: [
-                    {
-                        "label" : "HV1" ,
-                        "value" : $scope.VSM_T_HV1.val || 0
-
-                    } ,
-                    {
-                        "label" : "HV2" ,
-                        "value" : $scope.VSM_T_HV2.val || 0
-                    } ,
-                    {
-                        "label" : "Motor1" ,
-                        "value" : $scope.VSM_T_motor1.val || 0
-                    } ,
-                    {
-                        "label" : "Motor2" ,
-                        "value" : $scope.VSM_T_motor2.val || 0
-                    } ,
-                    {
-                        "label" : "Motor3" ,
-                        "value" : $scope.VSM_T_motor3.val || 0
-                    } ,
-                    {
-                        "label" : "Motor4" ,
-                        "value" : $scope.VSM_T_motor4.val || 0
-                    } ,
-                    {
-                        "label" : "WCM1" ,
-                        "value" : $scope.VSM_T_WCM1.val || 0
-                    } ,
-                    {
-                        "label" : "WCM2" ,
-                        "value" : $scope.VSM_T_WCM2.val || 0
-                    },
-                    {
-                        "label" : "Cabin" ,
-                        "value" : $scope.VSM_T_cabin.val || 0
-                    },
-                    {
-                        "label" : "12V1" ,
-                        "value" : $scope.VSM_T_12V1.val || 0
-                    },
-                    {
-                        "label" : "12V2" ,
-                        "value" : $scope.VSM_T_12V2.val || 0
-                    }
-                ]
-            }
-        ]
-        x = new Date().getTime();
-        // Add MCM Wheel RPM speed
-        $scope.MCM_linegraph_data[0].values.push([x,$scope.MCM_HB1_spd.val]);
-        $scope.MCM_linegraph_data[1].values.push([x,$scope.MCM_HB2_spd.val]);
-        $scope.MCM_linegraph_data[2].values.push([x,$scope.MCM_HB3_spd.val]);
-        $scope.MCM_linegraph_data[3].values.push([x,$scope.MCM_HB4_spd.val]);
-        //Conserve memory by shifting out old data
-        if ($scope.MCM_linegraph_data[0].values.length > 20){
-            $scope.MCM_linegraph_data[0].values.shift();
-        }
-        if ($scope.MCM_linegraph_data[1].values.length > 20){
-            $scope.MCM_linegraph_data[1].values.shift();
-        }
-        if ($scope.MCM_linegraph_data[2].values.length > 20){
-            $scope.MCM_linegraph_data[2].values.shift();
-        }
-        if ($scope.MCM_linegraph_data[3].values.length > 20){
-            $scope.MCM_linegraph_data[3].values.shift();
-        }
-
-        // Add BCM Wheel RPM speed
-        $scope.BCM_linegraph_data[0].values.push([x,$scope.BCM_Brake_1_spd.val]);
-        $scope.BCM_linegraph_data[1].values.push([x,$scope.BCM_Brake_2_spd.val]);
-        $scope.BCM_linegraph_data[2].values.push([x,$scope.BCM_Brake_3_spd.val]);
-        $scope.BCM_linegraph_data[3].values.push([x,$scope.BCM_Brake_4_spd.val]);
-        //Conserve memory by shifting out old data
-        if ($scope.BCM_linegraph_data[0].values.length > 20){
-            $scope.BCM_linegraph_data[0].values.shift();
-        }
-        if ($scope.BCM_linegraph_data[1].values.length > 20){
-            $scope.BCM_linegraph_data[1].values.shift();
-        }
-        if ($scope.BCM_linegraph_data[2].values.length > 20){
-            $scope.BCM_linegraph_data[2].values.shift();
-        }
-        if ($scope.BCM_linegraph_data[3].values.length > 20){
-            $scope.BCM_linegraph_data[3].values.shift();
-        }
-    }
-    setInterval(function(){
-        update_chart_values()
-    }, 500);
 
 //////////////////////////VSM////////////////////////////
 
@@ -525,8 +447,6 @@ $scope.BCM_linegraph_data = [
             }
         };
 
-        //Hacky JS thing to get the chart to work
-
         $scope.VSM_barchart_data = [
             {
                 key: "Temperatures",
@@ -581,8 +501,6 @@ $scope.BCM_linegraph_data = [
             }
         ]
 
-
-
 $scope.get_status = function(val, max, min){
     // TODO: Add logic for binary values
     var warn_max = max - (max * 0.1) // 10% of max do we want to warn?
@@ -604,33 +522,10 @@ $scope.get_status = function(val, max, min){
     }
 }
 
-//Don't think we need this
-// $scope.get_progress = function() {
-//     $scope.stacked = [];
-//     var types = ['success', 'info', 'warning', 'danger'];
-
-//     for (var i = 0, n = Math.floor(Math.random() * 4 + 1); i < n; i++) {
-//         var index = Math.floor(Math.random() * 4);
-//         $scope.progress.push({
-//           value: Math.floor(Math.random() * 30 + 1),
-//           type: types[index]
-//         });
-//     }
-//   };
-
-// $scope.get_progress();
-
-
-
 var add_message_to_array = function(timestamp,sid,type,data){
     if ($scope.messages.length > 30){ //Limit number of messages in array to conserve memory
         $scope.messages.shift();
     }
-    // var timestamp = new Date(parseFloat(msg[0]))
-    // var sid = msg[1]
-    // var type = msg[2]
-    // msg.splice(0,3)
-    // console.log(msg)
     $scope.messages.push({
                             timestamp: timestamp,
                             sid:sid,
@@ -646,9 +541,10 @@ $riffle.subscribe("data", function(data) {
     for (var i = 0; i<data.length; i++){
         // console.log(data[i][0])
         // console.log(data[i][1])
-        var title = data[i][0]
-        var max = $scope[title].max
-        var min = $scope[title].min
+        if ($scope[title]){
+            var title = data[i][0]
+            var max = $scope[title].max
+            var min = $scope[title].min
 
         $scope[data[i][0]].val = data[i][1]
         $scope[title].status_style = $scope.get_status($scope[title].val,max,min)
@@ -656,6 +552,7 @@ $riffle.subscribe("data", function(data) {
             console.log(data[i][1])
         }
     }
+}
     //$scope.$apply()
 });
 
@@ -768,61 +665,103 @@ $riffle.subscribe("can", function(data) {
     ];
 
 //////////////////////////GRAPH CONGFIGURAION///////////////////////////
-  	 $scope.options = {
-            chart: {
-                type: 'lineChart',
-                height: 450,
-                margin : {
-                    top: 20,
-                    right: 20,
-                    bottom: 40,
-                    left: 55
-                },
-                x: function(d){ return d.x; },
-                y: function(d){ return d.y; },
-                useInteractiveGuideline: true,
-                dispatch: {
-                    stateChange: function(e){ console.log("stateChange"); },
-                    changeState: function(e){ console.log("changeState"); },
-                    tooltipShow: function(e){ console.log("tooltipShow"); },
-                    tooltipHide: function(e){ console.log("tooltipHide"); }
-                },
-                xAxis: {
-                    axisLabel: 'Time (ms)'
-                },
-                yAxis: {
-                    axisLabel: 'Voltage (v)',
-                    tickFormat: function(d){
-                        return d3.format('.02f')(d);
-                    },
-                    axisLabelDistance: -10
-                },
-                callback: function(chart){
-                    console.log("!!! lineChart callback !!!");
-                }
-            },
-            title: {
-                enable: true,
-                text: 'Velocity and Acceleration'
-            },
-            subtitle: {
-                enable: true,
-                text: 'Velocity and Acceleration',
-                css: {
-                    'text-align': 'center',
-                    'margin': '10px 13px 0px 7px'
-                }
-            },
-            caption: {
-                enable: false,
-               	text: 'Velocity and Accelleration of the BadgerLoop Pod',
-                css: {
-                    'text-align': 'justify',
-                    'margin': '10px 13px 0px 7px'
-                }
-            }
-        };
+        var x = new Date().getTime();
+    var update_chart_values = function(){
+        $scope.status_bar_data.measures = [($scope.VNM_posX.val || 0)]
+        $scope.VSM_barchart_data = [
+            {
+                key: "Temperatures",
+                values: [
+                    {
+                        "label" : "HV1" ,
+                        "value" : $scope.VSM_T_HV1.val || 0
 
+                    } ,
+                    {
+                        "label" : "HV2" ,
+                        "value" : $scope.VSM_T_HV2.val || 0
+                    } ,
+                    {
+                        "label" : "Motor1" ,
+                        "value" : $scope.VSM_T_motor1.val || 0
+                    } ,
+                    {
+                        "label" : "Motor2" ,
+                        "value" : $scope.VSM_T_motor2.val || 0
+                    } ,
+                    {
+                        "label" : "Motor3" ,
+                        "value" : $scope.VSM_T_motor3.val || 0
+                    } ,
+                    {
+                        "label" : "Motor4" ,
+                        "value" : $scope.VSM_T_motor4.val || 0
+                    } ,
+                    {
+                        "label" : "WCM1" ,
+                        "value" : $scope.VSM_T_WCM1.val || 0
+                    } ,
+                    {
+                        "label" : "WCM2" ,
+                        "value" : $scope.VSM_T_WCM2.val || 0
+                    },
+                    {
+                        "label" : "Cabin" ,
+                        "value" : $scope.VSM_T_cabin.val || 0
+                    },
+                    {
+                        "label" : "12V1" ,
+                        "value" : $scope.VSM_T_12V1.val || 0
+                    },
+                    {
+                        "label" : "12V2" ,
+                        "value" : $scope.VSM_T_12V2.val || 0
+                    }
+                ]
+            }
+        ]
+        x = new Date().getTime();
+        // Add MCM Wheel RPM speed
+        $scope.MCM_linegraph_data[0].values.push([x,$scope.MCM_HB1_spd.val]);
+        $scope.MCM_linegraph_data[1].values.push([x,$scope.MCM_HB2_spd.val]);
+        $scope.MCM_linegraph_data[2].values.push([x,$scope.MCM_HB3_spd.val]);
+        $scope.MCM_linegraph_data[3].values.push([x,$scope.MCM_HB4_spd.val]);
+        //Conserve memory by shifting out old data
+        if ($scope.MCM_linegraph_data[0].values.length > 20){
+            $scope.MCM_linegraph_data[0].values.shift();
+        }
+        if ($scope.MCM_linegraph_data[1].values.length > 20){
+            $scope.MCM_linegraph_data[1].values.shift();
+        }
+        if ($scope.MCM_linegraph_data[2].values.length > 20){
+            $scope.MCM_linegraph_data[2].values.shift();
+        }
+        if ($scope.MCM_linegraph_data[3].values.length > 20){
+            $scope.MCM_linegraph_data[3].values.shift();
+        }
+
+        // Add BCM Wheel RPM speed
+        $scope.BCM_linegraph_data[0].values.push([x,$scope.BCM_Brake_1_spd.val]);
+        $scope.BCM_linegraph_data[1].values.push([x,$scope.BCM_Brake_2_spd.val]);
+        $scope.BCM_linegraph_data[2].values.push([x,$scope.BCM_Brake_3_spd.val]);
+        $scope.BCM_linegraph_data[3].values.push([x,$scope.BCM_Brake_4_spd.val]);
+        //Conserve memory by shifting out old data
+        if ($scope.BCM_linegraph_data[0].values.length > 20){
+            $scope.BCM_linegraph_data[0].values.shift();
+        }
+        if ($scope.BCM_linegraph_data[1].values.length > 20){
+            $scope.BCM_linegraph_data[1].values.shift();
+        }
+        if ($scope.BCM_linegraph_data[2].values.length > 20){
+            $scope.BCM_linegraph_data[2].values.shift();
+        }
+        if ($scope.BCM_linegraph_data[3].values.length > 20){
+            $scope.BCM_linegraph_data[3].values.shift();
+        }
+    }
+    setInterval(function(){
+        update_chart_values()
+    }, 500);
     //The function that spams data
     // setInterval(function(){
     //     //Update line chart

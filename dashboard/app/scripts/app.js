@@ -31,7 +31,6 @@ angular
     $stateProvider
       .state('dashboard', {
         url:'/dashboard',
-        controller: 'MainCtrl',
         templateUrl: 'views/dashboard/main.html',
         resolve: {
             loadMyDirectives:function($ocLazyLoad){
@@ -100,6 +99,7 @@ angular
       })
       .state('dashboard.telemetry',{
         url:'/telemetry',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/telemetry.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -122,6 +122,7 @@ angular
       })
       .state('dashboard.mcm',{
         url:'/mcm',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/mcm.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -142,7 +143,7 @@ angular
       })
       .state('dashboard.vnm',{
         url:'/vnm',
-        // controller: 'MainCtrl',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/vnm.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -164,7 +165,7 @@ angular
       })
       .state('dashboard.vsm',{
         url:'/vsm',
-        // controller: 'MainCtrl',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/vsm.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -186,7 +187,7 @@ angular
       })
       .state('dashboard.bcm',{
         url:'/bcm',
-        // controller: 'MainCtrl',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/bcm.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -208,7 +209,7 @@ angular
       })
       .state('dashboard.bms',{
         url:'/bms',
-        // controller: 'MainCtrl',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/bms.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {
@@ -230,7 +231,7 @@ angular
       })
       .state('dashboard.admin',{
         url:'/admin',
-        // controller: 'MainCtrl',
+        controller: 'MainCtrl',
         templateUrl:'views/dashboard/admin.html',
         resolve: {
           loadMyFile:function($ocLazyLoad) {

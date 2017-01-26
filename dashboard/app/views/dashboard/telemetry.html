@@ -306,6 +306,12 @@
                                 <td ng-class="states[BMS.cur].level || 'info'"><b>{{states[BMS.cur].name || 'N/a'}}</b></td>
                                 <td ng-class="states[BMS.next].level || 'info'">{{states[BMS.next].name || 'N/a'}}</td>
                             </tr>
+                            <tr>
+                                <td><b>Overall status</b></td>
+                                <td ng-class="{'success': system_status == 'GOOD','danger': system_status == 'FAILURE','info': system_status == 'STANDBY'} "><b>{{system_status || 'N/a'}}</b></td>
+<!--                                 <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td> -->
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -2,11 +2,10 @@
     <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
-            This is where the BCM control stuff is gonna go
-        </div>
-    </div>
-    <div class="col-sm-3" id="line-chart" >
-        <div class="panel panel-default">
+            <span class="input-group-addon">VSM State</span>
+            <select class="form-control" ng-change="update_enter_state('MCM')"  ng-model="MCM_EnterState" ng-options="s.name for s in states">
+            </select>
+            <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update VSM State</button>
             <div class="panel-heading">State</div>
                 <div class="table-responsive">
                     <table class="table">
@@ -26,9 +25,15 @@
                         </tbody>
                     </table>
                 </div>
+
         </div>
     </div>
-    <div class="col-md-6">    
+<!--     <div class="col-sm-3" id="line-chart" >
+        <div class="panel panel-default">
+
+        </div>
+    </div> -->
+    <div class="col-md-3">    
         <div class="panel panel-default">
             <div class="panel-heading">Brakes</div>
             <table class="table table-bordered table-striped">
@@ -58,19 +63,14 @@
                     </tr>
             </table>
         </div>
-    </div>   
-</div>
-<div class="row">
+    </div>
     <div class="col-sm-6" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Brake wheel speed</div>
                 <nvd3 options="MCM_linegraph_options" data="BCM_linegraph_data"></nvd3>
         </div>
-    </div>
-<!--     <div class="col-sm-12" id="line-chart">
-        <div class="panel panel-default">
-            <div class="panel-heading">Temperatures</div>
-            <nvd3 options="options" data="data"></nvd3>
-        </div>
-    </div> -->
+    </div>   
 </div>
+<!-- <div class="row"> -->
+<!-- 
+</div> -->

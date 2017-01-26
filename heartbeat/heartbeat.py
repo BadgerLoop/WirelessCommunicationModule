@@ -25,6 +25,7 @@ class Heartbeat():
         self.fault_max = 0
         self.interval_ms = 1000
         self.rx_hb_empty = True
+        self.timer = time.time()
         self.modules = {
                 'VSM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
                 'BCM' :{'prev_fault':0, 'fault': 0,'prev': 1, 'cur':1, 'next': 1, 'last_updated':time.time()},
@@ -41,6 +42,7 @@ class Heartbeat():
             if time_delta > self.interval_ms:
                 self.fault_count = self.fault_count + 1
         self.fault_count = 0
+
 
     def generate_status(self):
         print("generating status")
@@ -72,7 +74,8 @@ class HB(riffle.Domain):
         self.p=None
 
     def send_hb(self,sid,data):
-        print("updating heartbeat")
+        print("updating heartbeat sid: " + str(sid))
+
         split_data = re.findall('..',data[3])
         # print(split_data)
         send = {}
@@ -92,10 +95,9 @@ class HB(riffle.Domain):
                     send['fault_count'] = self.Heartbeat.fault_count
                     send['system_status'] = self.Heartbeat.generate_status()
                     #print(send)
-        # if 'system_status' in send:
-            #and sid is '440'
-        print('sent heartbeat')
-        self.publish("hb",send)
+        if 'system_status' in send and (time.time() - self.Heartbeat.timer) >= self.Heartbeat.interval_ms:
+            print('sending heartbeat')
+            self.publish("hb",send)
 
     def can_parser(self,data):
         #TODO: Ensure this logic is correct

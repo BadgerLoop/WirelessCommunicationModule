@@ -2,12 +2,12 @@
     <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
-            This is where the MCM control stuff is gonna go
-        </div>
-    </div>
-    <div class="col-sm-3" id="line-chart">
-        <div class="panel panel-default">
-            <div class="panel-heading">State</div>
+            <span class="input-group-addon">VSM State</span>
+            <select class="form-control" ng-change="update_enter_state('MCM')"  ng-model="MCM_EnterState" ng-options="s.name for s in states">
+            </select>
+            <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update VSM State</button>
+        
+        <div class="panel-heading">State</div>
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -25,15 +25,29 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                    <table class="table">
+                    <tr>
+                        <th><b>Door1</b></th>
+                        <th><b>Door2</b></th>
+                    </tr>
+                    <tr>
+                    <th class="danger">OPEN</th>
+                    <th class="success">CLOSED</th>
+                </tr>
+                </table>
+        </div>
         </div>
     </div>
-    <div class="col-sm-3" id="line-chart" >
+<!--     <div class="col-sm-3" id="line-chart">
+        <div class="panel panel-default">
+
+    </div> -->
+<!--     <div class="col-sm-3" id="line-chart" >
         <div class="panel panel-default">
             <div class="panel-heading">Doors</div>
-            This is where the VSM Door stuff is gonna go
+
         </div>
-    </div>
+    </div> -->
     <div class="col-md-3">    
         <div class="panel panel-default">
             <div justgage
@@ -72,10 +86,8 @@
                     </tr>
             </table> -->
         </div>
-    </div>   
-</div>
-<div class="row">
-    <div class="col-sm-12" id="line-chart">
+    </div>
+    <div class="col-sm-6" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Temperatures</div>
             <nvd3 options="VSM_barchart_options" data="VSM_barchart_data" api="d3_api"></nvd3>
@@ -110,5 +122,8 @@
             </table>
         </div>
         </div>
-    </div>
+    </div>   
 </div>
+<!-- <div class="row">
+    
+</div> -->
