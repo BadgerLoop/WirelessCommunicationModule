@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
             This is where the BCM control stuff is gonna go
         </div>
     </div>
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart" >
         <div class="panel panel-default">
             <div class="panel-heading">State</div>
                 <div class="table-responsive">
@@ -19,16 +19,16 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td ng-class="BCM_state.prev.level || 'info'">{{BCM_state.prev.name || 'N/a'}}</td>
-                                <td ng-class="BCM_state.curr.level || 'info'">{{BCM_state.curr.name || 'N/a'}}</td>
-                                <td ng-class="BCM_state.next.level || 'info'">{{BCM_state.next.name || 'N/a'}}</td>
+                                <td ng-class="states[BCM.prev].level || 'info'">{{states[BCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[BCM.cur].level || 'info'"><b>{{states[BCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[BCM.next].level || 'info'">{{states[BCM.next].name || 'N/a'}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
         </div>
     </div>
-    <div class="col-md-6" ng-controller="ChartCtrl">    
+    <div class="col-md-6">    
         <div class="panel panel-default">
             <div class="panel-heading">Brakes</div>
             <table class="table table-bordered table-striped">
@@ -61,13 +61,13 @@
     </div>   
 </div>
 <div class="row">
-    <div class="col-sm-6" id="line-chart" ng-controller="ChartCtrl">
+    <div class="col-sm-6" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Brake wheel speed</div>
                 <nvd3 options="MCM_linegraph_options" data="BCM_linegraph_data"></nvd3>
         </div>
     </div>
-<!--     <div class="col-sm-12" id="line-chart" ng-controller="ChartCtrl">
+<!--     <div class="col-sm-12" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Temperatures</div>
             <nvd3 options="options" data="data"></nvd3>

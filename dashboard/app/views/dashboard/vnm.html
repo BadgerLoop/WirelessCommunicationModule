@@ -37,9 +37,9 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td ng-class="VNM_state.prev.level || 'info'">{{VNM_state.prev.name || 'N/a'}}</td>
-                                <td ng-class="VNM_state.curr.level || 'info'">{{VNM_state.curr.name || 'N/a'}}</td>
-                                <td ng-class="VNM_state.next.level || 'info'">{{VNM_state.next.name || 'N/a'}}</td>
+                                <td ng-class="states[VNM.prev].level || 'info'">{{states[VNM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[VNM.cur].level || 'info'"><b>{{states[VNM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[VNM.next].level || 'info'">{{states[VNM.next].name || 'N/a'}}</td>
                             </tr>
                         </tbody>
                     </table>

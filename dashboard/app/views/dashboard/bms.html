@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
-            This is where the MCM control stuff is gonna go
+            This is where the BMS control stuff is gonna go
         </div>
     </div>
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">State</div>
                 <div class="table-responsive">
@@ -28,53 +28,49 @@
                 </div>
         </div>
     </div>
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-6" id="line-chart">
         <div class="panel panel-default">
-            <div class="panel-heading">Doors</div>
-            This is where the VSM Door stuff is gonna go
+            <div class="panel-heading">Battery</div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Voltage</th>
+                            <th>Temperature</th>
+                            <th>Resistance</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Low</b></td>
+                            <td ng-class="states[MCM.prev].level || 'info'">stuff</td>
+                            <td ng-class="states[MCM.cur].level || 'info'"><b>stuff</b></td>
+                            <td ng-class="states[MCM.next].level || 'info'">stuff</td>
+                        </tr>
+                        <tr>
+                            <td><b>Low ID</b></td>
+                            <td ng-class="states[VNM.prev].level || 'info'">stuff</td>
+                            <td ng-class="states[VNM.cur].level || 'info'"><b>stuff</b></td>
+                            <td ng-class="states[VNM.next].level || 'info'">stuff</td>
+                        </tr>
+                        <tr>
+                            <td><b>High</b></td>
+                            <td ng-class="states[VSM.prev].level || 'info'">stuff</td>
+                            <td ng-class="states[VSM.cur].level || 'info'"><b>stuff</b></td>
+                            <td ng-class="states[VSM.next].level || 'info'">stuff</td>
+                        </tr>
+                        <tr>
+                            <td><b>High ID</b></td>
+                            <td ng-class="states[BCM.prev].level || 'info'">stuff</td>
+                            <td ng-class="states[BCM.cur].level || 'info'"><b>stuff</b></td>
+                            <td ng-class="states[BCM.next].level || 'info'">stuff</td>
+                        </tr>
+                    </tbody>
+                </table>
         </div>
-    </div>
-    <div class="col-md-3" ng-controller="ChartCtrl">    
-        <div class="panel panel-default">
-            <div justgage
-                title="Pressure" title-font-color="black"
-                value="{{VSM_P_tube.val}}" value-font-color="black"
-                relative-gauge-size="{{relativeGaugeSize}}"
-                value-min-font-size="{{valueMinFontSize}}" title-min-font-size="{{titleMinFontSize}}"
-                label-min-font-size="{{labelMinFontSize}}" min-label-min-font-size="{{minLabelMinFontSize}}"
-                maxLabelMinFontSize="{{maxLabelMinFontSize}}"
-                min="600" max="101326"
-                hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
-                gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
-                show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
-                shadow-size="{{shadowSize}}" shadow-vertical-offset="{{shadowVerticalOffset}}"
-                level-colors="{{levelColors}}" custom-sectors="{{customSectors}}" no-gradient="{{noGradient}}"
-                label="Pa" label-font-color="black"
-                start-animation-time="{{startAnimationTime}}" start-animation-type="{{startAnimationType}}"
-                refresh-animation-time="{{refreshAnimationTime}}" refresh-animation-type="{{refreshAnimationType}}"
-                donut="true" donut-start-angle="{{donutStartAngle}}"
-                counter="{{counter}}" decimals="{{decimals}}" symbol="{{symbol}}" format-number="{{formatNumber}}"
-                human-friendly="{{humanFriendly}}" human-friendly-decimal="{{humanFriendlyDecimal}}"
-                text-renderer="textRenderer">
-            </div>
-<!--                 <table class="table table-bordered table-striped">
-                    <tr>
-                        <th>Temp</th> 
-                        <th>RPM</th>
-                        <th>Voltage</th>
-                        <th>Current</th>
-                    </tr>
-                    <tr>
-                        <td>20</td>
-                        <td>5000</td>
-                        <td><button type="button" class="btn btn-outline btn-warning">100</button></td>
-                        <td>100</td>
-                    </tr>
-            </table> -->
-        </div>
-    </div>   
+    </div> 
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-12" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Temperatures</div>
@@ -111,4 +107,4 @@
         </div>
         </div>
     </div>
-</div>
+</div> -->

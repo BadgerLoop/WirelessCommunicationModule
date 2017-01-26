@@ -37,7 +37,8 @@ class Heartbeat():
     def check_timing_fault(self):
         now = time.time()
         for k in self.modules:
-            if (now - self.modules[k]['last_updated']) > self.interval_ms:
+            time_delta = now - self.modules[k]['last_updated']
+            if time_delta > self.interval_ms:
                 self.fault_count = self.fault_count + 1
         self.fault_count = 0
 
@@ -91,8 +92,10 @@ class HB(riffle.Domain):
                     send['fault_count'] = self.Heartbeat.fault_count
                     send['system_status'] = self.Heartbeat.generate_status()
                     #print(send)
-        if 'system_status' in send:
-            self.publish("hb",send)
+        # if 'system_status' in send:
+            #and sid is '440'
+        print('sent heartbeat')
+        self.publish("hb",send)
 
     def can_parser(self,data):
         #TODO: Ensure this logic is correct

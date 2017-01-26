@@ -300,6 +300,12 @@
                                 <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
                                 <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td>
                             </tr>
+                            <tr>
+                                <td><b>BMS</b></td>
+                                <td ng-class="states[BMS.prev].level || 'info'">{{states[BMS.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[BMS.cur].level || 'info'"><b>{{states[BMS.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[BMS.next].level || 'info'">{{states[BMS.next].name || 'N/a'}}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -307,7 +313,7 @@
     </div>
 </div>
 <!-- <div class="row">
-    <div class="col-sm-12" id="line-chart" ng-controller="ChartCtrl">
+    <div class="col-sm-12" id="line-chart" >
         <div class="panel panel-default">
             <nvd3 options="options" data="data"></nvd3>
         </div>

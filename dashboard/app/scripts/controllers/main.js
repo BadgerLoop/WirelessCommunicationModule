@@ -670,7 +670,6 @@ $riffle.subscribe("hb", function(data) {
     }
     $scope['system_status'] = data['system_status']
 });
-
 $riffle.subscribe("can", function(data) {
     console.log("RECEIVED CAN DATA")
     //Data will be in the format [[timestamp, sid, message type, data]]
@@ -679,6 +678,7 @@ $riffle.subscribe("can", function(data) {
         add_message_to_array(data[i][0],data[i][1],data[i][2],data[i][3])
     }
 });
+
 
 //////////////////////////GUAGE CONGFIGURAION///////////////////////////
     $scope.upperLimit = 25;

@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
             This is where the MCM control stuff is gonna go
         </div>
     </div>
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart">
         <div class="panel panel-default">
             <div class="panel-heading">State</div>
                 <div class="table-responsive">
@@ -19,22 +19,22 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td ng-class="VSM_state.prev.level || 'info'">{{VSM_state.prev.name || 'N/a'}}</td>
-                                <td ng-class="VSM_state.curr.level || 'info'">{{VSM_state.curr.name || 'N/a'}}</td>
-                                <td ng-class="VSM_state.next.level || 'info'">{{VSM_state.next.name || 'N/a'}}</td>
+                                <td ng-class="states[VSM.prev].level || 'info'">{{states[VSM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[VSM.cur].level || 'info'"><b>{{states[VSM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[VSM.next].level || 'info'">{{states[VSM.next].name || 'N/a'}}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
         </div>
     </div>
-    <div class="col-sm-3" id="line-chart" ng-controller="MainCtrl">
+    <div class="col-sm-3" id="line-chart" >
         <div class="panel panel-default">
             <div class="panel-heading">Doors</div>
             This is where the VSM Door stuff is gonna go
         </div>
     </div>
-    <div class="col-md-3" ng-controller="ChartCtrl">    
+    <div class="col-md-3">    
         <div class="panel panel-default">
             <div justgage
                 title="Pressure" title-font-color="black"
