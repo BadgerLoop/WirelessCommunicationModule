@@ -15,6 +15,7 @@
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Module</th>
                                 <th>Previous State</th>
                                 <th>Current State</th>
                                 <th>Next State</th>
@@ -22,9 +23,46 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td ng-class="VSM_state.prev.level || 'info'">{{VSM_state.prev.name || 'N/a'}}</td>
-                                <td ng-class="VSM_state.curr.level || 'info'">{{VSM_state.curr.name || 'N/a'}}</td>
-                                <td ng-class="VSM_state.next.level || 'info'">{{VSM_state.next.name || 'N/a'}}</td>
+                                <td><b>MCM</b></td>
+                                <td ng-class="states[MCM.prev].level || 'info'">{{states[MCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[MCM.cur].level || 'info'"><b>{{states[MCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[MCM.next].level || 'info'">{{states[MCM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>VNM</b></td>
+                                <td ng-class="states[VNM.prev].level || 'info'">{{states[VNM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[VNM.cur].level || 'info'"><b>{{states[VNM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[VNM.next].level || 'info'">{{states[VNM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>VSM</b></td>
+                                <td ng-class="states[VSM.prev].level || 'info'">{{states[VSM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[VSM.cur].level || 'info'"><b>{{states[VSM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[VSM.next].level || 'info'">{{states[VSM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>BCM</b></td>
+                                <td ng-class="states[BCM.prev].level || 'info'">{{states[BCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[BCM.cur].level || 'info'"><b>{{states[BCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[BCM.next].level || 'info'">{{states[BCM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>WCM</b></td>
+                                <td ng-class="states[WCM.prev].level || 'info'">{{states[WCM.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>BMS</b></td>
+                                <td ng-class="states[BMS.prev].level || 'info'">{{states[BMS.prev].name || 'N/a'}}</td>
+                                <td ng-class="states[BMS.cur].level || 'info'"><b>{{states[BMS.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[BMS.next].level || 'info'">{{states[BMS.next].name || 'N/a'}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Overall status</b></td>
+                                <td ng-class="{'success': system_status == 'GOOD','danger': system_status == 'FAILURE','info': system_status == 'STANDBY'} "><b>{{system_status || 'N/a'}}</b></td>
+<!--                                 <td ng-class="states[WCM.cur].level || 'info'"><b>{{states[WCM.cur].name || 'N/a'}}</b></td>
+                                <td ng-class="states[WCM.next].level || 'info'">{{states[WCM.next].name || 'N/a'}}</td> -->
                             </tr>
                         </tbody>
                     </table>

@@ -537,20 +537,21 @@ var add_message_to_array = function(timestamp,sid,type,data){
 $riffle.subscribe("data", function(data) {
     //console.log(data)
     //Data will be in the format [[timestamp, sid, message type, data]]
-    console.log("RECEIVED FORMATTED DATA")
+    //console.log("RECEIVED FORMATTED DATA")
+
     for (var i = 0; i<data.length; i++){
         // console.log(data[i][0])
         // console.log(data[i][1])
-        if ($scope[title]){
+        // console.log(data[i])
+        
             var title = data[i][0]
+        if ($scope[title]){
             var max = $scope[title].max
             var min = $scope[title].min
 
         $scope[data[i][0]].val = data[i][1]
         $scope[title].status_style = $scope.get_status($scope[title].val,max,min)
-        if (data[i][0] === "FRONT_STRIP"){
-            console.log(data[i][1])
-        }
+
     }
 }
     //$scope.$apply()
