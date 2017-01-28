@@ -150,6 +150,7 @@ angular.module('sbAdminApp')
     //Template Messages
     $scope.selectedTemplate = $scope.templates[0];
     //Custom Messages
+    $scope.selectedState;
     $scope.selectedType = $scope.msgTypes[0];
     $scope.customData = null;
     $scope.toModule = null // update this to work for more to modules []
@@ -202,13 +203,18 @@ angular.module('sbAdminApp')
     }
 
     $scope.changeState = function(module){
-        sid = $scope.parser.SID[module].to
+        console.log("Changing the state of: " + module + " module to: "+ $scope.selectedState.name) 
+        var sid = $scope.parser.SID[module].to
+        var message = ""
         sid = sid.toString(16)
-        sid = Array(4-$scope.custSid.length).join("0")+ sid
-        $riffle.publish(endpoint,message)
+        sid = Array(4-sid.length).join("0")+ sid
+        message = sid+ "#"+"01" + $scope.selectedState.value
+        console.log("Sending: " + message)
+        $riffle.publish("cmd",message)
         //"17"<--hex msg id
         //TODO finish this function
     }
+
     $scope.toggleCustMsgType = function(type){
         $scope.custMsgType = type;
     }

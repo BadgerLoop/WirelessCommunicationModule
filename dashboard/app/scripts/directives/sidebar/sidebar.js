@@ -37,21 +37,21 @@ angular.module('sbAdminApp')
         };
         $scope.start = function(){
           console.log('Starting the run')
-          $riffle.publish('cmd', "400#1703")
-          console.log('Sent CAN message 400#1703')
+          $riffle.publish('cmd', "400#1803")
+          console.log('Sent CAN message 400#1803')
         };
         $scope.stop = function(){
           console.log('stopping pod')
           for (var i = 0; i<20; i++){
-            $riffle.publish('cmd', "004#1705")
-            console.log('Sent CAN message 004#1705')
+            $riffle.publish('cmd', "004#1805")
+            console.log('Sent CAN message 004#1805')
           } 
         };
         $scope.e_stop = function(y){
           console.log('emergency stopping pod')
             for (var i = 0; i<20; i++){
-              $riffle.publish('cmd', "004#1706")
-              console.log('Sent CAN message 004#1706')
+              $riffle.publish('cmd', "004#1806")
+              console.log('Sent CAN message 004#1806')
           } 
         };
       }

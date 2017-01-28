@@ -5,9 +5,9 @@
             <div class="panel-heading">Reset Postion</div>
             <div class="input-group">
                 <span class="input-group-addon">VNM State</span>
-                <select class="form-control" ng-change="update_enter_state('MCM')"  ng-model="MCM_EnterState" ng-options="s.name for s in states">
+                <select class="form-control" ng-model="selectedState" ng-options="s.name for s in states">
                 </select>
-                <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update</button>
+                <button class="btn btn-primary btn-block" ng-click="updateState('VNM')">Update</button>
             </div>
             <div class="input-group">
                 <span class="input-group-addon">X</span>
@@ -152,9 +152,9 @@
                     </tr>
                     <tr>
                         <td><b>Strip Count</b></td>
-                        <td >{{FRONT_STRIP.val}}</td>
-                        <td >{{MID_STRIP.val}}</td>
-                        <td >{{REAR_STRIP.val}}</td>
+                        <td ng-class="FRONT_STRIP.status_style">{{FRONT_STRIP.val}}</td>
+                        <td ng-class="MID_STRIP.status_style">{{MID_STRIP.val}}</td>
+                        <td ng-class="REAR_STRIP.status_style">{{REAR_STRIP.val}}</td>
                     </tr>
             </table>
 <!--             <nvd3 options="options" data="data"></nvd3> -->

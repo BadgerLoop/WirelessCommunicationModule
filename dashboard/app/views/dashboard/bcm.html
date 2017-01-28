@@ -3,9 +3,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">Control</div>
             <span class="input-group-addon">BCM State</span>
-            <select class="form-control" ng-change="update_enter_state('BCM')"  ng-model="BCM_EnterState" ng-options="s.name for s in states">
+            <select class="form-control" ng-model="selectedState" ng-options="s.name for s in states">
             </select>
-            <button class="btn btn-primary btn-block" ng-click="console.log('implement this')">Update</button>
+            <button class="btn btn-primary btn-block" ng-click="changeState('BCM')">Update</button>
             <div class="panel-heading">State</div>
                 <div class="table-responsive">
                     <table class="table">
