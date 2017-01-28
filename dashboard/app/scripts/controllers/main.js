@@ -201,6 +201,14 @@ angular.module('sbAdminApp')
         console.log("Sent message: " + message)
     }
 
+    $scope.changeState = function(module){
+        sid = $scope.parser.SID[module].to
+        sid = sid.toString(16)
+        sid = Array(4-$scope.custSid.length).join("0")+ sid
+        $riffle.publish(endpoint,message)
+        //"17"<--hex msg id
+        //TODO finish this function
+    }
     $scope.toggleCustMsgType = function(type){
         $scope.custMsgType = type;
     }

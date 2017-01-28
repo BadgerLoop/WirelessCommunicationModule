@@ -48,7 +48,7 @@
         <div class="panel panel-default" >   
                 <div justgage
                 title="Voltage" title-font-color="black"
-                value="tbd" value-font-color="black" min="0" max="7000"
+                value="{{MCM_HB_cmdV.val}}" value-font-color="black" min="0" max="7000"
                 hide-min-max="{{hideMinMax}}" hide-value="{{hideValue}}" hide-inner-shadow="true"
                 gauge-width-scale="{{gaugeWidthScale}}" gauge-color="{{white}}"
                 show-inner-shadow="{{showInnerShadow}}" shadow-opacity="{{shadowOpacity}}"
@@ -188,31 +188,46 @@
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">Brakes</div>
-                       <table class="table table-bordered table-striped">
+                     <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Brake</th>
+                            <th>Speed</th>
+                            <th>PWM</th>
+                        </tr>
+                    </thead>
                     <tr>
                         <th>Brake 1 Speed</th>
                         <td ng-class="BCM_Brake_1_spd.status_style">{{BCM_Brake_1_spd.val}}</td>
+                        <td ng-class="BCM_Brake_PWM1_intensity.status_style">{{BCM_Brake_PWM1_intensity.val}}</td>
                     </tr>
                     <tr>
                         <th>Brake 2 Speed</th>
                         <td ng-class="BCM_Brake_2_spd.status_style">{{BCM_Brake_2_spd.val}}</td>
+                        <td ng-class="BCM_Brake_PWM2_intensity.status_style">{{BCM_Brake_PWM2_intensity.val}}</td>
                     </tr>
                     <tr>
                         <th>Brake 3 Speed</th>
                         <td ng-class="BCM_Brake_3_spd.status_style">{{BCM_Brake_3_spd.val}}</td>
+                         <td ng-class="BCM_Brake_PWM2_intensity.status_style">{{BCM_Brake_PWM2_intensity.val}}</td>
                     </tr>
                     <tr>
                         <th>Brake 4 Speed</th>
                         <td ng-class="BCM_Brake_4_spd.status_style">{{BCM_Brake_4_spd.val}}</td>
+                        <td ng-class="BCM_Brake_PWM2_intensity.status_style">{{BCM_Brake_PWM2_intensity.val}}</td>
                     </tr>
+                </table> 
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>BCM Pressure 1</th>
+                            <th>BCM Pressure 2</th>
+                        </tr>
+                    </thead>
                     <tr>
-                        <th>BCM Pressure 1</th>
                         <td ng-class="BCM_Pressure_1.status_style">{{BCM_Pressure_1.val}}</td>
-                    </tr>                    
-                    <tr>
-                        <th>BCM Pressure 2</th>
                         <td ng-class="BCM_Pressure_2.status_style">{{BCM_Pressure_2.val}}</td>
-                    </tr>
+                    </tr>                    
             </table>
         </div>
     </div>
@@ -231,29 +246,30 @@
                         <th><b>Motor 1</b></th>
                         <td ng-class="VSM_T_motor1.status_style">{{VSM_T_motor1.val}}</td>
                         <td ng-class="MCM_HB1_spd.status_style">{{MCM_HB1_spd.val}}</td>
-                        <td>tbd</td>
-                        <td>tbd</td>
+                        <td ng-class="MCM_HB_cmdV.status_style">{{MCM_HB_cmdV.val}}</td>
+                        <td ng-class="BMS_pack_current.status_style">{{BMS_pack_current.val}}</td>
+                        
                     </tr>
                     <tr>
                         <th><b>Motor 2</b></th>
                         <td ng-class="VSM_T_motor2.status_style">{{VSM_T_motor2.val}}</td>
                         <td ng-class="MCM_HB2_spd.status_style">{{MCM_HB2_spd.val}}</td>
-                        <td>tbd</td>
-                        <td>tbd</td>
+                        <td ng-class="MCM_HB_cmdV.status_style">{{MCM_HB_cmdV.val}}</td>
+                        <td ng-class="BMS_pack_current.status_style">{{BMS_pack_current.val}}</td>
                     </tr>
                     <tr>
                         <th><b>Motor 3</b></th>
                         <td ng-class="VSM_T_motor3.status_style">{{VSM_T_motor3.val}}</td>
                         <td ng-class="MCM_HB3_spd.status_style">{{MCM_HB3_spd.val}}</td>
-                        <td>tbd</td>
-                        <td>tbd</td>
+                        <td ng-class="MCM_HB_cmdV.status_style">{{MCM_HB_cmdV.val}}</td>
+                        <td ng-class="BMS_pack_current.status_style">{{BMS_pack_current.val}}</td>
                     </tr>
                     <tr>
                         <th><b>Motor 4</b></th>
                         <td ng-class="VSM_T_motor4.status_style">{{VSM_T_motor4.val}}</td>
                         <td ng-class="MCM_HB4_spd.status_style">{{MCM_HB4_spd.val}}</td>
-                        <td>tbd</td>
-                        <td>tbd</td>
+                        <td ng-class="MCM_HB_cmdV.status_style">{{MCM_HB_cmdV.val}}</td>
+                        <td ng-class="BMS_pack_current.status_style">{{BMS_pack_current.val}}</td>
                     </tr>
             </table>
         </div>

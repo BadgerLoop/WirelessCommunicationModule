@@ -56,6 +56,7 @@ class Heartbeat():
 
           
     def update_module_hb(self,module,data):
+        print(module +" HB status: " + str(data))
         self.modules[module]['last_updated'] = time.time()
         self.modules[module]['prev_fault']= int(data[0],16)
         self.modules[module]['fault']= int(data[1],16)
@@ -95,7 +96,7 @@ class HB(riffle.Domain):
                     send['fault_count'] = self.Heartbeat.fault_count
                     send['system_status'] = self.Heartbeat.generate_status()
                     #print(send)
-        if 'system_status' in send and (time.time() - self.Heartbeat.timer) >= self.Heartbeat.interval_ms:
+        if 'system_status' in send: #and (time.time() - self.Heartbeat.timer) >= self.Heartbeat.interval_ms:
             print('sending heartbeat')
             self.publish("hb",send)
 
