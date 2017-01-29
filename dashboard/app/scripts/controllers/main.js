@@ -317,9 +317,9 @@ $scope.update_hb_wheel = function(){
         // console.log($scope.MCM_HB_throttle)
         var hex_throttle = $scope.zero_fill($scope.MCM_HB_throttle.toString(16),4)
         console.log('Hex throttle for hb wheel spin: ' + hex_throttle)
-        var can_message = "008#1C" + hex_throttle 
+        var can_message = "008#1D" + hex_throttle 
         console.log("Sending CAN message: " + can_message)
-        $riffle.publish("cmd", "008#1C") //Fix this
+        $riffle.publish("cmd", can_message) //Fix this
 
 }
 $scope.MCM_linegraph_options = {
